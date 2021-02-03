@@ -2,45 +2,47 @@
 
 namespace App\Form;
 
+use App\Entity\GeneralSetup;
+use App\Entity\SpecialtiesVanArtisan;
+use App\Entity\SpecificSetup;
 use App\Entity\Town;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\IsTrue;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email')
-            ->add('firstname')
-            ->add('lastname')
-            ->add('town', EntityType::class, [
-                'class' => Town::class,
-                'choice_label' => 'name',
+            ->add('email', EmailType::class, [
                 'label' => false,
-                'expanded' => false,
-                'multiple' => false,
-                'by_reference' => false,
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Email *'
+                    ]
             ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'The password fields must match.',
+                'first_options'  => [
+                    'attr' => ['placeholder' => 'Mot de passe *'],
+                    'label' => false,
                 ],
-            ])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
+                'second_options'  => [
+                    'attr' => ['placeholder' => 'Confirmation mot de passe *'],
+                    'label' => false,
+                ],
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([
@@ -53,6 +55,99 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+                'label' => false,
+            ])
+            ->add('firstname', TextType::class, [
+                'label' => false,
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Prénom *'
+                    ]
+            ])
+            ->add('lastname', TextType::class, [
+                'label' => false,
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Nom *'
+                    ]
+            ])
+            ->add('phone', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Téléphone'
+                ]
+            ])
+            ->add('companyName', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Nom de mon entreprise'
+                    ]
+            ])
+
+            ->add('agreeTerms', CheckboxType::class, [
+                'mapped' => false,
+                'label' => "J'accepte les CDG",
+                'constraints' => [
+                    new IsTrue([
+                        'message' => 'Vous devez accepter nos conditions d\'utilisation !',
+                    ]),
+                ],
+            ])
+            ->add('town', EntityType::class, [
+                'class' => Town::class,
+                'choice_label' => 'name',
+                'label' => false,
+                'expanded' => false,
+                'required' => true,
+                'multiple' => false,
+                'by_reference' => false,
+            ])
+            ->add('facebookLink', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Compte Facebook'
+                    ]
+            ])
+            ->add('instagramLink', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Compte Instagram'
+                    ]
+            ])
+            ->add('websiteLink', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Site web'
+                    ]
+            ])
+            ->add('generalSetup', EntityType::class, [
+                'class' => GeneralSetup::class,
+                'choice_label' => 'type',
+                'expanded' => true,
+                'multiple' => true,
+                'required' => true,
+                'by_reference' => false
+            ])
+            ->add('specificSetup', EntityType::class, [
+                'class' => SpecificSetup::class,
+                'choice_label' => 'type',
+                'expanded' => true,
+                'multiple' => true,
+                'required' => true,
+                'by_reference' => false
+            ])
+            ->add('specialtiesVanArtisan', EntityType::class, [
+                'class' => SpecialtiesVanArtisan::class,
+                'choice_label' => 'type',
+                'expanded' => false,
+                'multiple' => true,
+                'by_reference' => true,
+                'label' => false,
             ])
         ;
     }

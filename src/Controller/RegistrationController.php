@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\AppLoginAuthenticator;
+use App\Service\SlugifyService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,16 +16,21 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 class RegistrationController extends AbstractController
 {
     /**
-     * @Route("/register/expert", name="app_register_expert")
+     * @Route("/register/artisan", name="app_register_artisan")
      */
-    public function registerExpert(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppLoginAuthenticator $authenticator): Response
-    {
+    public function registerArtisan(
+        Request $request,
+        SlugifyService $slugifyService,
+        UserPasswordEncoderInterface $passwordEncoder,
+        GuardAuthenticatorHandler $guardHandler,
+        AppLoginAuthenticator $authenticator
+    ): Response {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setRoles(['ROLE_EXPERT']);
+            $user->setRoles(['ROLE_ARTISAN']);
             $user->setIsValidated(false);
             $user->setPassword(
                 $passwordEncoder->encodePassword(
@@ -32,7 +38,13 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            if (!empty($user->getCompanyName())) {
+                $slug = $slugifyService->generate($user->getCompanyName());
+                $user->setSlug($slug);
+            } else {
+                $slug = $slugifyService->generate($user->getFirstname().'-'.$user->getLastname());
+                $user->setSlug($slug);
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -46,7 +58,7 @@ class RegistrationController extends AbstractController
             );
         }
 
-        return $this->render('registration/register_expert.html.twig', [
+        return $this->render('registration/register_artisan.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
@@ -54,8 +66,13 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register/vanlifer", name="app_register_vanlifer")
      */
-    public function registerVanlifer(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppLoginAuthenticator $authenticator): Response
-    {
+    public function registerVanlifer(
+        Request $request,
+        SlugifyService $slugifyService, 
+        UserPasswordEncoderInterface $passwordEncoder, 
+        GuardAuthenticatorHandler $guardHandler, 
+        AppLoginAuthenticator $authenticator
+    ): Response {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -63,6 +80,8 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setRoles(['ROLE_VANLIFER']);
             $user->setIsValidated(true);
+            $slug = $slugifyService->generate($user->getLastname());
+            $user->setSlug($slug);
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,

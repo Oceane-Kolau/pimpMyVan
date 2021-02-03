@@ -100,15 +100,20 @@ class User implements UserInterface
     private $specificSetUp;
 
     /**
-     * @ORM\ManyToMany(targetEntity=SpecialtiesVanExpert::class, inversedBy="users")
+     * @ORM\ManyToMany(targetEntity=SpecialtiesVanArtisan::class, inversedBy="users")
      */
-    private $specialtiesVanExpert;
+    private $specialtiesVanArtisan;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $slug;
 
     public function __construct()
     {
         $this->generalSetup = new ArrayCollection();
         $this->specificSetUp = new ArrayCollection();
-        $this->specialtiesVanExpert = new ArrayCollection();
+        $this->specialtiesVanArtisan = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -358,25 +363,37 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|SpecialtiesVanExpert[]
+     * @return Collection|SpecialtiesVanArtisan[]
      */
-    public function getSpecialtiesVanExpert(): Collection
+    public function getSpecialtiesVanArtisan(): Collection
     {
-        return $this->specialtiesVanExpert;
+        return $this->specialtiesVanArtisan;
     }
 
-    public function addSpecialtiesVanExpert(SpecialtiesVanExpert $specialtiesVanExpert): self
+    public function addSpecialtiesVanArtisan(SpecialtiesVanArtisan $specialtiesVanArtisan): self
     {
-        if (!$this->specialtiesVanExpert->contains($specialtiesVanExpert)) {
-            $this->specialtiesVanExpert[] = $specialtiesVanExpert;
+        if (!$this->specialtiesVanArtisan->contains($specialtiesVanArtisan)) {
+            $this->specialtiesVanArtisan[] = $specialtiesVanArtisan;
         }
 
         return $this;
     }
 
-    public function removeSpecialtiesVanExpert(SpecialtiesVanExpert $specialtiesVanExpert): self
+    public function removeSpecialtiesVanArtisan(SpecialtiesVanArtisan $specialtiesVanArtisan): self
     {
-        $this->specialtiesVanExpert->removeElement($specialtiesVanExpert);
+        $this->specialtiesVanArtisan->removeElement($specialtiesVanArtisan);
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

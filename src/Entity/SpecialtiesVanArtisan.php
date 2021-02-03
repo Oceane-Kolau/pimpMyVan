@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\SpecialtiesVanExpertRepository;
+use App\Repository\SpecialtiesVanArtisanRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=SpecialtiesVanExpertRepository::class)
+ * @ORM\Entity(repositoryClass=SpecialtiesVanArtisanRepository::class)
  */
-class SpecialtiesVanExpert
+class SpecialtiesVanArtisan
 {
     /**
      * @ORM\Id
@@ -25,7 +25,7 @@ class SpecialtiesVanExpert
     private $type;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="specialtiesVanExpert")
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="specialtiesVanArtisan")
      */
     private $users;
 
@@ -63,7 +63,7 @@ class SpecialtiesVanExpert
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->addSpecialtiesVanExpert($this);
+            $user->addSpecialtiesVanArtisan($this);
         }
 
         return $this;
@@ -72,7 +72,7 @@ class SpecialtiesVanExpert
     public function removeUser(User $user): self
     {
         if ($this->users->removeElement($user)) {
-            $user->removeSpecialtiesVanExpert($this);
+            $user->removeSpecialtiesVanArtisan($this);
         }
 
         return $this;
