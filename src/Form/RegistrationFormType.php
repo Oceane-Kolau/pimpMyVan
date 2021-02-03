@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\GeneralSetup;
+use App\Entity\SpecialtiesVanExpert;
 use App\Entity\SpecificSetup;
 use App\Entity\Town;
 use App\Entity\User;
@@ -139,6 +140,14 @@ class RegistrationFormType extends AbstractType
                 'multiple' => true,
                 'required' => true,
                 'by_reference' => false
+            ])
+            ->add('specialtiesVanExpert', EntityType::class, [
+                'class' => SpecialtiesVanExpert::class,
+                'choice_label' => 'type',
+                'expanded' => false,
+                'multiple' => true,
+                'by_reference' => true,
+                'label' => false,
             ])
         ;
     }
