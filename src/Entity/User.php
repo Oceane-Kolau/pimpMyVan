@@ -104,6 +104,11 @@ class User implements UserInterface
      */
     private $specialtiesVanExpert;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->generalSetup = new ArrayCollection();
@@ -377,6 +382,18 @@ class User implements UserInterface
     public function removeSpecialtiesVanExpert(SpecialtiesVanExpert $specialtiesVanExpert): self
     {
         $this->specialtiesVanExpert->removeElement($specialtiesVanExpert);
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

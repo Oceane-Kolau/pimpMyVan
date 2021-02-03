@@ -4,6 +4,11 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -12,14 +17,21 @@ class UserCrudController extends AbstractCrudController
         return User::class;
     }
 
-    /*
-    public function configureFields(string $pageName): iterable
+    public function configureActions(Actions $actions): Actions
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        return $actions
+        ->add(Crud::PAGE_INDEX, Action::DETAIL)
+        ->remove(Crud::PAGE_INDEX, Action::NEW)
+        ->remove(Crud::PAGE_INDEX, Action::DELETE)
+        ->remove(Crud::PAGE_DETAIL, Action::DELETE)
+        ;
     }
-    */
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add(BooleanFilter::new('isValidated'))
+            ->add('specialtiesVanExpert')
+        ;
+    }
 }

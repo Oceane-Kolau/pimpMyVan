@@ -56,9 +56,14 @@ class DashboardController extends AbstractDashboardController
             ->setController(SpecificSetupCrudController::class),
         ]);
 
-        yield MenuItem::subMenu('Infos', 'fas fa-info')->setSubItems([
+        yield MenuItem::subMenu('Modération', 'fas fa-check-square')->setSubItems([
             MenuItem::linkToCrud('Experts', 'fas fa-user-cog', User::class)
             ->setController(ModerationExpertController::class),
+        ]);
+
+        yield MenuItem::subMenu('Infos', 'fas fa-info')->setSubItems([
+            MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class)
+            ->setController(UserCrudController::class),
         ]);
         
     }

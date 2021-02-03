@@ -22,6 +22,7 @@ class RegistrationFormType extends AbstractType
             ->add('email')
             ->add('firstname')
             ->add('lastname')
+            ->add('companyName')
             ->add('town', EntityType::class, [
                 'class' => Town::class,
                 'choice_label' => 'name',
