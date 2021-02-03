@@ -31,7 +31,7 @@ class UserCrudController extends AbstractCrudController
     {
         return $filters
             ->add(BooleanFilter::new('isValidated'))
-            ->add('specialtiesVanExpert')
+            ->add('specialtiesVanArtisan')
         ;
     }
 }

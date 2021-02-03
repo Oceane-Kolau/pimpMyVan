@@ -37,5 +37,5 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/vanlifer, roles: ROLE_VANLIFER }
-        - { path: ^/expert, roles: ROLE_EXPERT }
+        - { path: ^/artisan, roles: ROLE_ARTISAN }
         - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }

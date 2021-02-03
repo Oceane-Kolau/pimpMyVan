@@ -9,25 +9,25 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
- * @Route(name="expert")
- * @IsGranted("ROLE_EXPERT")
+ * @Route(name="artisan")
+ * @IsGranted("ROLE_ARTISAN")
  */
-class ExpertController extends AbstractController
+class ArtisanController extends AbstractController
 {
     /**
-     * @Route("/expert-profil", methods={"GET"}, name="_profile")
+     * @Route("/artisan-profil", methods={"GET"}, name="_profile")
      */
     public function index(): Response
     {
         $user = $this->getUser();
         if ($user->getIsValidated() == false) {
-            return $this->render('registration/moderation_expert.html.twig', [
+            return $this->render('registration/moderation_artisan.html.twig', [
                 'user' => $user,
             ]);
         }
 
-        return $this->render('expert/index.html.twig', [
-            'controller_name' => 'ExpertController',
+        return $this->render('artisan/index.html.twig', [
+            'controller_name' => 'ArtisanController',
         ]);
     }
 }

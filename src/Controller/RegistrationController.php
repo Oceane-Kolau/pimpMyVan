@@ -16,9 +16,9 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 class RegistrationController extends AbstractController
 {
     /**
-     * @Route("/register/expert", name="app_register_expert")
+     * @Route("/register/artisan", name="app_register_artisan")
      */
-    public function registerExpert(
+    public function registerArtisan(
         Request $request,
         SlugifyService $slugifyService,
         UserPasswordEncoderInterface $passwordEncoder,
@@ -30,7 +30,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setRoles(['ROLE_EXPERT']);
+            $user->setRoles(['ROLE_ARTISAN']);
             $user->setIsValidated(false);
             $user->setPassword(
                 $passwordEncoder->encodePassword(
@@ -58,7 +58,7 @@ class RegistrationController extends AbstractController
             );
         }
 
-        return $this->render('registration/register_expert.html.twig', [
+        return $this->render('registration/register_artisan.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }

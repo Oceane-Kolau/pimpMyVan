@@ -5,7 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\BrandVan;
 use App\Entity\GeneralSetup;
 use App\Entity\SizeVan;
-use App\Entity\SpecialtiesVanExpert;
+use App\Entity\SpecialtiesVanArtisan;
 use App\Entity\Town;
 use App\Entity\TypeVan;
 use App\Entity\User;
@@ -17,13 +17,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin", name="admin")
  * @IsGranted("ROLE_ADMIN")
  */
 class DashboardController extends AbstractDashboardController
 {
     /**
-     * @Route("/", name="admin")
+     * @Route("/admin", name="admin")
      */
     public function index(): Response
     {
@@ -48,8 +47,8 @@ class DashboardController extends AbstractDashboardController
             ->setController(TypeVanCrudController::class),
             MenuItem::linkToCrud('Villes', 'fas fa-map-pin', Town::class)
             ->setController(TownCrudController::class),
-            MenuItem::linkToCrud('Spécialités', 'fas fa-plus-circle', SpecialtiesVanExpert::class)
-            ->setController(SpecialtiesVanExpertCrudController::class),
+            MenuItem::linkToCrud('Spécialités', 'fas fa-plus-circle', SpecialtiesVanArtisan::class)
+            ->setController(SpecialtiesVanArtisanCrudController::class),
             MenuItem::linkToCrud('Aménagement général', 'fas fa-wrench', GeneralSetup::class)
             ->setController(GeneralSetupCrudController::class),
             MenuItem::linkToCrud('Types d\'aménagement', 'fas fa-ruler-combined', SpecificSetup::class)
@@ -57,8 +56,8 @@ class DashboardController extends AbstractDashboardController
         ]);
 
         yield MenuItem::subMenu('Modération', 'fas fa-check-square')->setSubItems([
-            MenuItem::linkToCrud('Experts', 'fas fa-user-cog', User::class)
-            ->setController(ModerationExpertController::class),
+            MenuItem::linkToCrud('Artisans', 'fas fa-user-cog', User::class)
+            ->setController(ModerationArtisanController::class),
         ]);
 
         yield MenuItem::subMenu('Infos', 'fas fa-info')->setSubItems([

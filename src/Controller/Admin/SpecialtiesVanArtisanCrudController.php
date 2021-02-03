@@ -2,14 +2,14 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\SpecialtiesVanExpert;
+use App\Entity\SpecialtiesVanArtisan;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class SpecialtiesVanExpertCrudController extends AbstractCrudController
+class SpecialtiesVanArtisanCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return SpecialtiesVanExpert::class;
+        return SpecialtiesVanArtisan::class;
     }
 
     /*
