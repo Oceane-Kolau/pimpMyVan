@@ -69,6 +69,17 @@
                 'title': 'Sélectionner'
                 }}) }}
             </div>
+            <div class="col m-12">
+                {{ form_row(form.profilePictureFile) }}
+            </div
+            <div class="row">
+                <div class="col m-12">
+                    {{ form_row(form.pictureFile) }}
+                </div>
+                <div class="col m-12">
+                    {{ form_row(form.bannerFile)}}
+                </div>
+            </div>
             <div class="text-center pt-3">
                 <button class="btn btn-turquoise">{{ button_label|default('Enregistrer') }}</button>
             </div>
@@ -82,3 +93,21 @@
     </div>
 </div>
 {% endblock %}
+{% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
+    integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
+    crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+    integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+    crossorigin="anonymous"></script>
+<script>
+    $('.custom-file-input').on('change', function (event) {
+        var inputFile = event.currentTarget;
+        $(inputFile).parent()
+            .find('.custom-file-label')
+            .html(inputFile.files[0].name);
+    });
+</script>
+{% endblock javascripts %}

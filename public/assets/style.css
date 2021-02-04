@@ -64,7 +64,7 @@ button {
     background-color: #A3D2CA;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(4px);
-    border-radius: 46px;
+    border-radius: 12px;
 }
 
 .btn-grey {
@@ -133,3 +133,64 @@ padding-top: 5px;
     color: var(--oorange);
     text-decoration: none;
 }
+
+.border-pres {
+    background-color: white;
+    margin-top: -30px;
+}
+
+.img-form {
+    border-radius: 20px;
+}
+
+.card {
+    border-radius: 20px;
+    padding: 5px;
+}
+
+.color-town {
+    font-size: 15px;
+}
+
+.plus-color-card {
+    color: var(--oorange);
+    font-size: 15px;
+}
+
+.size-specialties {
+    font-size: 16px;
+    padding: 0px;
+}
+
+.link-for-show:hover {
+    text-decoration:none;
+    color: black;
+}
+
+.link-for-show-img:hover {
+    filter: brightness(80%);
+-webkit-filter: brightness(80%);
+}
+
+.name {
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+/* .link-for-show-img:hover img {
+    /* L'image est grossie de 25% */
+-webkit-transform:scale(1.25); /* Safari et Chrome */
+-moz-transform:scale(1.25); /* Firefox */
+-ms-transform:scale(1.25); /* Internet Explorer 9 */
+-o-transform:scale(1.25); /* Opera */
+transform:scale(1.25);
+}
+
+.link-for-show-img img {
+    /* La transition s'applique à la fois sur la largeur et la hauteur, avec une durée d'une seconde. */
+    -webkit-transition: all 1s ease; /* Safari et Chrome */
+    -moz-transition: all 1s ease; /* Firefox */
+    -ms-transition: all 1s ease; /* Internet Explorer 9 */
+    -o-transition: all 1s ease; /* Opera */
+    transition: all 1s ease;
+} */

@@ -13,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class ArtisanType extends AbstractType
 {
@@ -107,6 +108,24 @@ class ArtisanType extends AbstractType
                 'multiple' => true,
                 'by_reference' => true,
                 'label' => false,
+            ])
+            ->add('profilePictureFile', VichFileType::class, [
+                'required'      => false,
+                'allow_delete'  => false,
+                'download_uri' => false,
+                'label' => "Ajouter une photo de profil",
+            ])
+            ->add('pictureFile', VichFileType::class, [
+                'required'      => false,
+                'allow_delete'  => false,
+                'download_uri' => false,
+                'label' => "Ajouter une photo d'un van ou d'un projet",
+            ])
+            ->add('bannerFile', VichFileType::class, [
+                'required'      => false,
+                'allow_delete'  => false,
+                'download_uri' => false,
+                'label' => "Ajouter une photo d'un van ou d'un projet",
             ])
         ;
     }
