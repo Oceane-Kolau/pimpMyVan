@@ -59,7 +59,7 @@
                     </div>
                     {% endif %}
                 </div>
-                <div class="col-xl-8 col-lg-8 col-md-7 col-sm-12 mr-5 bg-lightgrey mx-auto">
+                <div class="col-xl-8 col-lg-8 col-md-7 col-sm-12 mr-5 mx-auto">
                     <div class="row pl-3 mt-4">
                         {% for specificSetup in artisan.specificSetup %}
                         <div class="col-auto">
@@ -83,6 +83,49 @@
                         <p class="p-2"> {{ artisan.description }}</p>
                     </div>
                 </div>
+            </div>
+            <div>
+                <div class="col-xl-8 col-lg-8 col-md-10 col-xs-10 mx-auto bg-lightgrey p-5">
+                    <div class="text-center pb-4">
+                        <h2>CONTACTEZ NOUS</h2>
+                    </div>
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="col-6 pb-3">
+                        {{ form_row(form.firstname) }}
+                    </div>
+                    <div class="col-6 pb-3">
+                        {{ form_row(form.lastname) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 pb-3">
+                        {{ form_row(form.email) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 pb-3">
+                        {{ form_row(form.subject) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 pb-3">
+                        {{ form_row(form.message) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 pb-3">
+                        <small>* Champs obligatoires<br>
+                        </small>
+                    </div>
+                </div>
+                <div class="text-center my-4">
+                    <button class="btn btn-turquoise" type="submit" id="submit-contact"><i class="far fa-paper-plane"></i>
+                        {{
+                        button_label|default('Envoyer') }}</button>
+                </div>
+                {{ form_end(form) }}
+
             </div>
         </div>
     </div>
