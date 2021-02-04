@@ -1,20 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% include "navbar.html.twig" %}
+<div class="container">
+    <div class="row align-items-center justify-content-center">
+        <div class="row">
+            <div class="col-lg-7 col-md-7 col-sm-10 ml-5">
+                <img src="https://i.postimg.cc/jq64cg4f/volkswagen-microbus-1960-1963.gif" class="img-fluid img-size"
+                    alt="">
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-10 pt-5 mt-5">
+                <h1>Voyager partout<br>Tout le temps</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center align-items-center mt-4">
+        <div class="col-auto">
+            <a href="{{path ('home_allArtisans')}}">
+                <button type="button" class="btn btn-lg btn-turquoise m-5">Trouver un aménageur</button>
+            </a>
+        </div>
+        <div class="col-auto">
+            <a href="">
+                <button type="button" class="btn btn-lg btn-grey m-5">Aménager soi-même</button>
+            </a>
+        </div>
+    </div>
+    <!-- <div class="container-fluid">
+        {% for artisan in lastArtisans %}
+        <div class="row">
+            <div class="col-6">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/oceanekl/WCS/perso_projets/pimpMyVan/pimp_my_van/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/oceanekl/WCS/perso_projets/pimpMyVan/pimp_my_van/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
+            </div>
+            <div class="col-6">
+                <a href="{{path ('home_artisan_show', {'slug': artisan.slug})}}" class="link-for-show">
+                {% if artisan.companyName is not empty %}
+                    <h3>
+                        {{artisan.companyName}}
+                    </h3>
+                {% else %}
+                    <h3>
+                        {{artisan.firstname}} {{artisan.lastname}}
+                    </h3>
+                    {% endif %}
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div> -->
 </div>
 {% endblock %}

@@ -97,7 +97,7 @@ class User implements UserInterface
     /**
      * @ORM\ManyToMany(targetEntity=SpecificSetup::class, inversedBy="users")
      */
-    private $specificSetUp;
+    private $specificSetup;
 
     /**
      * @ORM\ManyToMany(targetEntity=SpecialtiesVanArtisan::class, inversedBy="users")
@@ -112,7 +112,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->generalSetup = new ArrayCollection();
-        $this->specificSetUp = new ArrayCollection();
+        $this->specificSetup = new ArrayCollection();
         $this->specialtiesVanArtisan = new ArrayCollection();
     }
 
@@ -343,21 +343,21 @@ class User implements UserInterface
      */
     public function getSpecificSetUp(): Collection
     {
-        return $this->specificSetUp;
+        return $this->specificSetup;
     }
 
-    public function addSpecificSetUp(SpecificSetup $specificSetUp): self
+    public function addSpecificSetUp(SpecificSetup $specificSetup): self
     {
-        if (!$this->specificSetUp->contains($specificSetUp)) {
-            $this->specificSetUp[] = $specificSetUp;
+        if (!$this->specificSetup->contains($specificSetup)) {
+            $this->specificSetup[] = $specificSetup;
         }
 
         return $this;
     }
 
-    public function removeSpecificSetUp(SpecificSetup $specificSetUp): self
+    public function removeSpecificSetUp(SpecificSetup $specificSetup): self
     {
-        $this->specificSetUp->removeElement($specificSetUp);
+        $this->specificSetup->removeElement($specificSetup);
 
         return $this;
     }

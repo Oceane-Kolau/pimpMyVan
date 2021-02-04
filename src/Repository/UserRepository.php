@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Data\SearchArtisansData;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -36,32 +37,68 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function searchArtisans(SearchArtisansData $search)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $query = $this
+            ->createQueryBuilder('user')
+            ->innerJoin('user.specificSetup', 'specificSetup')
+            ->innerJoin('user.town', 'town')
+            ->innerJoin('user.specialtiesVanArtisan', 'specialtiesVanArtisan')
+            ->innerJoin('user.generalSetup', 'generalSetup')
+            ->where('user.roles LIKE :roles')
+            ->setParameter('roles', '%"' . 'ROLE_ARTISAN' . '"%')
+            ->andWhere('user.isValidated = 1');
 
-    /*
-    public function findOneBySomeField($value): ?User
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if (!empty($search->specificSetup)) {
+            $query = $query
+                ->andWhere('specificSetup.id IN (:specificSetup)')
+                ->setParameter('specificSetup', $search->specificSetup);
+        }
+
+        if (!empty($search->generalSetup)) {
+            $query = $query
+                ->andWhere('generalSetup.id IN (:generalSetup)')
+                ->setParameter('generalSetup', $search->generalSetup);
+        }
+
+        if (!empty($search->specialtiesVanArtisan)) {
+            $query = $query
+                ->andWhere('specialtiesVanArtisan.id IN (:specialtiesVanArtisan)')
+                ->setParameter('specialtiesVanArtisan', $search->specialtiesVanArtisan);
+        }
+
+        if (!empty($search->town)) {
+            $query = $query
+                ->andWhere('town.id IN (:town)')
+                ->setParameter('town', $search->town);
+        }
+
+        if (!empty($search->q)) {
+            $query = $query
+                ->andWhere('user.companyName LIKE :q 
+                OR user.description LIKE :q
+                OR town.name LIKE :q
+                OR generalSetup.type LIKE :q
+                OR specificSetup.type LIKE :q
+                OR specialtiesVanArtisan.type LIKE :q
+                OR user.lastname LIKE :q
+                OR user.firstname LIKE :q')
+                ->setParameter('q', "%{$search->q}%");
+        }
+
+        return $query->getQuery()->getResult();
     }
-    */
+
+    public function artisansHome()
+    {
+        return $this->createQueryBuilder('user')
+            ->where('user.isValidated = 1')
+            ->andWhere('user.roles LIKE :roles')
+            ->setParameter('roles', '%"' . 'ROLE_ARTISAN' . '"%')
+            ->orderby('user.id', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
+    
 }

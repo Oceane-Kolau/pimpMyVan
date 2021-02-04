@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modifier mon profil{% endblock %}
+{% block body %}
+<div class="container-fluid color-account">
+    <div class="row mb-4">
+        <div class="col-2">
+            <a class="navbar-brand ml-5 pl-5" href="/">
+                {% include 'logoSvg.html.twig' %}
+            </a>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+            <img src="https://i.postimg.cc/fRYNv9gb/nicole-geri-2m-R9ww-Ik-Y1-I-unsplash.jpg"
+                class="img-fluid size-img-account" alt="">
+        </div>
+    </div>
+    <div class="row justify-content-around align-items-center">
+        
+        {{ form_start(form) }}
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mr-5 bg-lightgrey mx-auto p-5">
+            <h4><span class="color-letter">1.</span> Profil</h4>
+            <div class="row pt-3">
+                <div class="col-6">
+                    {{ form_row(form.firstname) }}
+                </div>
+                <div class="col-6">
+                    {{ form_row(form.lastname) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    {{ form_row(form.email) }}
+                </div>
+                <div class="col-6">
+                    {{ form_row(form.phone) }}
+                </div>
+            </div>
+            <h4 class="mt-4"><span class="color-letter">2.</span> Entreprise</h4>
+            <div class="row pt-3">
+                <div class="col-6">
+                    {{ form_row(form.instagramLink) }}
+                </div>
+                <div class="col-6">
+                    {{ form_row(form.facebookLink) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    {{ form_row(form.companyName) }}
+                </div>
+                <div class="col-6">
+                    {{ form_row(form.websiteLink) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    {{ form_row(form.specificSetup) }}
+                </div>
+                <div class="col-6">
+                    {{ form_row(form.generalSetup) }}
+                </div>
+            </div>
+            <div class="col-12">
+                {{ form_row(form.specialtiesVanArtisan, {
+                "attr": {
+                'class': 'selectpicker',
+                'data-live-search': true,
+                'data-count-selected-text': '{0} sélectionné(s)',
+                'data-actions-box': true,
+                'title': 'Sélectionner'
+                }}) }}
+            </div>
+            <div class="text-center pt-3">
+                <button class="btn btn-turquoise">{{ button_label|default('Enregistrer') }}</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+        <div class="col-11 text-left pr-5 pt-5">
+            <a class="hover-link" href="{{ path('artisan_profile') }}">
+                <p><i class="fas fa-arrow-left"></i> Retour à mon profil</p>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

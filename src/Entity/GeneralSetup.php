@@ -29,6 +29,11 @@ class GeneralSetup
      */
     private $users;
 
+    public function __toString()
+    {
+        return $this->type;
+    }
+
     public function __construct()
     {
         $this->users = new ArrayCollection();

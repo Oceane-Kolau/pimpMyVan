@@ -1,0 +1,43 @@
+<div class="col-lg-1 col-md-1 pt-5 mt-5" id="floating-shortcuts">
+    <ul>
+        {% if app.user is null %}
+        <li>
+            <a href="{{path('app_register_vanlifer')}}">
+                <p class="">Inscription</p>
+            </a>
+        </li>
+        {% else %}
+        {% if app.user.roles[0] == "ROLE_ARTISAN" %}
+        <li>
+            <a class="nav-link navbar-brand" href="{{path('artisan_profile')}}">
+                <i class="fas fa-user-alt user-icon"></i>
+            </a>
+        </li>
+        {% endif %}
+        {% if app.user.roles[0] == "ROLE_VANLIFER" %}
+        <li>
+            <a class="nav-link navbar-brand" href="{{path('vanlifer_profile')}}">
+                <i class="fas fa-user-alt user-icon"></i>
+            </a>
+        </li>
+        {% endif %}
+        {% if app.user.roles[0] == "ROLE_ADMIN" %}
+        <li>
+            <a class="nav-link navbar-brand" href="{{path('admin')}}">
+                <i class="fas fa-user-alt user-icon"></i>
+            </a>
+        </li>
+        {% endif %}
+        {% endif %}
+        <li>
+            <a class="" href="{{ path('home_allArtisans')}}">
+                <button class="btn vertical-writing-home"></button>
+            </a>
+        </li>
+        <li>
+            <a class="" href="{{ path('home_allArtisans')}}">
+                <button class="btn vertical-writing-home"></button>
+            </a>
+        </li>
+    </ul>
+</div>
