@@ -34,7 +34,6 @@
                     {{ form_row(form.phone) }}
                 </div>
             </div>
-            <h4 class="mt-4"><span class="color-letter">2.</span> Entreprise</h4>
             <div class="row pt-3">
                 <div class="col-6">
                     {{ form_row(form.instagramLink) }}
@@ -45,29 +44,8 @@
             </div>
             <div class="row">
                 <div class="col-6">
-                    {{ form_row(form.companyName) }}
-                </div>
-                <div class="col-6">
                     {{ form_row(form.websiteLink) }}
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    {{ form_row(form.specificSetup) }}
-                </div>
-                <div class="col-6">
-                    {{ form_row(form.generalSetup) }}
-                </div>
-            </div>
-            <div class="col-12">
-                {{ form_row(form.specialtiesVanArtisan, {
-                "attr": {
-                'class': 'selectpicker',
-                'data-live-search': true,
-                'data-count-selected-text': '{0} sélectionné(s)',
-                'data-actions-box': true,
-                'title': 'Sélectionner'
-                }}) }}
             </div>
             <div class="text-center pt-3">
                 <button class="btn btn-turquoise">{{ button_label|default('Enregistrer') }}</button>
@@ -75,7 +53,7 @@
             {{ form_end(form) }}
         </div>
         <div class="col-11 text-left pr-5 pt-5">
-            <a class="hover-link" href="{{ path('artisan_profile') }}">
+            <a class="hover-link" href="{{ path('vanlifer_profile') }}">
                 <p><i class="fas fa-arrow-left"></i> Retour à mon profil</p>
             </a>
         </div>

@@ -14,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class ArtisanType extends AbstractType
+class VanliferType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -47,22 +47,7 @@ class ArtisanType extends AbstractType
                     'placeholder' => 'Téléphone'
                 ]
             ])
-            ->add('companyName', TextType::class, [
-                'label' => false,
-                'required' => false,
-                'attr' => [
-                    'placeholder' => 'Nom de mon entreprise'
-                    ]
-            ])
-            // ->add('town', EntityType::class, [
-            //     'class' => Town::class,
-            //     'choice_label' => 'name',
-            //     'label' => false,
-            //     'expanded' => false,
-            //     'required' => true,
-            //     'multiple' => false,
-            //     'by_reference' => false,
-            // ])
+            
             ->add('facebookLink', TextType::class, [
                 'label' => false,
                 'required' => false,
@@ -83,30 +68,6 @@ class ArtisanType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Site web'
                     ]
-            ])
-            ->add('generalSetup', EntityType::class, [
-                'class' => GeneralSetup::class,
-                'choice_label' => 'type',
-                'expanded' => true,
-                'multiple' => true,
-                'required' => true,
-                'by_reference' => false
-            ])
-            ->add('specificSetup', EntityType::class, [
-                'class' => SpecificSetup::class,
-                'choice_label' => 'type',
-                'expanded' => true,
-                'multiple' => true,
-                'required' => true,
-                'by_reference' => false
-            ])
-            ->add('specialtiesVanArtisan', EntityType::class, [
-                'class' => SpecialtiesVanArtisan::class,
-                'choice_label' => 'type',
-                'expanded' => false,
-                'multiple' => true,
-                'by_reference' => true,
-                'label' => false,
             ])
         ;
     }
