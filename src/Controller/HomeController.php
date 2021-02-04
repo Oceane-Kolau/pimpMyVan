@@ -28,11 +28,25 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/contact", name="home_contact")
+     * @Route("/contact", name="home_contact", methods={"GET", "POST"})
      */
-    public function contact(): Response
+    public function contact(Request $request, MailerService $mailerService): Response
     {
-        return $this->render('home/contact.html.twig');
+        $contact = new Contact();
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($contact);
+            $entityManager->flush();
+            $mailerService->sendEmailAfterContact($contact);
+            return $this->render('home/confirmation_message.html.twig');
+        }
+        return $this->render('home/contact.html.twig', [
+            'form' => $form->createView(),
+            'contact' => $contact
+        ]);
     }
 
     /**
