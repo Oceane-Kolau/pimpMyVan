@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Data\SearchArtisansData;
+use App\Entity\User;
 use App\Form\SearchArtisansType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,6 +25,14 @@ class HomeController extends AbstractController
     }
 
     /**
+     * @Route("/contact", name="home_contact")
+     */
+    public function contact(): Response
+    {
+        return $this->render('home/contact.html.twig');
+    }
+
+    /**
      * @Route("/amenageurs-van", name="home_allArtisans")
      */
     public function allArtisans(UserRepository $userRepository, Request $request): Response 
@@ -42,8 +51,10 @@ class HomeController extends AbstractController
     /**
      * @Route("/amenageurs/{slug}", name="home_artisan_show")
      */
-    public function showArtisan(): Response
+    public function showArtisan(User $user): Response
     {
-        return $this->render('home/show_artisan.html.twig');
+        return $this->render('home/show_artisan.html.twig', [
+            'artisan' => $user
+        ]);
     }
 }

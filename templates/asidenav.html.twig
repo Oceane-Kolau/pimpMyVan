@@ -1,42 +1,48 @@
-<div class="col-lg-1 col-md-1 pt-5 mt-5" id="floating-shortcuts">
-    <ul>
-        {% if app.user is null %}
+<div id="sidebar-wrapper">
+    <ul class="sidebar-nav nav navbar-inverse mx-3">
         <li>
-            <a href="{{path('app_register_vanlifer')}}">
-                <p class="">Inscription</p>
+            {% if app.user is null %}
+            <a class="navbar-brand" href="{{path('app_login')}}"><i class="fas fa-user-circle"></i>
             </a>
+            {% else %}
+            <a class="navbar-brand" href="{{path('app_logout')}}"><i class="fas fa-sign-out-alt"></i>
+            </a>
+            {% endif %}
         </li>
-        {% else %}
+    </ul>
+    <ul class="sidebar-nav nav navbar-inverse">
+        <li>
+        {% if app.user is not null %}
         {% if app.user.roles[0] == "ROLE_ARTISAN" %}
-        <li>
-            <a class="nav-link navbar-brand" href="{{path('artisan_profile')}}">
-                <i class="fas fa-user-alt user-icon"></i>
+            <a class="navbar-brand" href="{{path('artisan_profile')}}">
+                <i class="fas fa-user-circle"></i>
             </a>
-        </li>
         {% endif %}
         {% if app.user.roles[0] == "ROLE_VANLIFER" %}
-        <li>
-            <a class="nav-link navbar-brand" href="{{path('vanlifer_profile')}}">
-                <i class="fas fa-user-alt user-icon"></i>
+            <a class="navbar-brand" href="{{path('vanlifer_profile')}}">
+                <i class="fas fa-user-circle"></i>
             </a>
-        </li>
         {% endif %}
         {% if app.user.roles[0] == "ROLE_ADMIN" %}
+            <a class="navbar-brand" href="{{path('admin')}}">
+                <i class="fas fa-user-circle"></i>
+            </a>
+            <a class="navbar-brand" href="{{path('admin')}}">
+                <i class="fas fa-user-circle"></i>
+            </a>
+            {% endif %}
+            {% endif %}
+        </li>
+    </ul>
+    <ul class="sidebar-nav nav navbar-inverse mx-3">
         <li>
-            <a class="nav-link navbar-brand" href="{{path('admin')}}">
-                <i class="fas fa-user-alt user-icon"></i>
+            <a class="navbar-brand" href="{{path('home_contact')}}"><i class="fas fa-envelope"></i>
             </a>
         </li>
-        {% endif %}
-        {% endif %}
+    </ul>
+    <ul class="sidebar-nav nav navbar-inverse mx-3">
         <li>
-            <a class="" href="{{ path('home_allArtisans')}}">
-                <button class="btn vertical-writing-home"></button>
-            </a>
-        </li>
-        <li>
-            <a class="" href="{{ path('home_allArtisans')}}">
-                <button class="btn vertical-writing-home"></button>
+            <a class="navbar-brand" href="{{path('home_contact')}}"><i class="fas fa-blog"></i>
             </a>
         </li>
     </ul>

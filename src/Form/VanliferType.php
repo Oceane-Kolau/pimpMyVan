@@ -69,6 +69,24 @@ class VanliferType extends AbstractType
                     'placeholder' => 'Site web'
                     ]
             ])
+            ->add('profilePictureFile', VichFileType::class, [
+                'required'      => false,
+                'allow_delete'  => false,
+                'download_uri' => false,
+                'label' => "Ajouter une photo de profil",
+            ])
+            ->add('pictureFile', VichFileType::class, [
+                'required'      => false,
+                'allow_delete'  => false,
+                'download_uri' => false,
+                'label' => "Ajouter une photo d'un van ou d'un projet",
+            ])
+            ->add('bannerFile', VichFileType::class, [
+                'required'      => false,
+                'allow_delete'  => false,
+                'download_uri' => false,
+                'label' => "Ajouter une photo d'un van ou d'un projet",
+            ])
         ;
     }
 

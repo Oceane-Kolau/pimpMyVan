@@ -3,5 +3,34 @@
 {% block title %}{% endblock %}
 
 {% block body %}
+{% include "navbar.html.twig" %}
+<div class="wrapper">
+    {% include "asidenav.html.twig" %}
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <img src="{{ vich_uploader_asset(artisan, 'profilePictureFile') }}" class="img-fluid size-img-show"
+                        alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="row size-img-show">
+                    <div class="col-auto">
+                        <img src="{{ vich_uploader_asset(artisan, 'bannerFile') }}" class="img-fluid size-img-gallery"
+                            alt="">
+                    </div>
+                    <div class="col-auto">
+                        <img src="{{ vich_uploader_asset(artisan, 'bannerFile') }}" class="img-fluid" alt="">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

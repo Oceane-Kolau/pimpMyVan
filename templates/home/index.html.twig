@@ -4,31 +4,37 @@
 
 {% block body %}
 {% include "navbar.html.twig" %}
-<div class="container">
-    <div class="row align-items-center justify-content-center">
-        <div class="row">
-            <div class="col-lg-7 col-md-7 col-sm-10 ml-5">
-                <img src="https://i.postimg.cc/jq64cg4f/volkswagen-microbus-1960-1963.gif" class="img-fluid img-size"
-                    alt="">
+<div class="wrapper">
+    {% include "asidenav.html.twig" %}
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row align-items-center justify-content-center">
+                <div class="row">
+                    <div class="col-lg-7 col-md-7 col-sm-10 ml-5">
+                        <img src="https://i.postimg.cc/jq64cg4f/volkswagen-microbus-1960-1963.gif"
+                            class="img-fluid img-size" alt="">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-10 pt-5 mt-5">
+                        <h1>La liberté<br>commence ici</h1>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-10 pt-5 mt-5">
-                <h1>Voyager partout<br>Tout le temps</h1>
+            <div class="row justify-content-center align-items-center mt-4">
+                <div class="col-auto">
+                    <a href="{{path ('home_allArtisans')}}">
+                        <button type="button" class="btn btn-lg btn-turquoise m-5">Trouver un aménageur</button>
+                    </a>
+                </div>
+                <div class="col-auto">
+                    <a href="">
+                        <button type="button" class="btn btn-lg btn-grey m-5">Aménager soi-même</button>
+                    </a>
+                </div>
             </div>
+
+
         </div>
-    </div>
-    <div class="row justify-content-center align-items-center mt-4">
-        <div class="col-auto">
-            <a href="{{path ('home_allArtisans')}}">
-                <button type="button" class="btn btn-lg btn-turquoise m-5">Trouver un aménageur</button>
-            </a>
-        </div>
-        <div class="col-auto">
-            <a href="">
-                <button type="button" class="btn btn-lg btn-grey m-5">Aménager soi-même</button>
-            </a>
-        </div>
-    </div>
-    <!-- <div class="container-fluid">
+        <!-- <div class="container-fluid">
         {% for artisan in lastArtisans %}
         <div class="row">
             <div class="col-6">
@@ -50,5 +56,6 @@
         </div>
         {% endfor %}
     </div> -->
+    </div>
 </div>
 {% endblock %}
