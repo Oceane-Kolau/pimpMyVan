@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
 use App\Entity\User;
 use App\Form\VanliferType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,6 +50,32 @@ class VanliferController extends AbstractController
         return $this->render('vanlifer/edit.html.twig', [
             'vanlifer' => $user,
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/vanlifer-profil/messagerie", methods={"GET"}, name="_messagerie")
+     */
+    public function contacts(): Response
+    {
+        $user = $this->getUser();
+        $contacts = $user->getContacts();
+
+        return $this->render('vanlifer/messagerie.html.twig', [
+            'contacts' => $contacts,
+            'vanlifer' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/vanlifer-profil/messagerie/{id}", methods={"GET"}, name="_messagerie_show")
+     */
+    public function contactShow(Contact $contact): Response
+    {
+        $user = $this->getUser();
+        return $this->render('vanlifer/show_messagerie.html.twig', [
+            'contact' => $contact,
+            'vanlifer' => $user,
         ]);
     }
 }

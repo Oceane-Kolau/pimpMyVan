@@ -1,4 +1,29 @@
 <div id="sidebar-wrapper">
+    {% if app.user is not null %}
+    <ul class="sidebar-nav nav navbar-inverse mx-3">
+        {% if app.user.roles[0] == "ROLE_ARTISAN" %}
+        <li>
+            <a class="navbar-brand" href="{{path('artisan_profile')}}">
+                <i class="fas fa-user-circle"></i>
+            </a>
+        </li>
+        {% endif %}
+        {% if app.user.roles[0] == "ROLE_VANLIFER" %}
+        <li>
+            <a class="navbar-brand" href="{{path('vanlifer_profile')}}">
+                <i class="fas fa-user-circle"></i>
+            </a>
+        </li>
+        {% endif %}
+        {% if app.user.roles[0] == "ROLE_ADMIN" %}
+        <li>
+            <a class="navbar-brand" href="{{path('admin')}}">
+                <i class="fas fa-user-circle"></i>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+    {% endif %}
     <ul class="sidebar-nav nav navbar-inverse mx-3">
         <li>
             {% if app.user is null %}
@@ -7,30 +32,6 @@
             {% else %}
             <a class="navbar-brand" href="{{path('app_logout')}}"><i class="fas fa-sign-out-alt"></i>
             </a>
-            {% endif %}
-        </li>
-    </ul>
-    <ul class="sidebar-nav nav navbar-inverse">
-        <li>
-        {% if app.user is not null %}
-        {% if app.user.roles[0] == "ROLE_ARTISAN" %}
-            <a class="navbar-brand" href="{{path('artisan_profile')}}">
-                <i class="fas fa-user-circle"></i>
-            </a>
-        {% endif %}
-        {% if app.user.roles[0] == "ROLE_VANLIFER" %}
-            <a class="navbar-brand" href="{{path('vanlifer_profile')}}">
-                <i class="fas fa-user-circle"></i>
-            </a>
-        {% endif %}
-        {% if app.user.roles[0] == "ROLE_ADMIN" %}
-            <a class="navbar-brand" href="{{path('admin')}}">
-                <i class="fas fa-user-circle"></i>
-            </a>
-            <a class="navbar-brand" href="{{path('admin')}}">
-                <i class="fas fa-user-circle"></i>
-            </a>
-            {% endif %}
             {% endif %}
         </li>
     </ul>

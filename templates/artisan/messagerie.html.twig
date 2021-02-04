@@ -71,14 +71,20 @@
                 </div>
                 <div class="col-xl-8 col-lg-8 col-md-7 col-sm-12 mr-5 bg-lightgrey mx-auto p-5">
                     {% for contact in contacts|reverse %}
-                    <div class="row">
-                        <div class="col-7">
-                            {{ contact.firstname }} {{ contact.lastname }}
-                            {{ contact.subject }}
-                            {{ contact.createdAt|date('d M Y')}}
-                            <a href="{{ path('artisan_messagerie_show', {'id': contact.id}) }}"><button class="btn btn-turquoise"><i class="far fa-eye"></i></button></a></td>
+                    <div class="row justify-content-around align-items-center">
+                        <div class="col-auto">
+                            <p>{{ contact.firstname }} {{ contact.lastname }}</p>
                         </div>
+                        <div class="col-auto d-none d-sm-block">
+                            <p>{{ contact.subject }}</p>
+                        </div>
+        
+                        <div class="col-auto">
+                            <p>{{ contact.createdAt|date('d M Y')}}</p>
+                        </div>
+                            <a href="{{ path('artisan_messagerie_show', {'id': contact.id}) }}"><button class="btn btn-turquoise"><i class="far fa-eye"></i></button></a></td>
                     </div>
+                    <hr>
                     {% endfor %}
                 </div>
             </div>

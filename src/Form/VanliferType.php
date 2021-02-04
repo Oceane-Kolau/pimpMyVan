@@ -3,16 +3,13 @@
 namespace App\Form;
 
 use App\Entity\User;
-use App\Entity\GeneralSetup;
-use App\Entity\SpecialtiesVanArtisan;
-use App\Entity\SpecificSetup;
-use App\Entity\Town;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class VanliferType extends AbstractType
 {
