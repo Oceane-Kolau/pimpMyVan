@@ -2,18 +2,23 @@
 
 namespace App\Entity;
 
+use Serializable;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @Vich\Uploadable
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id
@@ -109,11 +114,75 @@ class User implements UserInterface
      */
     private $slug;
 
+    /**
+    * @ORM\Column(type="string", length=255, nullable=true)
+    * @var string
+    */
+    private $picture;
+
+    /**
+    * @Vich\UploadableField(mapping="picture_file", fileNameProperty="picture")
+    * @Assert\File(
+    *     maxSize = "3000k",
+    *     mimeTypes = {"image/png", "image/jpeg"},
+    *     mimeTypesMessage = "Seul le format png est accepté"
+    * )
+    * @var File
+    */
+    private $pictureFile;
+
+    /**
+    * @ORM\Column(type="string", length=255, nullable=true)
+    * @var string
+    */
+    private $banner;
+
+    /**
+    * @Vich\UploadableField(mapping="banner_file", fileNameProperty="banner")
+    * @Assert\File(
+    *     maxSize = "3000k",
+    *     mimeTypes = {"image/png", "image/jpeg"},
+    *     mimeTypesMessage = "Seuls les formats jpg, jpeg et png sont acceptés"
+    * )
+    * @var File
+    */
+    private $bannerFile;
+
+    /**
+    * @ORM\Column(type="string", length=255, nullable=true)
+    * @var string
+    */
+    private $profilePicture;
+
+    /**
+    * @Vich\UploadableField(mapping="profile_picture_file", fileNameProperty="profile_picture")
+    * @Assert\File(
+    *     maxSize = "3000k",
+    *     mimeTypes = {"image/png", "image/jpeg"},
+    *     mimeTypesMessage = "Seuls les formats jpg, jpeg et png sont acceptés"
+    * )
+    * @var File
+    */
+    private $profilePictureFile;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var Datetime
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Contact::class, mappedBy="user")
+     */
+    private $contacts;
+
+
     public function __construct()
     {
         $this->generalSetup = new ArrayCollection();
         $this->specificSetup = new ArrayCollection();
         $this->specialtiesVanArtisan = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -394,6 +463,146 @@ class User implements UserInterface
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function setPictureFile(File $picture = null)
+    {
+        $this->pictureFile = $picture;
+        if ($picture) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function setBannerFile(File $banner = null)
+    {
+        $this->bannerFile = $banner;
+        if ($banner) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getBannerFile(): ?File
+    {
+        return $this->bannerFile;
+    }
+
+    public function getBanner(): ?string
+    {
+        return $this->banner;
+    }
+
+    public function setBanner(?string $banner): self
+    {
+        $this->banner = $banner;
+
+        return $this;
+    }
+
+    public function setProfilePictureFile(File $profilePicture = null)
+    {
+        $this->profilePictureFile = $profilePicture;
+        if ($profilePicture) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getProfilePictureFile(): ?File
+    {
+        return $this->profilePictureFile;
+    }
+
+    public function getProfilePicture(): ?string
+    {
+        return $this->profilePicture;
+    }
+
+    public function setProfilePicture(?string $profilePicture): self
+    {
+        $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->email,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized);
+    }
+
+    /**
+     * @return Collection|Contact[]
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): self
+    {
+        if ($this->contacts->removeElement($contact)) {
+            // set the owning side to null (unless already changed)
+            if ($contact->getUser() === $this) {
+                $contact->setUser(null);
+            }
+        }
 
         return $this;
     }
