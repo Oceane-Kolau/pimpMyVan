@@ -8,26 +8,80 @@
     {% include "asidenav.html.twig" %}
     <div id="page-content-wrapper">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="row mx-auto justify-content-center align-items-center">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <img src="{{ vich_uploader_asset(artisan, 'profilePictureFile') }}" class="img-fluid size-img-show"
-                        alt="">
+                        alt="{{ artisan.firstname }} {{ artisan.lastname }}, aménageur de van">
                 </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="row size-img-show">
-                    <div class="col-auto">
-                        <img src="{{ vich_uploader_asset(artisan, 'bannerFile') }}" class="img-fluid size-img-gallery"
-                            alt="">
-                    </div>
-                    <div class="col-auto">
-                        <img src="{{ vich_uploader_asset(artisan, 'bannerFile') }}" class="img-fluid" alt="">
-                    </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                    <img src="{{ vich_uploader_asset(artisan, 'bannerFile') }}" class="img-fluid size-img-gallery"
+                        alt="aménagement de van">
+                    <img src="{{ vich_uploader_asset(artisan, 'bannerFile') }}" class="img-fluid size-img-gallery mt-2"
+                        alt="amenager son van sur-mesure">
                 </div>
             </div>
             <div>
-                <div>
-
+                {% if artisan.companyName is not empty %}
+                <h1 class="mt-3 text-center">{{ artisan.companyName }}</h1>
+                {% else %}
+                <h1 class="mt-3 text-center">{{ artisan.firstname }} {{ artisan.lastname }}</h1>
+                {% endif %}
+                <div class="row align-items-center justify-content-center mt-3">
+                    {% if artisan.instagramLink is not empty %}
+                    <div class="col-lg-1 col-md-1 col-sm-auto">
+                        <a target="_blank" href="{{ artisan.instagramLink }}">
+                            <p><i class="fab fa-instagram rs-color"></i></p>
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% if artisan.websiteLink is not empty %}
+                    <div class="col-lg-1 col-md-1 col-sm-auto">
+                        <a target="_blank" href="{{ artisan.websiteLink }}">
+                            <p class="rs-color"><i class="fas fa-globe"></i></p>
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% if artisan.facebookLink is not empty %}
+                    <div class="col-lg-1 col-md-1 col-sm-auto">
+                        <a target="_blank" href="{{ artisan.facebookLink }}">
+                            <p><i class="fab fa-facebook-square rs-color"></i></p>
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="row align-items-center justify-content-center mt-3">
+                    <div class="col-auto">
+                        <p> {{ artisan.email }}</p>
+                    </div>
+                    {% if artisan.phone is not empty %}
+                    <div class="col-auto">
+                        <p><i class="fas fa-phone-alt"></i> {{ artisan.phone }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-7 col-sm-12 mr-5 bg-lightgrey mx-auto">
+                    <div class="row pl-3 mt-4">
+                        {% for specificSetup in artisan.specificSetup %}
+                        <div class="col-auto">
+                            <p class="setup-type">{{ specificSetup.type }}</p>
+                        </div>
+                        {% endfor %}
+                        {% for generalSetup in artisan.generalSetup %}
+                        <div class="col-auto">
+                            <p class="setup-type">{{ generalSetup.type }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="row pl-3">
+                        {% for specialtiesVanArtisan in artisan.specialtiesVanArtisan %}
+                        <div class="col-auto">
+                            <p><i class="fas fa-plus plus-color"></i> {{ specialtiesVanArtisan.type }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-12">
+                        <p class="p-2"> {{ artisan.description }}</p>
+                    </div>
                 </div>
             </div>
         </div>
