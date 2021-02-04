@@ -176,6 +176,11 @@ class User implements UserInterface, \Serializable
      */
     private $contacts;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $acceptQuote;
+
 
     public function __construct()
     {
@@ -603,6 +608,18 @@ class User implements UserInterface, \Serializable
                 $contact->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAcceptQuote(): ?bool
+    {
+        return $this->acceptQuote;
+    }
+
+    public function setAcceptQuote(?bool $acceptQuote): self
+    {
+        $this->acceptQuote = $acceptQuote;
 
         return $this;
     }
