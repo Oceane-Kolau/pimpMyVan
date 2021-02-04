@@ -1,11 +1,93 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ExpertController!{% endblock %}
+{% block title %}User{% endblock %}
 
 {% block body %}
-<div class="container-fluid color-topnav">
-    <div class="row">
-
+<div class="container-fluid color-account">
+    <div class="row mb-4">
+        <div class="col-2">
+            <a class="navbar-brand ml-5 pl-5" href="/">
+                {% include 'logoSvg.html.twig' %}
+            </a>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+            <img src="https://i.postimg.cc/fRYNv9gb/nicole-geri-2m-R9ww-Ik-Y1-I-unsplash.jpg"
+                class="img-fluid size-img-account" alt="">
+            <h3 class="mt-3">{{ artisan.firstname }} {{ artisan.lastname }}</h3>
+            <div class="row align-items-center justify-content-center mt-3">
+                <div class="col-lg-1 col-md-1 col-sm-2">
+                    <a target="_blank" href="{{ artisan.instagramLink }}">
+                        <p><i class="fab fa-instagram rs-color"></i></p>
+                    </a>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-2">
+                    <a target="_blank" href="{{ artisan.websiteLink }}">
+                        <p class="rs-color"><i class="fas fa-globe"></i></p>
+                    </a>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-2">
+                    <a target="_blank" href="{{ artisan.facebookLink }}">
+                        <p><i class="fab fa-facebook-square rs-color"></i></p>
+                    </a>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center mt-3">
+                <div class="col-auto">
+                    <p> {{ artisan.companyName }}</p>
+                </div>
+                <div class="col-auto">
+                    <p> {{ artisan.email }}</p>
+                </div>
+                <div class="col-auto">
+                    <p><i class="fas fa-phone-alt"></i> {{ artisan.phone }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-around">
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 text-center">
+            <a href="{{ path('artisan_profile', {'id': artisan.id}) }}">
+                <button type="button" class="btn btn-lg btn-grey m-3">Profil</button>
+            </a>
+            <a href="{{ path('artisan_profile', {'id': artisan.id}) }}">
+                <button type="button" class="btn btn-lg btn-grey m-3">Messages</button>
+            </a>
+            <a href="{{ path('artisan_profile', {'id': artisan.id}) }}">
+                <button type="button" class="btn btn-lg btn-grey m-3">Devis</button>
+            </a>
+        </div>
+        <div class="col-xl-8 col-lg-8 col-md-7 col-sm-12 mr-5">
+            <hr>
+            <div class="row pl-3 mt-4">
+                {% for specificSetup in artisan.specificSetup %}
+                <div class="col-auto">
+                    <p class="setup-type">{{ specificSetup.type }}</p>
+                </div>
+                {% endfor %}
+                {% for generalSetup in artisan.generalSetup %}
+                <div class="col-auto">
+                    <p class="setup-type">{{ generalSetup.type }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="row pl-3">
+                {% for specialtiesVanArtisan in artisan.specialtiesVanArtisan %}
+                <div class="col-auto">
+                    <p><i class="fas fa-plus plus-color"></i> {{ specialtiesVanArtisan.type }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-12 bg-lightgrey">
+                <p class="p-2"> {{ artisan.description }}</p>
+            </div>
+            <div class="col-12 text-right">
+                <a href="{{ path('artisan_edit', {'id': artisan.id}) }}">
+                    <p><i class="fas fa-edit"></i>Editer votre profil</p>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
+
+
 {% endblock %}
