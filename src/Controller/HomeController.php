@@ -15,9 +15,12 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(): Response
+    public function index(UserRepository $userRepository): Response
     {
-        return $this->render('home/index.html.twig');
+        $lastArtisans = $userRepository->artisansHome();
+        return $this->render('home/index.html.twig', [
+            "lastArtisans" => $lastArtisans
+        ]);
     }
 
     /**

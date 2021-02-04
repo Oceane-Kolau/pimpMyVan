@@ -88,5 +88,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         return $query->getQuery()->getResult();
     }
+
+    public function artisansHome()
+    {
+        return $this->createQueryBuilder('user')
+            ->where('user.isValidated = 1')
+            ->andWhere('user.roles LIKE :roles')
+            ->setParameter('roles', '%"' . 'ROLE_ARTISAN' . '"%')
+            ->orderby('user.id', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
     
 }
