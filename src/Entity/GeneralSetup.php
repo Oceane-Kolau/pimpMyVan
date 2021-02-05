@@ -118,5 +118,4 @@ class GeneralSetup
 
         return $this;
     }
-
 }

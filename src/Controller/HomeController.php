@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Data\SearchArtisansData;
 use App\Entity\Contact;
+use App\Entity\QuoteArtisan;
 use App\Entity\User;
 use App\Form\ContactType;
+use App\Form\QuoteArtisanType;
 use App\Form\SearchArtisansType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -76,26 +78,26 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/amenageurs/{slug}/demande-devis", name="home_artisan_devis", methods={"GET", "POST"})
+     * @Route("/amenageurs/{slug}/demande-devis", name="home_artisan_quote", methods={"GET", "POST"})
      */
     public function devisArtisan(User $user, Request $request, MailerService $mailerService): Response
     {
-        $contact = new Contact();
-        $form = $this->createForm(ContactType::class, $contact);
+        $quote = new QuoteArtisan();
+        $form = $this->createForm(QuoteArtisanType::class, $quote);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $contact->setUser($user);
+            $quote->setArtisan($user);
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($contact);
+            $entityManager->persist($quote);
             $entityManager->flush();
-            $mailerService->sendEmailAfterContactArtisan($contact);
+            $mailerService->sendEmailAfterQuoteArtisan($quote);
             return $this->render('home/confirmation_message.html.twig');
         }
-        return $this->render('home/devis_artisan.html.twig', [
+        return $this->render('home/quote_artisan.html.twig', [
             'artisan' => $user,
             'form' => $form->createView(),
-            'contact' => $contact
+            'quote' => $quote
         ]);
     }
 

@@ -186,6 +186,11 @@ class User implements UserInterface, \Serializable
      */
     private $town;
 
+    /**
+     * @ORM\OneToMany(targetEntity=QuoteArtisan::class, mappedBy="artisan")
+     */
+    private $quoteArtisans;
+
 
     public function __construct()
     {
@@ -193,6 +198,7 @@ class User implements UserInterface, \Serializable
         $this->specificSetup = new ArrayCollection();
         $this->specialtiesVanArtisan = new ArrayCollection();
         $this->contacts = new ArrayCollection();
+        $this->quoteArtisans = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -637,6 +643,36 @@ class User implements UserInterface, \Serializable
     public function setTown(?string $town): self
     {
         $this->town = $town;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|QuoteArtisan[]
+     */
+    public function getQuoteArtisans(): Collection
+    {
+        return $this->quoteArtisans;
+    }
+
+    public function addQuoteArtisan(QuoteArtisan $quoteArtisan): self
+    {
+        if (!$this->quoteArtisans->contains($quoteArtisan)) {
+            $this->quoteArtisans[] = $quoteArtisan;
+            $quoteArtisan->setArtisan($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuoteArtisan(QuoteArtisan $quoteArtisan): self
+    {
+        if ($this->quoteArtisans->removeElement($quoteArtisan)) {
+            // set the owning side to null (unless already changed)
+            if ($quoteArtisan->getArtisan() === $this) {
+                $quoteArtisan->setArtisan(null);
+            }
+        }
 
         return $this;
     }

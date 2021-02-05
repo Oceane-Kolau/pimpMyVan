@@ -3,10 +3,10 @@
 namespace App\Form;
 
 use App\Entity\BrandVan;
-use App\Entity\Contact;
 use App\Entity\Floor;
 use App\Entity\GeneralSetup;
 use App\Entity\KilometerVan;
+use App\Entity\QuoteArtisan;
 use App\Entity\SizeVan;
 use App\Entity\SpecialtiesVanArtisan;
 use App\Entity\SpecificSetup;
@@ -18,8 +18,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class QuoteType extends AbstractType
+class QuoteArtisanType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -57,8 +58,8 @@ class QuoteType extends AbstractType
                 'class' => GeneralSetup::class,
                 'choice_label' => 'type',
                 'label' => false,
-                'expanded' => true,
-                'multiple' => true,
+                'expanded' => false,
+                'multiple' => false,
                 'required' => true,
                 'by_reference' => false
             ])
@@ -66,8 +67,8 @@ class QuoteType extends AbstractType
                 'class' => SpecificSetup::class,
                 'choice_label' => 'type',
                 'label' => false,
-                'expanded' => true,
-                'multiple' => true,
+                'expanded' => false,
+                'multiple' => false,
                 'required' => true,
                 'by_reference' => false
             ])
@@ -83,7 +84,7 @@ class QuoteType extends AbstractType
                 'class' => Floor::class,
                 'choice_label' => 'type',
                 'expanded' => false,
-                'multiple' => true,
+                'multiple' => false,
                 'by_reference' => true,
                 'label' => false,
             ])
@@ -139,7 +140,7 @@ class QuoteType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Contact::class,
+            'data_class' => QuoteArtisan::class,
         ]);
     }
 }

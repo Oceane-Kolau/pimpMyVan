@@ -5,6 +5,7 @@ namespace App\Service;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use App\Entity\Contact;
+use App\Entity\QuoteArtisan;
 
 class MailerService
 {
@@ -44,6 +45,21 @@ class MailerService
                 '<p>' . $contact->getEmail() . '</h4> pour lui répondre</p>' .
                 '<p>Sujet: ' . $contact->getSubject() . '</p>' .
                 '<p>' . $contact->getMessage() . '</p>'
+            );
+
+        $this->mailer->send($email);
+    }
+
+    public function sendEmailAfterQuoteArtisan(QuoteArtisan $quote): void
+    {
+        $email = (new TemplatedEmail())
+            ->from('kolau.oceane@gmail.com')
+            ->to($quote->getArtisan()->getEmail())
+            ->subject('Nouveau message de Pimp My Van')
+            ->html(
+                '<p>' . $quote->getFirstname() . ' ' . $quote->getLastname() . '</h4> vous a envoyé un message:</p>' .
+                '<p>' . $quote->getEmail() . '</h4> pour lui répondre</p>' .
+                '<p>' . $quote->getMessage() . '</p>'
             );
 
         $this->mailer->send($email);

@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{artisan.firstname}} {{artisan.lastname}}{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+    {% include "asidenav.html.twig" %}
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="col-xl-8 col-lg-8 col-md-10 col-xs-10 mx-auto bg-lightgrey p-5">
+                <div class="text-center pb-4">
+                    <h2>Votre devis</h2>
+                </div>
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="col-6 pb-3">
+                        {{ form_row(form.firstname) }}
+                    </div>
+                    <div class="col-6 pb-3">
+                        {{ form_row(form.lastname) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 pb-3">
+                        {{ form_row(form.email) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        {{ form_row(form.specificSetup, { 'attr': {'class': 'choice-design'} }) }}
+                    </div>
+                    <div class="col-6">
+                        {{ form_row(form.generalSetup, { 'attr': {'class': 'choice-design'} }) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        {{ form_row(form.typeVan, { 'attr': {'class': 'choice-design'} }) }}
+                    </div>
+                    <div class="col-6">
+                        {{ form_row(form.brandVan, { 'attr': {'class': 'choice-design'} }) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        {{ form_row(form.sizeVan, { 'attr': {'class': 'choice-design'} }) }}
+                    </div>
+                    <div class="col-6">
+                        {{ form_row(form.kilometerVan, { 'attr': {'class': 'choice-design'} }) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        {{ form_row(form.yearVan, { 'attr': {'class': 'choice-design'} }) }}
+                    </div>
+                    <div class="col-6">
+                        {{ form_row(form.floor, { 'attr': {'class': 'choice-design'} }) }}
+                    </div>
+                </div>
+                <div class="col-12">
+                    {{ form_row(form.specialtiesVanArtisan, {
+                    "attr": {
+                    'class': 'selectpicker',
+                    'data-live-search': true,
+                    'data-count-selected-text': '{0} sélectionnés',
+                    'data-actions-box': true,
+                    'title': 'Sélectionner'
+                    }}) }}
+                </div>
+                <div class="row">
+                    <div class="col-12 pb-3">
+                        {{ form_row(form.message) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-12 pb-3">
+                            <small>* Champs obligatoires<br>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="text-center my-4">
+                        <button class="btn btn-turquoise" type="submit" id="submit-contact"><i
+                                class="far fa-paper-plane"></i>
+                            {{
+                            button_label|default('Envoyer') }}</button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

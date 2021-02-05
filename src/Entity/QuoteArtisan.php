@@ -113,6 +113,12 @@ class QuoteArtisan
     private $veneer;
 
     /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="quoteArtisans")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $artisan;
+
+    /**
      * @ORM\ManyToOne(targetEntity=GeneralSetup::class, inversedBy="quoteArtisans")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -120,7 +126,6 @@ class QuoteArtisan
 
     public function __construct()
     {
-        $this->generalSetup = new ArrayCollection();
         $this->specialtiesVanArtisan = new ArrayCollection();
         $this->insulation = new ArrayCollection();
         $this->veneer = new ArrayCollection();
@@ -380,6 +385,18 @@ class QuoteArtisan
     public function removeVeneer(Veneer $veneer): self
     {
         $this->veneer->removeElement($veneer);
+
+        return $this;
+    }
+
+    public function getArtisan(): ?User
+    {
+        return $this->artisan;
+    }
+
+    public function setArtisan(?User $artisan): self
+    {
+        $this->artisan = $artisan;
 
         return $this;
     }
