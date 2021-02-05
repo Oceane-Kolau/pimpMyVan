@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\QuoteArtisanRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -67,6 +69,63 @@ class QuoteArtisan
      * @ORM\ManyToOne(targetEntity=SizeVan::class, inversedBy="quoteArtisans")
      */
     private $sizeVan;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=BrandVan::class, inversedBy="quoteArtisans")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $brandVan;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=YearVan::class, inversedBy="quoteArtisans")
+     */
+    private $yearVan;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=KilometerVan::class, inversedBy="quoteArtisans")
+     */
+    private $kilometerVan;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=SpecificSetup::class, inversedBy="quoteArtisans")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $specificSetup;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=SpecialtiesVanArtisan::class, inversedBy="quoteArtisans")
+     */
+    private $specialtiesVanArtisan;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Floor::class, inversedBy="quoteArtisans")
+     */
+    private $floor;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Insulation::class, inversedBy="quoteArtisans")
+     */
+    private $insulation;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Veneer::class, inversedBy="quoteArtisans")
+     */
+    private $veneer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=GeneralSetup::class, inversedBy="quoteArtisans")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $generalSetup;
+
+    public function __construct()
+    {
+        $this->generalSetup = new ArrayCollection();
+        $this->specialtiesVanArtisan = new ArrayCollection();
+        $this->insulation = new ArrayCollection();
+        $this->veneer = new ArrayCollection();
+        $this->createdAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -189,6 +248,150 @@ class QuoteArtisan
     public function setSizeVan(?SizeVan $sizeVan): self
     {
         $this->sizeVan = $sizeVan;
+
+        return $this;
+    }
+
+    public function getBrandVan(): ?BrandVan
+    {
+        return $this->brandVan;
+    }
+
+    public function setBrandVan(?BrandVan $brandVan): self
+    {
+        $this->brandVan = $brandVan;
+
+        return $this;
+    }
+
+    public function getYearVan(): ?YearVan
+    {
+        return $this->yearVan;
+    }
+
+    public function setYearVan(?YearVan $yearVan): self
+    {
+        $this->yearVan = $yearVan;
+
+        return $this;
+    }
+
+    public function getKilometerVan(): ?KilometerVan
+    {
+        return $this->kilometerVan;
+    }
+
+    public function setKilometerVan(?KilometerVan $kilometerVan): self
+    {
+        $this->kilometerVan = $kilometerVan;
+
+        return $this;
+    }
+
+    public function getSpecificSetup(): ?SpecificSetup
+    {
+        return $this->specificSetup;
+    }
+
+    public function setSpecificSetup(?SpecificSetup $specificSetup): self
+    {
+        $this->specificSetup = $specificSetup;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SpecialtiesVanArtisan[]
+     */
+    public function getSpecialtiesVanArtisan(): Collection
+    {
+        return $this->specialtiesVanArtisan;
+    }
+
+    public function addSpecialtiesVanArtisan(SpecialtiesVanArtisan $specialtiesVanArtisan): self
+    {
+        if (!$this->specialtiesVanArtisan->contains($specialtiesVanArtisan)) {
+            $this->specialtiesVanArtisan[] = $specialtiesVanArtisan;
+        }
+
+        return $this;
+    }
+
+    public function removeSpecialtiesVanArtisan(SpecialtiesVanArtisan $specialtiesVanArtisan): self
+    {
+        $this->specialtiesVanArtisan->removeElement($specialtiesVanArtisan);
+
+        return $this;
+    }
+
+    public function getFloor(): ?Floor
+    {
+        return $this->floor;
+    }
+
+    public function setFloor(?Floor $floor): self
+    {
+        $this->floor = $floor;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Insulation[]
+     */
+    public function getInsulation(): Collection
+    {
+        return $this->insulation;
+    }
+
+    public function addInsulation(Insulation $insulation): self
+    {
+        if (!$this->insulation->contains($insulation)) {
+            $this->insulation[] = $insulation;
+        }
+
+        return $this;
+    }
+
+    public function removeInsulation(Insulation $insulation): self
+    {
+        $this->insulation->removeElement($insulation);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Veneer[]
+     */
+    public function getVeneer(): Collection
+    {
+        return $this->veneer;
+    }
+
+    public function addVeneer(Veneer $veneer): self
+    {
+        if (!$this->veneer->contains($veneer)) {
+            $this->veneer[] = $veneer;
+        }
+
+        return $this;
+    }
+
+    public function removeVeneer(Veneer $veneer): self
+    {
+        $this->veneer->removeElement($veneer);
+
+        return $this;
+    }
+
+    public function getGeneralSetup(): ?GeneralSetup
+    {
+        return $this->generalSetup;
+    }
+
+    public function setGeneralSetup(?GeneralSetup $generalSetup): self
+    {
+        $this->generalSetup = $generalSetup;
 
         return $this;
     }

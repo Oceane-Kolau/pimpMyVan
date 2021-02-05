@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FloorRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,6 +24,16 @@ class Floor
      */
     private $type;
 
+    /**
+     * @ORM\OneToMany(targetEntity=QuoteArtisan::class, mappedBy="floor")
+     */
+    private $quoteArtisans;
+
+    public function __construct()
+    {
+        $this->quoteArtisans = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +47,36 @@ class Floor
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|QuoteArtisan[]
+     */
+    public function getQuoteArtisans(): Collection
+    {
+        return $this->quoteArtisans;
+    }
+
+    public function addQuoteArtisan(QuoteArtisan $quoteArtisan): self
+    {
+        if (!$this->quoteArtisans->contains($quoteArtisan)) {
+            $this->quoteArtisans[] = $quoteArtisan;
+            $quoteArtisan->setFloor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuoteArtisan(QuoteArtisan $quoteArtisan): self
+    {
+        if ($this->quoteArtisans->removeElement($quoteArtisan)) {
+            // set the owning side to null (unless already changed)
+            if ($quoteArtisan->getFloor() === $this) {
+                $quoteArtisan->setFloor(null);
+            }
+        }
 
         return $this;
     }

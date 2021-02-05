@@ -29,6 +29,11 @@ class SpecificSetup
      */
     private $users;
 
+    /**
+     * @ORM\OneToMany(targetEntity=QuoteArtisan::class, mappedBy="specificSetup")
+     */
+    private $quoteArtisans;
+
     public function __toString()
     {
         return $this->type;
@@ -37,6 +42,7 @@ class SpecificSetup
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->quoteArtisans = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -78,6 +84,36 @@ class SpecificSetup
     {
         if ($this->users->removeElement($user)) {
             $user->removeSpecificSetUp($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|QuoteArtisan[]
+     */
+    public function getQuoteArtisans(): Collection
+    {
+        return $this->quoteArtisans;
+    }
+
+    public function addQuoteArtisan(QuoteArtisan $quoteArtisan): self
+    {
+        if (!$this->quoteArtisans->contains($quoteArtisan)) {
+            $this->quoteArtisans[] = $quoteArtisan;
+            $quoteArtisan->setSpecificSetup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuoteArtisan(QuoteArtisan $quoteArtisan): self
+    {
+        if ($this->quoteArtisans->removeElement($quoteArtisan)) {
+            // set the owning side to null (unless already changed)
+            if ($quoteArtisan->getSpecificSetup() === $this) {
+                $quoteArtisan->setSpecificSetup(null);
+            }
         }
 
         return $this;
