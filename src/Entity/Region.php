@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\TownRepository;
+use App\Repository\RegionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=TownRepository::class)
+ * @ORM\Entity(repositoryClass=RegionRepository::class)
  */
-class Town
+class Region
 {
     /**
      * @ORM\Id
@@ -25,7 +25,7 @@ class Town
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="town")
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="region")
      */
     private $users;
 
@@ -68,7 +68,7 @@ class Town
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->setTown($this);
+            $user->setRegion($this);
         }
 
         return $this;
@@ -78,8 +78,8 @@ class Town
     {
         if ($this->users->removeElement($user)) {
             // set the owning side to null (unless already changed)
-            if ($user->getTown() === $this) {
-                $user->setTown(null);
+            if ($user->getRegion() === $this) {
+                $user->setRegion(null);
             }
         }
 

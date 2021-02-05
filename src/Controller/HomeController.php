@@ -70,6 +70,16 @@ class HomeController extends AbstractController
      */
     public function showArtisan(User $user, Request $request, MailerService $mailerService): Response
     {
+        return $this->render('home/show_artisan.html.twig', [
+            'artisan' => $user
+        ]);
+    }
+
+    /**
+     * @Route("/amenageurs/{slug}/demande-devis", name="home_artisan_devis", methods={"GET", "POST"})
+     */
+    public function devisArtisan(User $user, Request $request, MailerService $mailerService): Response
+    {
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
@@ -82,7 +92,31 @@ class HomeController extends AbstractController
             $mailerService->sendEmailAfterContactArtisan($contact);
             return $this->render('home/confirmation_message.html.twig');
         }
-        return $this->render('home/show_artisan.html.twig', [
+        return $this->render('home/devis_artisan.html.twig', [
+            'artisan' => $user,
+            'form' => $form->createView(),
+            'contact' => $contact
+        ]);
+    }
+
+    /**
+     * @Route("/amenageurs/{slug}/contact", name="home_artisan_contact", methods={"GET", "POST"})
+     */
+    public function contactArtisan(User $user, Request $request, MailerService $mailerService): Response
+    {
+        $contact = new Contact();
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $contact->setUser($user);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($contact);
+            $entityManager->flush();
+            $mailerService->sendEmailAfterContactArtisan($contact);
+            return $this->render('home/confirmation_message.html.twig');
+        }
+        return $this->render('home/contact_artisan.html.twig', [
             'artisan' => $user,
             'form' => $form->createView(),
             'contact' => $contact

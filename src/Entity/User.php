@@ -89,10 +89,10 @@ class User implements UserInterface, \Serializable
     private $isValidated;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Town::class, inversedBy="users")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Region::class, inversedBy="users")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $town;
+    private $region;
 
     /**
      * @ORM\ManyToMany(targetEntity=GeneralSetup::class, inversedBy="users")
@@ -180,6 +180,11 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $acceptQuote;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $town;
 
 
     public function __construct()
@@ -376,14 +381,14 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getTown(): ?Town
+    public function getRegion(): ?Region
     {
-        return $this->town;
+        return $this->region;
     }
 
-    public function setTown(?Town $town): self
+    public function setRegion(?Region $region): self
     {
-        $this->town = $town;
+        $this->region = $region;
 
         return $this;
     }
@@ -620,6 +625,18 @@ class User implements UserInterface, \Serializable
     public function setAcceptQuote(?bool $acceptQuote): self
     {
         $this->acceptQuote = $acceptQuote;
+
+        return $this;
+    }
+
+    public function getTown(): ?string
+    {
+        return $this->town;
+    }
+
+    public function setTown(?string $town): self
+    {
+        $this->town = $town;
 
         return $this;
     }

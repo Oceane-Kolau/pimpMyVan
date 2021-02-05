@@ -6,7 +6,7 @@ use App\Entity\User;
 use App\Entity\GeneralSetup;
 use App\Entity\SpecialtiesVanArtisan;
 use App\Entity\SpecificSetup;
-use App\Entity\Town;
+use App\Entity\Region;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -48,6 +48,14 @@ class ArtisanType extends AbstractType
                     'placeholder' => 'Téléphone'
                 ]
             ])
+            ->add('acceptQuote', ChoiceType::class, [
+                'label' => false,
+                'required' => true,
+                'choices' => [
+                    'J\'accepte' => true,
+                    'Non, je n\'accepte que le formulaire de contact' => false
+                ]
+            ])
             ->add('companyName', TextType::class, [
                 'label' => false,
                 'required' => false,
@@ -55,8 +63,8 @@ class ArtisanType extends AbstractType
                     'placeholder' => 'Nom de mon entreprise'
                     ]
             ])
-            // ->add('town', EntityType::class, [
-            //     'class' => Town::class,
+            // ->add('region', EntityType::class, [
+            //     'class' => Region::class,
             //     'choice_label' => 'name',
             //     'label' => false,
             //     'expanded' => false,

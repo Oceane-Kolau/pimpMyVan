@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\GeneralSetup;
 use App\Entity\SpecialtiesVanArtisan;
 use App\Entity\SpecificSetup;
-use App\Entity\Town;
+use App\Entity\Region;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -18,6 +18,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class RegistrationFormType extends AbstractType
@@ -78,12 +79,27 @@ class RegistrationFormType extends AbstractType
                     'placeholder' => 'Téléphone'
                 ]
             ])
+            ->add('town', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Ville'
+                ]
+            ])
             ->add('companyName', TextType::class, [
                 'label' => false,
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Nom de mon entreprise'
                     ]
+            ])
+            ->add('acceptQuote', ChoiceType::class, [
+                'label' => false,
+                'required' => true,
+                'choices' => [
+                    'J\'accepte' => true,
+                    'Non, je n\'accepte que le formulaire de contact' => false
+                ]
             ])
 
             ->add('agreeTerms', CheckboxType::class, [
@@ -95,8 +111,8 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('town', EntityType::class, [
-                'class' => Town::class,
+            ->add('region', EntityType::class, [
+                'class' => Region::class,
                 'choice_label' => 'name',
                 'label' => false,
                 'expanded' => false,
@@ -128,6 +144,7 @@ class RegistrationFormType extends AbstractType
             ->add('generalSetup', EntityType::class, [
                 'class' => GeneralSetup::class,
                 'choice_label' => 'type',
+                'label' => false,
                 'expanded' => true,
                 'multiple' => true,
                 'required' => true,
@@ -136,6 +153,7 @@ class RegistrationFormType extends AbstractType
             ->add('specificSetup', EntityType::class, [
                 'class' => SpecificSetup::class,
                 'choice_label' => 'type',
+                'label' => false,
                 'expanded' => true,
                 'multiple' => true,
                 'required' => true,

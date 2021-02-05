@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Contact;
 use App\Entity\User;
 use App\Form\VanliferType;
+use App\Repository\ContactRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,10 +57,12 @@ class VanliferController extends AbstractController
     /**
      * @Route("/vanlifer-profil/messagerie", methods={"GET"}, name="_messagerie")
      */
-    public function contacts(): Response
+    public function contacts(ContactRepository $contactRepository): Response
     {
         $user = $this->getUser();
-        $contacts = $user->getContacts();
+        $email = $user->getEmail();
+
+        $contacts = $contactRepository->findBy(['email' => $email]);
 
         return $this->render('vanlifer/messagerie.html.twig', [
             'contacts' => $contacts,
@@ -73,6 +76,7 @@ class VanliferController extends AbstractController
     public function contactShow(Contact $contact): Response
     {
         $user = $this->getUser();
+        
         return $this->render('vanlifer/show_messagerie.html.twig', [
             'contact' => $contact,
             'vanlifer' => $user,

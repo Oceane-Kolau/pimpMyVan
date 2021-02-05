@@ -16,11 +16,15 @@ a {
 
 h1 {
     font-size: 55px;
+    font-weight: 300;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5 {
     font-family: oswald, serif;
-    font-weight: 300;
+}
+
+h3, h4, h5 {
+    font-weight: 200;
 }
 
 p {
@@ -138,7 +142,7 @@ border-radius: 12px;
     padding: 5px;
 }
 
-.color-town {
+.color-region {
     font-size: 15px;
 }
 
@@ -204,7 +208,7 @@ border-radius: 12px;
 
 #page-content-wrapper {
     width: 100%;
-    position: absolute;
+    /* position: absolute; */
 }
 
 #wrapper {
@@ -226,8 +230,17 @@ border-radius: 12px;
     backdrop-filter: blur(4px);
 }
 
+::placeholder {
+    font-family: houschka-pro, sans-serif;
+    font-weight: 300;
+    font-size: 19px;
+}
 
-
+.choice-design {
+    font-family: houschka-pro, sans-serif;
+    font-weight: 300;
+    font-size: 19px;
+}
 
 /* .link-for-show-img:hover img {
     /* L'image est grossie de 25% */

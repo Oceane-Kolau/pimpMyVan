@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Town;
+use App\Entity\Region;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Town|null find($id, $lockMode = null, $lockVersion = null)
- * @method Town|null findOneBy(array $criteria, array $orderBy = null)
- * @method Town[]    findAll()
- * @method Town[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Region|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Region|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Region[]    findAll()
+ * @method Region[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TownRepository extends ServiceEntityRepository
+class RegionRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Town::class);
+        parent::__construct($registry, Region::class);
     }
 
     // /**
-    //  * @return Town[] Returns an array of Town objects
+    //  * @return Region[] Returns an array of Region objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class TownRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Town
+    public function findOneBySomeField($value): ?Region
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')

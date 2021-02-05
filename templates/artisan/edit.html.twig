@@ -71,6 +71,16 @@
                         'title': 'Sélectionner'
                         }}) }}
                     </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <p>Vous acceptez que les Vanlifers remplissent une description détaillée de leur projet en
+                                vous
+                                contactant</p>
+                        </div>
+                        <div class="col-6">
+                            {{ form_row(registrationForm.acceptQuote, { 'attr': {'class': 'choice-design'} }) }}
+                        </div>
+                    </div>
                     <div class="col m-12">
                         {{ form_row(form.profilePictureFile) }}
                     </div <div class="row">
