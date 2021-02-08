@@ -14,25 +14,13 @@
                     </a>
                 </div>
                 {% include 'vanlifer/presentation_vanlifer.html.twig' with {vanlifer: vanlifer} only %}
-
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-center ml-4">
-                    <a href="{{ path('vanlifer_profile') }}">
-                        <button type="button" class="btn btn-lg btn-grey m-3">Profil</button>
-                    </a>
-                    <a href="{{ path('vanlifer_profile') }}">
-                        <button type="button" class="btn btn-lg btn-grey m-3">Annonces</button>
-                    </a>
-                    <a href="{{ path('vanlifer_profile')}}">
-                        <button type="button" class="btn btn-lg btn-grey m-3">Messages</button>
-                    </a>
-                </div>
-
+                {% include 'vanlifer/nav_vanlifer.html.twig' with {vanlifer: vanlifer} only %}
             </div>
             <div class="col-xl-8 col-lg-8 col-md-7 col-sm-12 mr-5 bg-lightgrey mx-auto p-5">
                 {% for contact in contacts|reverse %}
                 <div class="row justify-content-around align-items-center">
                     <div class="col-auto">
-                        <p>{{ contact.firstname }} {{ contact.lastname }}</p>
+                        <p>{{ contact.user.firstname }} {{ contact.user.lastname }}</p>
                     </div>
                     <div class="col-auto d-none d-sm-block">
                         <p>{{ contact.subject }}</p>

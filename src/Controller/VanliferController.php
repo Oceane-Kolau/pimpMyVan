@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Entity\QuoteArtisan;
 use App\Entity\User;
 use App\Form\VanliferType;
 use App\Repository\ContactRepository;
+use App\Repository\QuoteArtisanRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,6 +81,35 @@ class VanliferController extends AbstractController
         
         return $this->render('vanlifer/show_messagerie.html.twig', [
             'contact' => $contact,
+            'vanlifer' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/vanlifer-profil/devis", methods={"GET"}, name="_quote")
+     */
+    public function quotes(QuoteArtisanRepository $quoteArtisanRepository): Response
+    {
+        $user = $this->getUser();
+        $email = $user->getEmail();
+
+        $quotes = $quoteArtisanRepository->findBy(['email' => $email]);
+
+        return $this->render('vanlifer/allQuotes_vanlifer.html.twig', [
+            'quotes' => $quotes,
+            'vanlifer' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/vanlifer-profil/devis/{id}", methods={"GET"}, name="_quote_show")
+     */
+    public function quoteShow(QuoteArtisan $quoteArtisan): Response
+    {
+        $user = $this->getUser();
+        
+        return $this->render('quote_artisan.html.twig', [
+            'quote' => $quoteArtisan,
             'vanlifer' => $user,
         ]);
     }
