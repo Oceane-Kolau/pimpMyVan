@@ -111,11 +111,13 @@
                                     <button type="button" class="btn btn-turquoise">Contactez cet artisan</button>
                                 </a>
                             </div>
+                            {% if artisan.acceptQuote == true %}
                             <div class="col-auto">
                                 <a href="{{path('home_artisan_quote', {'slug': artisan.slug})}}">
                                     <button type="button" class="btn btn-grey">Envoyez une demande de devis estimatif</button>
                                 </a>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

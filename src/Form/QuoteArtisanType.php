@@ -48,10 +48,10 @@ class QuoteArtisanType extends AbstractType
             ])
             ->add('message', TextareaType::class, [
                 'label' => false,
-                'required' => true,
+                'required' => false,
                 'attr' => [
-                    'placeholder' => 'Message *',
-                    'rows' => '10'
+                    'placeholder' => 'Message',
+                    'rows' => '7'
                     ]
             ])
             ->add('generalSetup', EntityType::class, [
