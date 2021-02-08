@@ -23,38 +23,27 @@
                     <a href="{{ path('artisan_messagerie', {'id': artisan.id}) }}">
                         <button type="button" class="btn btn-lg btn-grey m-3">Messages</button>
                     </a>
-                    <a href="{{ path('artisan_quote', {'id': artisan.id}) }}">
+                    <a href="{{ path('artisan_profile', {'id': artisan.id}) }}">
                         <button type="button" class="btn btn-lg btn-grey m-3">Devis</button>
                     </a>
                 </div>
-                <div class="col-xl-8 col-lg-8 col-md-7 col-sm-12 mr-5 bg-lightgrey mx-auto">
-                    <div class="row pl-3 mt-4">
-                        {% for specificSetup in artisan.specificSetup %}
+                <div class="col-xl-8 col-lg-8 col-md-7 col-sm-12 mr-5 bg-lightgrey mx-auto p-5">
+                    {% for quote in quotes|reverse %}
+                    <div class="row justify-content-around align-items-center">
                         <div class="col-auto">
-                            <p class="setup-type">{{ specificSetup.type }}</p>
+                            <p>{{ quote.firstname }} {{ quote.lastname }}</p>
                         </div>
-                        {% endfor %}
-                        {% for generalSetup in artisan.generalSetup %}
+                        <div class="col-auto d-none d-sm-block">
+                            <p>{{ quote.projectDate|date('d M Y') }}</p>
+                        </div>
+        
                         <div class="col-auto">
-                            <p class="setup-type">{{ generalSetup.type }}</p>
+                            <p>{{ quote.createdAt|date('d M Y')}}</p>
                         </div>
-                        {% endfor %}
+                            <a href="{{ path('artisan_quote_show', {'id': quote.id}) }}"><button class="btn btn-turquoise"><i class="far fa-eye"></i></button></a></td>
                     </div>
-                    <div class="row pl-3">
-                        {% for specialtiesVanArtisan in artisan.specialtiesVanArtisan %}
-                        <div class="col-auto">
-                            <p><i class="fas fa-plus plus-color"></i> {{ specialtiesVanArtisan.type }}</p>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <div class="col-12">
-                        <p class="p-2"> {{ artisan.description }}</p>
-                    </div>
-                </div>
-                <div class="col-11 text-right pr-5 pt-5">
-                    <a class="hover-link" href="{{ path('artisan_edit', {'id': artisan.id}) }}">
-                        <p></i>Editer mon profil <i class="fas fa-arrow-right"></i></p>
-                    </a>
+                    <hr>
+                    {% endfor %}
                 </div>
             </div>
         </div>

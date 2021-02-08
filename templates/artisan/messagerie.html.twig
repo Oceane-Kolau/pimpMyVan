@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon compte{% endblock %}
+{% block title %}Mes messages{% endblock %}
 
 {% block body %}
 <div class="wrapper">
@@ -13,49 +13,7 @@
                         {% include 'logoSvg.html.twig' %}
                     </a>
                 </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-                    <img src="{{ vich_uploader_asset(artisan, 'profilePictureFile') }}"
-                        class="img-fluid size-img-account" alt="">
-                    <h3 class="mt-3">{{ artisan.firstname }} {{ artisan.lastname }}</h3>
-                    <div class="row align-items-center justify-content-center mt-3">
-                        {% if artisan.instagramLink is not empty %}
-                        <div class="col-lg-1 col-md-1 col-sm-auto">
-                            <a target="_blank" href="{{ artisan.instagramLink }}">
-                                <p><i class="fab fa-instagram rs-color"></i></p>
-                            </a>
-                        </div>
-                        {% endif %}
-                        {% if artisan.websiteLink is not empty %}
-                        <div class="col-lg-1 col-md-1 col-sm-auto">
-                            <a target="_blank" href="{{ artisan.websiteLink }}">
-                                <p class="rs-color"><i class="fas fa-globe"></i></p>
-                            </a>
-                        </div>
-                        {% endif %}
-                        {% if artisan.facebookLink is not empty %}
-                        <div class="col-lg-1 col-md-1 col-sm-auto">
-                            <a target="_blank" href="{{ artisan.facebookLink }}">
-                                <p><i class="fab fa-facebook-square rs-color"></i></p>
-                            </a>
-                        </div>
-                        {% endif %}
-                    </div>
-                    <div class="row align-items-center justify-content-center mt-3">
-                        {% if artisan.companyName is not empty %}
-                        <div class="col-auto">
-                            <p> {{ artisan.companyName }}</p>
-                        </div>
-                        {% endif %}
-                        <div class="col-auto">
-                            <p> {{ artisan.email }}</p>
-                        </div>
-                        {% if artisan.phone is not empty %}
-                        <div class="col-auto">
-                            <p><i class="fas fa-phone-alt"></i> {{ artisan.phone }}</p>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
+                {% include 'artisan/presentation_artisan.html.twig' with {artisan: artisan} only %}
             </div>
             <div class="row justify-content-around align-items-center">
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 text-center ml-4">
