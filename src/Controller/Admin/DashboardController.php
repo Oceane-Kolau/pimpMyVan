@@ -62,17 +62,17 @@ class DashboardController extends AbstractDashboardController
             ->setController(SizeVanCrudController::class),
             MenuItem::linkToCrud('Types', 'fas fa-shuttle-van', TypeVan::class)
             ->setController(TypeVanCrudController::class),
-            MenuItem::linkToCrud('Années', 'fas fa-shuttle-van', YearVan::class)
+            MenuItem::linkToCrud('Années', 'fas fa-sort-numeric-up-alt', YearVan::class)
             ->setController(YearVanCrudController::class),
-            MenuItem::linkToCrud('Kilométrage', 'fas fa-shuttle-van', KilometerVan::class)
+            MenuItem::linkToCrud('Kilométrage', 'fas fa-road', KilometerVan::class)
             ->setController(KilometerVanCrudController::class),
             MenuItem::linkToCrud('Placage', 'fas fa-shuttle-van', Veneer::class)
             ->setController(VeneerCrudController::class),
-            MenuItem::linkToCrud('Isolation', 'fas fa-shuttle-van', Insulation::class)
+            MenuItem::linkToCrud('Isolation', 'fas fa-border-all', Insulation::class)
             ->setController(InsulationCrudController::class),
-            MenuItem::linkToCrud('Sol', 'fas fa-shuttle-van', Floor::class)
+            MenuItem::linkToCrud('Sol', 'fas fa-pallet', Floor::class)
             ->setController(FloorCrudController::class),
-            MenuItem::linkToCrud('Ameublements', 'fas fa-shuttle-van', VanFurnishing::class)
+            MenuItem::linkToCrud('Ameublements', 'fas fa-couch', VanFurnishing::class)
             ->setController(VanFurnishingCrudController::class),
             MenuItem::linkToCrud('Régions', 'fas fa-map-pin', Region::class)
             ->setController(RegionCrudController::class),
