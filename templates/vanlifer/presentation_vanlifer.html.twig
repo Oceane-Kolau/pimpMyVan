@@ -1,0 +1,48 @@
+<div class="col-lg-12 col-md-12 col-sm-12 text-center">
+    {% if vanlifer.profilePictureFile is not empty %}
+    <img src="{{ vich_uploader_asset(vanlifer, 'profilePictureFile') }}"
+        class="img-fluid size-img-account" alt="">
+    {% else %}
+    <img src="https://i.postimg.cc/SxpjbrZB/chinh-le-duc-8-DG9zd-Ucx-Vg-unsplash.jpg"
+        class="img-fluid size-img-account" alt="">
+    {% endif %}
+    <h3 class="mt-3">{{ vanlifer.firstname }} {{ vanlifer.lastname }}</h3>
+    <div class="row align-items-center justify-content-center mt-3">
+        {% if vanlifer.instagramLink is not empty %}
+        <div class="col-lg-1 col-md-1 col-sm-auto">
+            <a target="_blank" href="{{ vanlifer.instagramLink }}">
+                <p><i class="fab fa-instagram rs-color"></i></p>
+            </a>
+        </div>
+        {% endif %}
+        {% if vanlifer.websiteLink is not empty %}
+        <div class="col-lg-1 col-md-1 col-sm-auto">
+            <a target="_blank" href="{{ vanlifer.websiteLink }}">
+                <p class="rs-color"><i class="fas fa-globe"></i></p>
+            </a>
+        </div>
+        {% endif %}
+        {% if vanlifer.facebookLink is not empty %}
+        <div class="col-lg-1 col-md-1 col-sm-auto">
+            <a target="_blank" href="{{ vanlifer.facebookLink }}">
+                <p><i class="fab fa-facebook-square rs-color"></i></p>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+    <div class="row align-items-center justify-content-center mt-3">
+        {% if vanlifer.companyName is not empty %}
+        <div class="col-auto">
+            <p> {{ vanlifer.companyName }}</p>
+        </div>
+        {% endif %}
+        <div class="col-auto">
+            <p> {{ vanlifer.email }}</p>
+        </div>
+        {% if vanlifer.phone is not empty %}
+        <div class="col-auto">
+            <p><i class="fas fa-phone-alt"></i> {{ vanlifer.phone }}</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
