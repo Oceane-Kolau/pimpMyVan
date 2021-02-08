@@ -28,6 +28,11 @@ class YearVan
      * @ORM\OneToMany(targetEntity=QuoteArtisan::class, mappedBy="yearVan")
      */
     private $quoteArtisans;
+    
+    public function __toString()
+    {
+        return $this->name;
+    }
 
     public function __construct()
     {

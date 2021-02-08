@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Data\SearchArtisansData;
+use Knp\Snappy\Pdf;
+use Twig\Environment;
 use App\Entity\Contact;
 use App\Entity\QuoteArtisan;
 use App\Entity\User;
@@ -80,19 +82,23 @@ class HomeController extends AbstractController
     /**
      * @Route("/amenageurs/{slug}/demande-devis", name="home_artisan_quote", methods={"GET", "POST"})
      */
-    public function devisArtisan(User $user, Request $request, MailerService $mailerService): Response
+    public function devisArtisan(User $user, Request $request, MailerService $mailerService, Environment $twig, Pdf $pdf): Response
     {
         $quote = new QuoteArtisan();
         $form = $this->createForm(QuoteArtisanType::class, $quote);
         $form->handleRequest($request);
+        $this->twig = $twig;
+        $this->pdf = $pdf;
 
         if ($form->isSubmitted() && $form->isValid()) {
             $quote->setArtisan($user);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($quote);
             $entityManager->flush();
-            $mailerService->sendEmailAfterQuoteArtisan($quote);
-            return $this->render('home/confirmation_message.html.twig');
+            $html = $this->twig->render('quote_artisan.html.twig', ['quote' => $quote]);
+            $pdf = $this->pdf->getOutputFromHtml($html);
+            $mailerService->sendEmailAfterQuoteArtisan($quote, $pdf);
+            return $this->render('home/confirmation_message.html.twig', ['quote' => $quote]);
         }
         return $this->render('home/quote_artisan.html.twig', [
             'artisan' => $user,

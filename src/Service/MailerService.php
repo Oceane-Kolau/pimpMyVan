@@ -50,7 +50,7 @@ class MailerService
         $this->mailer->send($email);
     }
 
-    public function sendEmailAfterQuoteArtisan(QuoteArtisan $quote): void
+    public function sendEmailAfterQuoteArtisan(QuoteArtisan $quote, $pdf): void
     {
         $email = (new TemplatedEmail())
             ->from('kolau.oceane@gmail.com')
@@ -60,7 +60,10 @@ class MailerService
                 '<p>' . $quote->getFirstname() . ' ' . $quote->getLastname() . '</h4> vous a envoyé un message:</p>' .
                 '<p>' . $quote->getEmail() . '</h4> pour lui répondre</p>' .
                 '<p>' . $quote->getMessage() . '</p>'
-            );
+            )
+            ->context([
+                ])
+                ->attach($pdf, sprintf('demande-devis.pdf', date('Y-m-d')));
 
         $this->mailer->send($email);
     }

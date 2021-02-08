@@ -19,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class QuoteArtisanType extends AbstractType
 {
@@ -30,6 +31,21 @@ class QuoteArtisanType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Prénom *'
+                    ]
+            ])
+            ->add('projectDate', DateType::class, [
+                'widget' => 'choice',
+                'label' => false,
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Date du projet *'
+                    ]
+            ])
+            ->add('phone', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Numéro de téléphone'
                     ]
             ])
             ->add('lastname', TextType::class, [
@@ -52,6 +68,14 @@ class QuoteArtisanType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Message',
                     'rows' => '7'
+                    ]
+            ])
+            ->add('address', TextareaType::class, [
+                'label' => false,
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Adresse',
+                    'rows' => '2'
                     ]
             ])
             ->add('generalSetup', EntityType::class, [

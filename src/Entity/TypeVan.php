@@ -29,6 +29,11 @@ class TypeVan
      */
     private $quoteArtisans;
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function __construct()
     {
         $this->quoteArtisans = new ArrayCollection();

@@ -29,6 +29,11 @@ class Floor
      */
     private $quoteArtisans;
 
+    public function __toString()
+    {
+        return $this->type;
+    }
+
     public function __construct()
     {
         $this->quoteArtisans = new ArrayCollection();
