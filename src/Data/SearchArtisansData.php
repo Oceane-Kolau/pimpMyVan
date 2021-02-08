@@ -4,7 +4,7 @@ namespace App\Data;
 
 use App\Entity\SpecificSetup;
 use App\Entity\GeneralSetup;
-use App\Entity\Town;
+use App\Entity\Region;
 use App\Entity\SpecialtiesVanArtisan;
 
 class SearchArtisansData
@@ -20,9 +20,9 @@ class SearchArtisansData
     public $specialtiesVanArtisan = [];
 
     /**
-     * @var Town[]
+     * @var Region[]
      */
-    public $town = [];
+    public $region = [];
 
     /**
      * @var GeneralSetup[]

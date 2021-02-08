@@ -42,7 +42,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $query = $this
             ->createQueryBuilder('user')
             ->innerJoin('user.specificSetup', 'specificSetup')
-            ->innerJoin('user.town', 'town')
+            ->innerJoin('user.region', 'region')
             ->innerJoin('user.specialtiesVanArtisan', 'specialtiesVanArtisan')
             ->innerJoin('user.generalSetup', 'generalSetup')
             ->where('user.roles LIKE :roles')
@@ -67,17 +67,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                 ->setParameter('specialtiesVanArtisan', $search->specialtiesVanArtisan);
         }
 
-        if (!empty($search->town)) {
+        if (!empty($search->region)) {
             $query = $query
-                ->andWhere('town.id IN (:town)')
-                ->setParameter('town', $search->town);
+                ->andWhere('region.id IN (:region)')
+                ->setParameter('region', $search->region);
         }
 
         if (!empty($search->q)) {
             $query = $query
                 ->andWhere('user.companyName LIKE :q 
                 OR user.description LIKE :q
-                OR town.name LIKE :q
+                OR region.name LIKE :q
                 OR generalSetup.type LIKE :q
                 OR specificSetup.type LIKE :q
                 OR specialtiesVanArtisan.type LIKE :q

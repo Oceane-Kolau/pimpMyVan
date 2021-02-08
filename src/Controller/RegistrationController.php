@@ -38,6 +38,11 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            if ($form->get('acceptQuote')->getData(true)) {
+                $user->setAcceptQuote(true);
+            } else {
+                $user->setAcceptQuote(false);
+            }
             if (!empty($user->getCompanyName())) {
                 $slug = $slugifyService->generate($user->getCompanyName());
                 $user->setSlug($slug);

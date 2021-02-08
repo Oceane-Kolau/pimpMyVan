@@ -89,10 +89,10 @@ class User implements UserInterface, \Serializable
     private $isValidated;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Town::class, inversedBy="users")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Region::class, inversedBy="users")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $town;
+    private $region;
 
     /**
      * @ORM\ManyToMany(targetEntity=GeneralSetup::class, inversedBy="users")
@@ -176,6 +176,21 @@ class User implements UserInterface, \Serializable
      */
     private $contacts;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $acceptQuote;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $town;
+
+    /**
+     * @ORM\OneToMany(targetEntity=QuoteArtisan::class, mappedBy="artisan")
+     */
+    private $quoteArtisans;
+
 
     public function __construct()
     {
@@ -183,6 +198,7 @@ class User implements UserInterface, \Serializable
         $this->specificSetup = new ArrayCollection();
         $this->specialtiesVanArtisan = new ArrayCollection();
         $this->contacts = new ArrayCollection();
+        $this->quoteArtisans = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -371,14 +387,14 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getTown(): ?Town
+    public function getRegion(): ?Region
     {
-        return $this->town;
+        return $this->region;
     }
 
-    public function setTown(?Town $town): self
+    public function setRegion(?Region $region): self
     {
-        $this->town = $town;
+        $this->region = $region;
 
         return $this;
     }
@@ -601,6 +617,60 @@ class User implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($contact->getUser() === $this) {
                 $contact->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAcceptQuote(): ?bool
+    {
+        return $this->acceptQuote;
+    }
+
+    public function setAcceptQuote(?bool $acceptQuote): self
+    {
+        $this->acceptQuote = $acceptQuote;
+
+        return $this;
+    }
+
+    public function getTown(): ?string
+    {
+        return $this->town;
+    }
+
+    public function setTown(?string $town): self
+    {
+        $this->town = $town;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|QuoteArtisan[]
+     */
+    public function getQuoteArtisans(): Collection
+    {
+        return $this->quoteArtisans;
+    }
+
+    public function addQuoteArtisan(QuoteArtisan $quoteArtisan): self
+    {
+        if (!$this->quoteArtisans->contains($quoteArtisan)) {
+            $this->quoteArtisans[] = $quoteArtisan;
+            $quoteArtisan->setArtisan($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuoteArtisan(QuoteArtisan $quoteArtisan): self
+    {
+        if ($this->quoteArtisans->removeElement($quoteArtisan)) {
+            // set the owning side to null (unless already changed)
+            if ($quoteArtisan->getArtisan() === $this) {
+                $quoteArtisan->setArtisan(null);
             }
         }
 

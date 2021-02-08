@@ -11,7 +11,7 @@ use App\Data\SearchArtisansData;
 use App\Entity\GeneralSetup;
 use App\Entity\SpecialtiesVanArtisan;
 use App\Entity\SpecificSetup;
-use App\Entity\Town;
+use App\Entity\Region;
 
 class SearchArtisansType extends AbstractType
 {
@@ -34,10 +34,10 @@ class SearchArtisansType extends AbstractType
                 'multiple' => true
             ])
 
-            ->add('town', EntityType::class, [
+            ->add('region', EntityType::class, [
                 'label' => false,
                 'required' => false,
-                'class' => Town::class,
+                'class' => Region::class,
                 'expanded' => true,
                 'multiple' => true
             ])

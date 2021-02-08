@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SizeVanRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,6 +24,21 @@ class SizeVan
      */
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity=QuoteArtisan::class, mappedBy="sizeVan")
+     */
+    private $quoteArtisans;
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    public function __construct()
+    {
+        $this->quoteArtisans = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +52,36 @@ class SizeVan
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|QuoteArtisan[]
+     */
+    public function getQuoteArtisans(): Collection
+    {
+        return $this->quoteArtisans;
+    }
+
+    public function addQuoteArtisan(QuoteArtisan $quoteArtisan): self
+    {
+        if (!$this->quoteArtisans->contains($quoteArtisan)) {
+            $this->quoteArtisans[] = $quoteArtisan;
+            $quoteArtisan->setSizeVan($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuoteArtisan(QuoteArtisan $quoteArtisan): self
+    {
+        if ($this->quoteArtisans->removeElement($quoteArtisan)) {
+            // set the owning side to null (unless already changed)
+            if ($quoteArtisan->getSizeVan() === $this) {
+                $quoteArtisan->setSizeVan(null);
+            }
+        }
 
         return $this;
     }

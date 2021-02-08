@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\TownRepository;
+use App\Repository\KilometerVanRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=TownRepository::class)
+ * @ORM\Entity(repositoryClass=KilometerVanRepository::class)
  */
-class Town
+class KilometerVan
 {
     /**
      * @ORM\Id
@@ -25,9 +25,9 @@ class Town
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="town")
+     * @ORM\OneToMany(targetEntity=QuoteArtisan::class, mappedBy="kilometerVan")
      */
-    private $users;
+    private $quoteArtisans;
 
     public function __toString()
     {
@@ -36,7 +36,7 @@ class Town
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->quoteArtisans = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -57,29 +57,29 @@ class Town
     }
 
     /**
-     * @return Collection|User[]
+     * @return Collection|QuoteArtisan[]
      */
-    public function getUsers(): Collection
+    public function getQuoteArtisans(): Collection
     {
-        return $this->users;
+        return $this->quoteArtisans;
     }
 
-    public function addUser(User $user): self
+    public function addQuoteArtisan(QuoteArtisan $quoteArtisan): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->setTown($this);
+        if (!$this->quoteArtisans->contains($quoteArtisan)) {
+            $this->quoteArtisans[] = $quoteArtisan;
+            $quoteArtisan->setKilometerVan($this);
         }
 
         return $this;
     }
 
-    public function removeUser(User $user): self
+    public function removeQuoteArtisan(QuoteArtisan $quoteArtisan): self
     {
-        if ($this->users->removeElement($user)) {
+        if ($this->quoteArtisans->removeElement($quoteArtisan)) {
             // set the owning side to null (unless already changed)
-            if ($user->getTown() === $this) {
-                $user->setTown(null);
+            if ($quoteArtisan->getKilometerVan() === $this) {
+                $quoteArtisan->setKilometerVan(null);
             }
         }
 

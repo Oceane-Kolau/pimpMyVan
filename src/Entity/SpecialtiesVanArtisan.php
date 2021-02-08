@@ -29,6 +29,11 @@ class SpecialtiesVanArtisan
      */
     private $users;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=QuoteArtisan::class, mappedBy="specialtiesVanArtisan")
+     */
+    private $quoteArtisans;
+
     public function __toString()
     {
         return $this->type;
@@ -37,6 +42,7 @@ class SpecialtiesVanArtisan
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->quoteArtisans = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -78,6 +84,33 @@ class SpecialtiesVanArtisan
     {
         if ($this->users->removeElement($user)) {
             $user->removeSpecialtiesVanArtisan($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|QuoteArtisan[]
+     */
+    public function getQuoteArtisans(): Collection
+    {
+        return $this->quoteArtisans;
+    }
+
+    public function addQuoteArtisan(QuoteArtisan $quoteArtisan): self
+    {
+        if (!$this->quoteArtisans->contains($quoteArtisan)) {
+            $this->quoteArtisans[] = $quoteArtisan;
+            $quoteArtisan->addSpecialtiesVanArtisan($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuoteArtisan(QuoteArtisan $quoteArtisan): self
+    {
+        if ($this->quoteArtisans->removeElement($quoteArtisan)) {
+            $quoteArtisan->removeSpecialtiesVanArtisan($this);
         }
 
         return $this;

@@ -3,9 +3,13 @@
 namespace App\Controller;
 
 use App\Data\SearchArtisansData;
+use Knp\Snappy\Pdf;
+use Twig\Environment;
 use App\Entity\Contact;
+use App\Entity\QuoteArtisan;
 use App\Entity\User;
 use App\Form\ContactType;
+use App\Form\QuoteArtisanType;
 use App\Form\SearchArtisansType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -70,6 +74,44 @@ class HomeController extends AbstractController
      */
     public function showArtisan(User $user, Request $request, MailerService $mailerService): Response
     {
+        return $this->render('home/show_artisan.html.twig', [
+            'artisan' => $user
+        ]);
+    }
+
+    /**
+     * @Route("/amenageurs/{slug}/demande-devis", name="home_artisan_quote", methods={"GET", "POST"})
+     */
+    public function devisArtisan(User $user, Request $request, MailerService $mailerService, Environment $twig, Pdf $pdf): Response
+    {
+        $quote = new QuoteArtisan();
+        $form = $this->createForm(QuoteArtisanType::class, $quote);
+        $form->handleRequest($request);
+        $this->twig = $twig;
+        $this->pdf = $pdf;
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $quote->setArtisan($user);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($quote);
+            $entityManager->flush();
+            $html = $this->twig->render('quote_artisan.html.twig', ['quote' => $quote]);
+            $pdf = $this->pdf->getOutputFromHtml($html);
+            $mailerService->sendEmailAfterQuoteArtisan($quote, $pdf);
+            return $this->render('home/confirmation_message.html.twig', ['quote' => $quote]);
+        }
+        return $this->render('home/quote_artisan.html.twig', [
+            'artisan' => $user,
+            'form' => $form->createView(),
+            'quote' => $quote
+        ]);
+    }
+
+    /**
+     * @Route("/amenageurs/{slug}/contact", name="home_artisan_contact", methods={"GET", "POST"})
+     */
+    public function contactArtisan(User $user, Request $request, MailerService $mailerService): Response
+    {
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
@@ -82,7 +124,7 @@ class HomeController extends AbstractController
             $mailerService->sendEmailAfterContactArtisan($contact);
             return $this->render('home/confirmation_message.html.twig');
         }
-        return $this->render('home/show_artisan.html.twig', [
+        return $this->render('home/contact_artisan.html.twig', [
             'artisan' => $user,
             'form' => $form->createView(),
             'contact' => $contact
