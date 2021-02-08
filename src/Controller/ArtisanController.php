@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Contact;
+use App\Entity\QuoteArtisan;
 use App\Entity\User;
 use App\Form\ArtisanType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -50,6 +51,11 @@ class ArtisanController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('acceptQuote')->getData(true)) {
+                $user->setAcceptQuote(true);
+            } else {
+                $user->setAcceptQuote(false);
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -96,6 +102,44 @@ class ArtisanController extends AbstractController
         }
         return $this->render('artisan/show_messagerie.html.twig', [
             'contact' => $contact,
+            'artisan' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/artisan-profil/devis", methods={"GET"}, name="_quote")
+     */
+    public function quotes(): Response
+    {
+        $user = $this->getUser();
+        if ($user->getIsValidated() == false) {
+            return $this->render('registration/moderation_artisan.html.twig', [
+                'user' => $user,
+            ]);
+        }
+
+        $quotes = $user->getQuoteArtisans();
+
+        return $this->render('artisan/allQuotes_artisan.html.twig', [
+            'quotes' => $quotes,
+            'artisan' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/artisan-profil/devis/{id}", methods={"GET"}, name="_quote_show")
+     */
+    public function quoteShow(QuoteArtisan $quoteArtisan): Response
+    {
+        $user = $this->getUser();
+        if ($user->getIsValidated() == false) {
+            return $this->render('registration/moderation_artisan.html.twig', [
+                'user' => $user,
+            ]);
+        }
+
+        return $this->render('quote_artisan.html.twig', [
+            'quote' => $quoteArtisan,
             'artisan' => $user,
         ]);
     }

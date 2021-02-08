@@ -12,8 +12,13 @@
                     </a>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 text-center">
-                    <img src="https://i.postimg.cc/fRYNv9gb/nicole-geri-2m-R9ww-Ik-Y1-I-unsplash.jpg"
+                    {% if artisan.profilePictureFile is not empty %}
+                    <img src="{{ vich_uploader_asset(artisan, 'profilePictureFile') }}"
                         class="img-fluid size-img-account" alt="">
+                    {% else %}
+                    <img src="https://i.postimg.cc/4dj33b5R/lucas-favre-DAk-Jbq-15-EI-unsplash.jpg"
+                        class="img-fluid size-img-account" alt="">
+                    {% endif %}
                 </div>
             </div>
             <div class="row justify-content-around align-items-center">
@@ -78,7 +83,7 @@
                                 contactant</p>
                         </div>
                         <div class="col-6">
-                            {{ form_row(registrationForm.acceptQuote, { 'attr': {'class': 'choice-design'} }) }}
+                            {{ form_row(form.acceptQuote, { 'attr': {'class': 'choice-design'} }) }}
                         </div>
                     </div>
                     <div class="col m-12">
