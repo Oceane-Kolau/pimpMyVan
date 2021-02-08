@@ -1,0 +1,261 @@
+:root {
+    --lightturquoise : #a3d2ca;
+    --oorange : #db6400;
+    --darkturquoise : #5eaaa8;
+    --lightgrey : #F1F6F8;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration:none;
+    color: black;
+}
+
+h1 {
+    font-size: 55px;
+    font-weight: 300;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: oswald, serif;
+}
+
+h3, h4, h5 {
+    font-weight: 200;
+}
+
+p {
+    font-family: houschka-pro, sans-serif;
+    font-weight: 300;
+    font-size: 19px;
+}
+
+button {
+    font-family: houschka-pro, sans-serif;
+    font-weight: 500;
+}
+
+.nav-item {
+    font-family: bebas-neue-pro, sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 22px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color:black;
+}
+
+.color-topnav {
+    background-color: var(--darkturquoise);
+    height: 20px;
+}
+
+.btn-turquoise {
+    background-color: #A3D2CA;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+    border-radius: 12px;
+}
+
+.btn-grey {
+background-color: #F1F6F8;
+box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+backdrop-filter: blur(4px);
+border-radius: 12px;
+}
+
+.img-size {
+    width: 800px;
+}
+
+.filter {
+    border: 2px solid --lightgrey;
+    border-radius: 46px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+}
+
+.btn-orange {
+    background-color: var(--oorange);
+    color: white;
+}
+
+.color-account {
+    background: linear-gradient(#a3d2ca, #F1F6F8);
+    height: 250px;
+}
+
+.size-img-account {
+    width: 350px;
+    padding-top: 5px;
+}
+
+.rs-color {
+    color: var(--darkturquoise);
+    font-size: 24px;
+}
+
+.bg-lightgrey {
+    background-color: var(--lightgrey);
+    border-radius: 12px;
+}
+
+.contact-color {
+    color: #d4d6d7;
+    font-size: 19px;
+}
+
+.plus-color {
+    color: var(--oorange);
+}
+
+.setup-type {
+    border: 1px solid var(--oorange);
+    padding: 7px;
+    border-radius: 20px;
+    font-size:17px;
+}
+
+.color-letter {
+    color: var(--darkturquoise);
+}
+
+.hover-link:hover {
+    color: var(--oorange);
+    text-decoration: none;
+}
+
+.border-pres {
+    background-color: white;
+    margin-top: -30px;
+}
+
+.img-form {
+    border-radius: 20px;
+}
+
+.card {
+    border-radius: 20px;
+    padding: 5px;
+}
+
+.color-region {
+    font-size: 15px;
+}
+
+.plus-color-card {
+    color: var(--oorange);
+    font-size: 15px;
+}
+
+.size-specialties {
+    font-size: 16px;
+    padding: 0px;
+}
+
+.link-for-show:hover {
+    text-decoration:none;
+    color: black;
+}
+
+.link-for-show-img:hover {
+    filter: brightness(80%);
+-webkit-filter: brightness(80%);
+}
+
+.name {
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.size-img-show {
+    width: 800px;
+    padding-top: 5px;
+    border-radius: 20px;
+}
+
+.size-img-gallery {
+    width: 360px;
+    border-radius: 20px;
+}
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    right: 250px;
+    width: 0;
+    height: auto;
+    margin-right: -250px;
+    overflow-y: auto;
+    background: var(--darkturquoise);
+    color: white;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    /* position: absolute; */
+}
+
+#wrapper {
+    padding-right: 250px;
+}
+
+#sidebar-wrapper {
+    width: 50px;
+    overflow: hidden;
+}
+
+#sidebar-wrapper a {
+    color: white;
+}
+
+.bg-lightgrey-contact {
+    background-color: var(--lightgrey);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+}
+
+::placeholder {
+    font-family: houschka-pro, sans-serif;
+    font-weight: 300;
+    font-size: 19px;
+}
+
+.choice-design {
+    font-family: houschka-pro, sans-serif;
+    font-weight: 300;
+    font-size: 19px;
+}
+
+/* .link-for-show-img:hover img {
+    /* L'image est grossie de 25% */
+    -webkit-transform:scale(1.25); /* Safari et Chrome */
+    -moz-transform:scale(1.25); /* Firefox */
+    -ms-transform:scale(1.25); /* Internet Explorer 9 */
+    -o-transform:scale(1.25); /* Opera */
+    transform:scale(1.25);
+    }
+    
+    .link-for-show-img img {
+        /* La transition s'applique à la fois sur la largeur et la hauteur, avec une durée d'une seconde. */
+        -webkit-transition: all 1s ease; /* Safari et Chrome */
+        -moz-transition: all 1s ease; /* Firefox */
+        -ms-transition: all 1s ease; /* Internet Explorer 9 */
+        -o-transition: all 1s ease; /* Opera */
+        transition: all 1s ease;
+    } */

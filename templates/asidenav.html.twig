@@ -1,0 +1,50 @@
+<div id="sidebar-wrapper">
+    {% if app.user is not null %}
+    <ul class="sidebar-nav nav navbar-inverse mx-3">
+        {% if app.user.roles[0] == "ROLE_ARTISAN" %}
+        <li>
+            <a class="navbar-brand" href="{{path('artisan_profile')}}">
+                <i class="fas fa-user-circle"></i>
+            </a>
+        </li>
+        {% endif %}
+        {% if app.user.roles[0] == "ROLE_VANLIFER" %}
+        <li>
+            <a class="navbar-brand" href="{{path('vanlifer_profile')}}">
+                <i class="fas fa-user-circle"></i>
+            </a>
+        </li>
+        {% endif %}
+        {% if app.user.roles[0] == "ROLE_ADMIN" %}
+        <li>
+            <a class="navbar-brand" href="{{path('admin')}}">
+                <i class="fas fa-user-circle"></i>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+    {% endif %}
+    <ul class="sidebar-nav nav navbar-inverse mx-3">
+        <li>
+            {% if app.user is null %}
+            <a class="navbar-brand" href="{{path('app_login')}}"><i class="fas fa-user-circle"></i>
+            </a>
+            {% else %}
+            <a class="navbar-brand" href="{{path('app_logout')}}"><i class="fas fa-sign-out-alt"></i>
+            </a>
+            {% endif %}
+        </li>
+    </ul>
+    <ul class="sidebar-nav nav navbar-inverse mx-3">
+        <li>
+            <a class="navbar-brand" href="{{path('home_contact')}}"><i class="fas fa-envelope"></i>
+            </a>
+        </li>
+    </ul>
+    <ul class="sidebar-nav nav navbar-inverse mx-3">
+        <li>
+            <a class="navbar-brand" href="{{path('home_contact')}}"><i class="fas fa-blog"></i>
+            </a>
+        </li>
+    </ul>
+</div>

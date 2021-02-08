@@ -1,0 +1,38 @@
+<div class="container-fluid color-topnav">
+</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand ml-5 pl-5" href="/">
+            {% include 'logoSvg.html.twig' %}
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="row align-items-center justify-content-center">
+                <div class="navbar-nav mx-auto my-auto ml-5 pl-5">
+                    <div class="col-auto nav-item ml-lg-3 pl-lg-3 ml-md-0 pl-md-0">
+                        <a class="nav-link" href="{{ path('home_allArtisans')}}">Trouver un aménageur</a>
+                    </div>
+                    <div class="col-auto nav-item ml-lg-3 pl-lg-3 ml-md-0 pl-md-0">
+                        <a class="nav-link" href="{{ path('home_allArtisans')}}">Aménager son van seul</a>
+                    </div>
+                    <div class="col-auto nav-item ml-lg-3 pl-lg-3 ml-md-0 pl-md-0">
+                        <a class="nav-link" href="{{ path('home_allArtisans')}}">Acheter un van d'occasion</a>
+                    </div>
+                    <div class="col-auto nav-item ml-lg-3 pl-lg-3 ml-md-0 pl-md-0">
+                        {% if app.user is null %}
+                        <a class="nav-link" href="{{path('app_register_vanlifer')}}">
+                            Inscription Vanlifer
+                        </a>
+                        <a class="nav-link" href="{{path('app_register_artisan')}}">
+                            Inscription Aménageur
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

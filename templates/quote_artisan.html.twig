@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <hr>
+    <row>
+        <columns>
+            <p>
+                Demande de devis numéro #{{quote.id}}, effectuée le {{quote.createdAt|date("d m Y")}}<br>
+                {{quote.firstname}} {{quote.lastname}}<br>
+                {{quote.phone}}<br>
+                {{quote.email}}<br>
+                {{quote.address}}<br>
+            </p>
+        </columns>
+    </row>
+    <table class="table table-striped">
+        <tbody>
+          <tr>
+            <th scope="row">Date du projet : {{quote.projectDate|date("d m Y")}}</th>
+            <td>{{quote.typeVan}} {{quote.brandVan}}</td>
+            <td>{{quote.sizeVan}} {{quote.kilometerVan}}</td>
+            <td>{{quote.yearVan}}</td>
+          </tr>
+          <tr>
+            <td>{{quote.specificSetup}}</td>
+            <td>{{quote.generalSetup}}</td>
+            <td>{% for specialtiesVanArtisan in quote.specialtiesVanArtisan %}
+                {{specialtiesVanArtisan.type}}
+                {% endfor %}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row"></th>
+            <td>{{quote.floor}}</td>
+            <td>{% for veneer in quote.veneer %}
+                {{veneer.type}}
+                {% endfor %}</td>
+            <td>{% for insulation in quote.insulation %}
+                {{insulation.type}}
+                {% endfor %}</td>
+          </tr>
+        </tbody>
+      </table>
+</body>
+</html>
