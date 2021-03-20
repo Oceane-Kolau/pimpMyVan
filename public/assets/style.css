@@ -84,7 +84,7 @@ border-radius: 12px;
 }
 
 .color-account {
-    background: linear-gradient(#a3d2ca, #F1F6F8);
+    background: linear-gradient(#5eaaa8, #F1F6F8);
     height: 250px;
 }
 
@@ -101,6 +101,8 @@ border-radius: 12px;
 .bg-lightgrey {
     background-color: var(--lightgrey);
     border-radius: 12px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
 }
 
 .contact-color {
@@ -191,6 +193,7 @@ border-radius: 12px;
 }
 
 #sidebar-wrapper {
+    margin-top: 10rem;
     z-index: 1000;
     position: fixed;
     right: 250px;
@@ -250,5 +253,9 @@ border-radius: 12px;
     font-family: oswald, serif;
     font-size: 35px;
     font-weight: 300;
+    color: var(--oorange);
+}
+
+.txt-orange {
     color: var(--oorange);
 }

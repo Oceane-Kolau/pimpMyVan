@@ -67,8 +67,8 @@ class QuoteArtisanType extends AbstractType
                 'label' => false,
                 'required' => false,
                 'attr' => [
-                    'placeholder' => 'Message',
-                    'rows' => '7'
+                    'placeholder' => 'Ecrivez vore message...',
+                    'rows' => '4'
                     ]
             ])
             ->add('address', TextareaType::class, [
