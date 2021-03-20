@@ -124,12 +124,18 @@ class QuoteArtisan
      */
     private $generalSetup;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=VanFurnishing::class, inversedBy="quoteArtisans")
+     */
+    private $vanFurnishing;
+
     public function __construct()
     {
         $this->specialtiesVanArtisan = new ArrayCollection();
         $this->insulation = new ArrayCollection();
         $this->veneer = new ArrayCollection();
         $this->createdAt = new \DateTime();
+        $this->vanFurnishing = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -409,6 +415,30 @@ class QuoteArtisan
     public function setGeneralSetup(?GeneralSetup $generalSetup): self
     {
         $this->generalSetup = $generalSetup;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|VanFurnishing[]
+     */
+    public function getVanFurnishing(): Collection
+    {
+        return $this->vanFurnishing;
+    }
+
+    public function addVanFurnishing(VanFurnishing $vanFurnishing): self
+    {
+        if (!$this->vanFurnishing->contains($vanFurnishing)) {
+            $this->vanFurnishing[] = $vanFurnishing;
+        }
+
+        return $this;
+    }
+
+    public function removeVanFurnishing(VanFurnishing $vanFurnishing): self
+    {
+        $this->vanFurnishing->removeElement($vanFurnishing);
 
         return $this;
     }

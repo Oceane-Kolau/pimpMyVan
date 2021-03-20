@@ -29,6 +29,11 @@ class Floor
      */
     private $quoteArtisans;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AdsVan::class, mappedBy="floor")
+     */
+    private $adsVans;
+
     public function __toString()
     {
         return $this->type;
@@ -37,6 +42,7 @@ class Floor
     public function __construct()
     {
         $this->quoteArtisans = new ArrayCollection();
+        $this->adsVans = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -80,6 +86,36 @@ class Floor
             // set the owning side to null (unless already changed)
             if ($quoteArtisan->getFloor() === $this) {
                 $quoteArtisan->setFloor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AdsVan[]
+     */
+    public function getAdsVans(): Collection
+    {
+        return $this->adsVans;
+    }
+
+    public function addAdsVan(AdsVan $adsVan): self
+    {
+        if (!$this->adsVans->contains($adsVan)) {
+            $this->adsVans[] = $adsVan;
+            $adsVan->setFloor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdsVan(AdsVan $adsVan): self
+    {
+        if ($this->adsVans->removeElement($adsVan)) {
+            // set the owning side to null (unless already changed)
+            if ($adsVan->getFloor() === $this) {
+                $adsVan->setFloor(null);
             }
         }
 

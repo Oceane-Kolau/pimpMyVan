@@ -29,6 +29,11 @@ class TypeVan
      */
     private $quoteArtisans;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AdsVan::class, mappedBy="typeVan")
+     */
+    private $adsVans;
+
     public function __toString()
     {
         return $this->name;
@@ -37,6 +42,7 @@ class TypeVan
     public function __construct()
     {
         $this->quoteArtisans = new ArrayCollection();
+        $this->adsVans = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -80,6 +86,36 @@ class TypeVan
             // set the owning side to null (unless already changed)
             if ($quoteArtisan->getTypeVan() === $this) {
                 $quoteArtisan->setTypeVan(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AdsVan[]
+     */
+    public function getAdsVans(): Collection
+    {
+        return $this->adsVans;
+    }
+
+    public function addAdsVan(AdsVan $adsVan): self
+    {
+        if (!$this->adsVans->contains($adsVan)) {
+            $this->adsVans[] = $adsVan;
+            $adsVan->setTypeVan($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdsVan(AdsVan $adsVan): self
+    {
+        if ($this->adsVans->removeElement($adsVan)) {
+            // set the owning side to null (unless already changed)
+            if ($adsVan->getTypeVan() === $this) {
+                $adsVan->setTypeVan(null);
             }
         }
 

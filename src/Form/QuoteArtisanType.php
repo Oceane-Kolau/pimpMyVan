@@ -11,6 +11,7 @@ use App\Entity\SizeVan;
 use App\Entity\SpecialtiesVanArtisan;
 use App\Entity\SpecificSetup;
 use App\Entity\TypeVan;
+use App\Entity\VanFurnishing;
 use App\Entity\YearVan;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -99,6 +100,14 @@ class QuoteArtisanType extends AbstractType
             ->add('specialtiesVanArtisan', EntityType::class, [
                 'class' => SpecialtiesVanArtisan::class,
                 'choice_label' => 'type',
+                'expanded' => false,
+                'multiple' => true,
+                'by_reference' => true,
+                'label' => false,
+            ])
+            ->add('vanFurnishing', EntityType::class, [
+                'class' => VanFurnishing::class,
+                'choice_label' => 'name',
                 'expanded' => false,
                 'multiple' => true,
                 'by_reference' => true,
