@@ -13,7 +13,7 @@
                         {% include 'logoSvg.html.twig' %}
                     </a>
                 </div>
-                {% include 'vanlifer/presentation_vanlifer.html.twig' with {vanlifer: vanlifer} only %}
+                {% include 'vanlifer/profile/presentation_vanlifer.html.twig' with {vanlifer: vanlifer} only %}
                 {% include 'vanlifer/nav_vanlifer.html.twig' with {vanlifer: vanlifer} only %}
                 <div class="col-11 text-right pr-5 pt-5">
                     <a class="hover-link" href="{{ path('vanlifer_edit', {'slug': vanlifer.slug, 'id': vanlifer.id}) }}">

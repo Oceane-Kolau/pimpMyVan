@@ -34,7 +34,7 @@ class VanliferController extends AbstractController
     public function index(): Response
     {
         $user = $this->getUser();
-        return $this->render('vanlifer/index.html.twig', [
+        return $this->render('vanlifer/profile/index.html.twig', [
             'vanlifer' => $user,
         ]);
     }
@@ -56,7 +56,7 @@ class VanliferController extends AbstractController
             return $this->redirectToRoute('vanlifer_profile');
         }
 
-        return $this->render('vanlifer/edit.html.twig', [
+        return $this->render('vanlifer/profile/edit.html.twig', [
             'vanlifer' => $user,
             'form' => $form->createView(),
         ]);
@@ -72,7 +72,7 @@ class VanliferController extends AbstractController
 
         $contacts = $contactRepository->findBy(['email' => $email]);
 
-        return $this->render('vanlifer/messagerie.html.twig', [
+        return $this->render('vanlifer/messagerie/messagerie.html.twig', [
             'contacts' => $contacts,
             'vanlifer' => $user,
         ]);
@@ -85,7 +85,7 @@ class VanliferController extends AbstractController
     {
         $user = $this->getUser();
         
-        return $this->render('vanlifer/show_messagerie.html.twig', [
+        return $this->render('vanlifer/messagerie/show_messagerie.html.twig', [
             'contact' => $contact,
             'vanlifer' => $user,
         ]);
@@ -121,17 +121,17 @@ class VanliferController extends AbstractController
     }
 
     /**
-     * @Route("annonces", name="ads_van_index", methods={"GET"})
+     * @Route("annonces", name="_ads_van_index", methods={"GET"})
      */
     public function allAds(AdsVanRepository $adsVanRepository): Response
     {
-        return $this->render('ads_van/index.html.twig', [
+        return $this->render('vanlifer/ads_van/index.html.twig', [
             'ads_vans' => $adsVanRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("nouvelle-annonce", name="ads_van_new", methods={"GET","POST"})
+     * @Route("nouvelle-annonce", name="_ads_van_new", methods={"GET","POST"})
      */
     public function newAds(Request $request): Response
     {
@@ -147,24 +147,24 @@ class VanliferController extends AbstractController
             return $this->redirectToRoute('ads_van_index');
         }
 
-        return $this->render('ads_van/new.html.twig', [
+        return $this->render('vanlifer/ads_van/new.html.twig', [
             'ads_van' => $adsVan,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("annonce/{id}", name="ads_van_show", methods={"GET"}), requirements={"id"="\d+"})
+     * @Route("annonce/{id}", name="_ads_van_show", methods={"GET"}), requirements={"id"="\d+"})
      */
     public function showAds(AdsVan $adsVan): Response
     {
-        return $this->render('ads_van/show.html.twig', [
+        return $this->render('vanlifer/ads_van/show.html.twig', [
             'ads_van' => $adsVan,
         ]);
     }
 
     /**
-     * @Route("annonce/edit/{id}", name="ads_van_edit", methods={"GET","POST"}), requirements={"id"="\d+"})
+     * @Route("annonce/edit/{id}", name="_ads_van_edit", methods={"GET","POST"}), requirements={"id"="\d+"})
      */
     public function editAds(Request $request, AdsVan $adsVan): Response
     {
@@ -177,14 +177,14 @@ class VanliferController extends AbstractController
             return $this->redirectToRoute('ads_van_index');
         }
 
-        return $this->render('ads_van/edit.html.twig', [
+        return $this->render('vanlifer/ads_van/edit.html.twig', [
             'ads_van' => $adsVan,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("annonce/supprimer/{id}", name="ads_van_delete", methods={"DELETE"}), requirements={"id"="\d+"})
+     * @Route("annonce/supprimer/{id}", name="_ads_van_delete", methods={"DELETE"}), requirements={"id"="\d+"})
      */
     public function deleteAds(Request $request, AdsVan $adsVan): Response
     {

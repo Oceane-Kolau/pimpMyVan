@@ -19,8 +19,8 @@
                 <td>{{ ads_van.id }}</td>
                 <td>{{ ads_van.description }}</td>
                 <td>
-                    <a href="{{ path('ads_van_show', {'id': ads_van.id}) }}">show</a>
-                    <a href="{{ path('ads_van_edit', {'id': ads_van.id}) }}">edit</a>
+                    <a href="{{ path('vanlifer_ads_van_show', {'id': ads_van.id}) }}">show</a>
+                    <a href="{{ path('vanlifer_ads_van_edit', {'id': ads_van.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +31,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('ads_van_new') }}">Create new</a>
+    <a href="{{ path('vanlifer_ads_van_new', {'slug': vanlifer.slug}) }}">Create new</a>
 {% endblock %}
