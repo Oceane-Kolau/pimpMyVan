@@ -85,7 +85,7 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setRoles(['ROLE_VANLIFER']);
             $user->setIsValidated(true);
-            $slug = $slugifyService->generate($user->getLastname());
+            $slug = $slugifyService->generate($user->getLastname().'-'.$user->getId());
             $user->setSlug($slug);
             $user->setPassword(
                 $passwordEncoder->encodePassword(

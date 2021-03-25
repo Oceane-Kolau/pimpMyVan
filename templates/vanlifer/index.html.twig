@@ -16,7 +16,7 @@
                 {% include 'vanlifer/presentation_vanlifer.html.twig' with {vanlifer: vanlifer} only %}
                 {% include 'vanlifer/nav_vanlifer.html.twig' with {vanlifer: vanlifer} only %}
                 <div class="col-11 text-right pr-5 pt-5">
-                    <a class="hover-link" href="{{ path('vanlifer_edit', {'slug': app.user.slug, 'id': vanlifer.id}) }}">
+                    <a class="hover-link" href="{{ path('vanlifer_edit', {'slug': vanlifer.slug, 'id': vanlifer.id}) }}">
                         <p></i>Editer mon profil <i class="fas fa-arrow-right"></i></p>
                     </a>
                 </div>

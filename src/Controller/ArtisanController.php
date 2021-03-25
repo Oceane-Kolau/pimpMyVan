@@ -6,20 +6,24 @@ use App\Entity\Contact;
 use App\Entity\QuoteArtisan;
 use App\Entity\User;
 use App\Form\ArtisanType;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
- * @Route(name="artisan")
+ * @Route("artisan/{slug}/", name="artisan")
+ * @ParamConverter("user", class="App\Entity\User", options={"mapping": {"slug": "slug"}})
  * @IsGranted("ROLE_ARTISAN")
  */
 class ArtisanController extends AbstractController
 {
     /**
-     * @Route("/artisan-profil", methods={"GET"}, name="_profile")
+     * @Route("", methods={"GET"}, name="_profile")
      */
     public function index(): Response
     {
@@ -36,7 +40,7 @@ class ArtisanController extends AbstractController
     }
 
     /**
-     * @Route("/artisan-profil/edit/{id}", name="_edit", methods={"GET","POST"})
+     * @Route("edit/{id}", name="_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, User $user): Response
     {
@@ -70,7 +74,7 @@ class ArtisanController extends AbstractController
     }
 
     /**
-     * @Route("/artisan-profil/messagerie", methods={"GET"}, name="_messagerie")
+     * @Route("messagerie", methods={"GET"}, name="_messagerie")
      */
     public function contacts(): Response
     {
@@ -90,7 +94,7 @@ class ArtisanController extends AbstractController
     }
 
     /**
-     * @Route("/artisan-profil/messagerie/{id}", methods={"GET"}, name="_messagerie_show")
+     * @Route("messagerie/{id}", methods={"GET"}, name="_messagerie_show")
      */
     public function contactShow(Contact $contact): Response
     {
@@ -107,7 +111,7 @@ class ArtisanController extends AbstractController
     }
 
     /**
-     * @Route("/artisan-profil/devis", methods={"GET"}, name="_quote")
+     * @Route("devis", methods={"GET"}, name="_quote")
      */
     public function quotes(): Response
     {
@@ -127,7 +131,7 @@ class ArtisanController extends AbstractController
     }
 
     /**
-     * @Route("/artisan-profil/devis/{id}", methods={"GET"}, name="_quote_show")
+     * @Route("devis/{id}", methods={"GET"}, name="_quote_show")
      */
     public function quoteShow(QuoteArtisan $quoteArtisan): Response
     {
