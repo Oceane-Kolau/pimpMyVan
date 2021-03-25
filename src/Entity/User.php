@@ -196,6 +196,10 @@ class User implements UserInterface, \Serializable
      */
     private $adsVans;
 
+    public function __toString()
+    {
+        return $this->firstname;
+    }
 
     public function __construct()
     {

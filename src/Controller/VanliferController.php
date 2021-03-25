@@ -53,7 +53,10 @@ class VanliferController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('vanlifer_profile');
+            return $this->redirectToRoute('vanlifer_profile',
+            [
+                'slug' => $user->getSlug(),
+            ]);
         }
 
         return $this->render('vanlifer/profile/edit.html.twig', [
@@ -125,8 +128,10 @@ class VanliferController extends AbstractController
      */
     public function allAds(AdsVanRepository $adsVanRepository): Response
     {
+        $user = $this->getUser();
         return $this->render('vanlifer/ads_van/index.html.twig', [
             'ads_vans' => $adsVanRepository->findAll(),
+            'vanlifer' => $user,
         ]);
     }
 
@@ -135,6 +140,7 @@ class VanliferController extends AbstractController
      */
     public function newAds(Request $request): Response
     {
+        $user = $this->getUser();
         $adsVan = new AdsVan();
         $form = $this->createForm(AdsVanType::class, $adsVan);
         $form->handleRequest($request);
@@ -144,12 +150,16 @@ class VanliferController extends AbstractController
             $entityManager->persist($adsVan);
             $entityManager->flush();
 
-            return $this->redirectToRoute('ads_van_index');
+            return $this->redirectToRoute('vanlifer_ads_van_index',
+            [
+                'slug' => $user->getSlug(),
+            ]);
         }
 
         return $this->render('vanlifer/ads_van/new.html.twig', [
             'ads_van' => $adsVan,
             'form' => $form->createView(),
+            'vanlifer' => $user
         ]);
     }
 
@@ -158,8 +168,10 @@ class VanliferController extends AbstractController
      */
     public function showAds(AdsVan $adsVan): Response
     {
+        $user = $this->getUser();
         return $this->render('vanlifer/ads_van/show.html.twig', [
             'ads_van' => $adsVan,
+            'vanlifer' => $user,
         ]);
     }
 
@@ -168,32 +180,42 @@ class VanliferController extends AbstractController
      */
     public function editAds(Request $request, AdsVan $adsVan): Response
     {
+        $user = $this->getUser();
         $form = $this->createForm(AdsVanType::class, $adsVan);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('ads_van_index');
+            return $this->redirectToRoute('vanlifer_ads_van_index',
+            [
+                'slug' => $user->getSlug(),
+            ]);
         }
 
         return $this->render('vanlifer/ads_van/edit.html.twig', [
             'ads_van' => $adsVan,
             'form' => $form->createView(),
+            'vanlifer' => $user,
         ]);
     }
 
     /**
      * @Route("annonce/supprimer/{id}", name="_ads_van_delete", methods={"DELETE"}), requirements={"id"="\d+"})
+     * @ParamConverter("adsVan", class="App\Entity\AdsVan", options={"mapping": {"id" = "adsVan_id"}})
      */
     public function deleteAds(Request $request, AdsVan $adsVan): Response
     {
+        $user = $this->getUser();
         if ($this->isCsrfTokenValid('delete'.$adsVan->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($adsVan);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('ads_van_index');
+        return $this->redirectToRoute('vanlifer_ads_van_index',
+        [
+            'slug' => $user->getSlug(),
+        ]);
     }
 }

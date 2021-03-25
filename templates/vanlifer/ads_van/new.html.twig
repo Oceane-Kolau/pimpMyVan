@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Create new AdsVan</h1>
 
-    {{ include('ads_van/_form.html.twig') }}
+    {{ include('vanlifer/ads_van/_form.html.twig') }}
 
-    <a href="{{ path('vanlifer_ads_van_index') }}">back to list</a>
+    <a href="{{ path('vanlifer_ads_van_index', {'slug': vanlifer.slug}) }}">back to list</a>
 {% endblock %}
