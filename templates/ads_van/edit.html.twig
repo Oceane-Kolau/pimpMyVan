@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit AdsVan{% endblock %}
+
+{% block body %}
+    <h1>Edit AdsVan</h1>
+
+    {{ include('ads_van/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('ads_van_index') }}">back to list</a>
+
+    {{ include('ads_van/_delete_form.html.twig') }}
+{% endblock %}

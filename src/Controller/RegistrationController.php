@@ -47,7 +47,7 @@ class RegistrationController extends AbstractController
                 $slug = $slugifyService->generate($user->getCompanyName());
                 $user->setSlug($slug);
             } else {
-                $slug = $slugifyService->generate($user->getFirstname().'-'.$user->getLastname());
+                $slug = $slugifyService->generate($user->getFirstname().'-'.$user->getId());
                 $user->setSlug($slug);
             }
             $entityManager = $this->getDoctrine()->getManager();

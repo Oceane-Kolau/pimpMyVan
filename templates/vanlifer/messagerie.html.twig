@@ -28,7 +28,7 @@
                     <div class="col-auto">
                         <p>{{ contact.createdAt|date('d M Y')}}</p>
                     </div>
-                    <a href="{{ path('vanlifer_messagerie_show', {'id': contact.id}) }}"><button
+                    <a href="{{ path('vanlifer_messagerie_show', {'slug': app.user.slug, 'id': contact.id}) }}"><button
                             class="btn btn-turquoise"><i class="far fa-eye"></i></button></a></td>
                 </div>
                 <hr>

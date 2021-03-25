@@ -65,7 +65,7 @@
                     {{ form_end(form) }}
                 </div>
                 <div class="col-11 text-left pr-5 pt-5">
-                    <a class="hover-link" href="{{ path('vanlifer_profile') }}">
+                    <a class="hover-link" href="{{ path('vanlifer_profile', {'slug': app.user.slug}) }}">
                         <p><i class="fas fa-arrow-left"></i> Retour à mon profil</p>
                     </a>
                 </div>

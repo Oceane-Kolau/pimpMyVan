@@ -10,7 +10,7 @@
         {% endif %}
         {% if app.user.roles[0] == "ROLE_VANLIFER" %}
         <li>
-            <a class="navbar-brand" href="{{path('vanlifer_profile')}}">
+            <a class="navbar-brand" href="{{path('vanlifer_profile', {'slug': app.user.slug})}}">
                 <i class="fas fa-user-circle"></i>
             </a>
         </li>
