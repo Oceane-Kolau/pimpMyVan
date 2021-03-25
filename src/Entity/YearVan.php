@@ -28,6 +28,11 @@ class YearVan
      * @ORM\OneToMany(targetEntity=QuoteArtisan::class, mappedBy="yearVan")
      */
     private $quoteArtisans;
+
+    /**
+     * @ORM\OneToMany(targetEntity=AdsVan::class, mappedBy="yearVan")
+     */
+    private $adsVans;
     
     public function __toString()
     {
@@ -37,6 +42,7 @@ class YearVan
     public function __construct()
     {
         $this->quoteArtisans = new ArrayCollection();
+        $this->adsVans = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -80,6 +86,36 @@ class YearVan
             // set the owning side to null (unless already changed)
             if ($quoteArtisan->getYearVan() === $this) {
                 $quoteArtisan->setYearVan(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AdsVan[]
+     */
+    public function getAdsVans(): Collection
+    {
+        return $this->adsVans;
+    }
+
+    public function addAdsVan(AdsVan $adsVan): self
+    {
+        if (!$this->adsVans->contains($adsVan)) {
+            $this->adsVans[] = $adsVan;
+            $adsVan->setYearVan($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdsVan(AdsVan $adsVan): self
+    {
+        if ($this->adsVans->removeElement($adsVan)) {
+            // set the owning side to null (unless already changed)
+            if ($adsVan->getYearVan() === $this) {
+                $adsVan->setYearVan(null);
             }
         }
 

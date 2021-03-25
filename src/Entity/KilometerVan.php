@@ -29,6 +29,11 @@ class KilometerVan
      */
     private $quoteArtisans;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AdsVan::class, mappedBy="kilometerVan")
+     */
+    private $adsVans;
+
     public function __toString()
     {
         return $this->name;
@@ -37,6 +42,7 @@ class KilometerVan
     public function __construct()
     {
         $this->quoteArtisans = new ArrayCollection();
+        $this->adsVans = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -80,6 +86,36 @@ class KilometerVan
             // set the owning side to null (unless already changed)
             if ($quoteArtisan->getKilometerVan() === $this) {
                 $quoteArtisan->setKilometerVan(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AdsVan[]
+     */
+    public function getAdsVans(): Collection
+    {
+        return $this->adsVans;
+    }
+
+    public function addAdsVan(AdsVan $adsVan): self
+    {
+        if (!$this->adsVans->contains($adsVan)) {
+            $this->adsVans[] = $adsVan;
+            $adsVan->setKilometerVan($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdsVan(AdsVan $adsVan): self
+    {
+        if ($this->adsVans->removeElement($adsVan)) {
+            // set the owning side to null (unless already changed)
+            if ($adsVan->getKilometerVan() === $this) {
+                $adsVan->setKilometerVan(null);
             }
         }
 

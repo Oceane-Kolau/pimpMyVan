@@ -34,6 +34,11 @@ class SpecialtiesVanArtisan
      */
     private $quoteArtisans;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=AdsVan::class, mappedBy="specialtiesVan")
+     */
+    private $adsVans;
+
     public function __toString()
     {
         return $this->type;
@@ -43,6 +48,7 @@ class SpecialtiesVanArtisan
     {
         $this->users = new ArrayCollection();
         $this->quoteArtisans = new ArrayCollection();
+        $this->adsVans = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,6 +117,33 @@ class SpecialtiesVanArtisan
     {
         if ($this->quoteArtisans->removeElement($quoteArtisan)) {
             $quoteArtisan->removeSpecialtiesVanArtisan($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AdsVan[]
+     */
+    public function getAdsVans(): Collection
+    {
+        return $this->adsVans;
+    }
+
+    public function addAdsVan(AdsVan $adsVan): self
+    {
+        if (!$this->adsVans->contains($adsVan)) {
+            $this->adsVans[] = $adsVan;
+            $adsVan->addSpecialtiesVan($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdsVan(AdsVan $adsVan): self
+    {
+        if ($this->adsVans->removeElement($adsVan)) {
+            $adsVan->removeSpecialtiesVan($this);
         }
 
         return $this;
