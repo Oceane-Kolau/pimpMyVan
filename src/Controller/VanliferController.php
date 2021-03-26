@@ -11,7 +11,7 @@ use App\Form\VanliferType;
 use App\Repository\AdsVanRepository;
 use App\Repository\ContactRepository;
 use App\Repository\QuoteArtisanRepository;
-
+use App\Service\SlugifyService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
@@ -129,16 +129,16 @@ class VanliferController extends AbstractController
     public function allAds(AdsVanRepository $adsVanRepository): Response
     {
         $user = $this->getUser();
-        return $this->render('vanlifer/ads_van/index.html.twig', [
+        return $this->render('ads_van/index.html.twig', [
             'ads_vans' => $adsVanRepository->findAll(),
             'vanlifer' => $user,
         ]);
     }
 
     /**
-     * @Route("nouvelle-annonce", name="_ads_van_new", methods={"GET","POST"})
+     * @Route("new/annonce", name="_ads_van_new", methods={"GET","POST"})
      */
-    public function newAds(Request $request): Response
+    public function newAds(Request $request, SlugifyService $slugifyService): Response
     {
         $user = $this->getUser();
         $adsVan = new AdsVan();
@@ -146,6 +146,9 @@ class VanliferController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $slug = $slugifyService->generate($adsVan->getTitle().'-'.$user->getId());
+            $adsVan->setSlug($slug);
+            $adsVan->setIsValidated(false);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($adsVan);
             $entityManager->flush();
@@ -156,7 +159,7 @@ class VanliferController extends AbstractController
             ]);
         }
 
-        return $this->render('vanlifer/ads_van/new.html.twig', [
+        return $this->render('ads_van/new.html.twig', [
             'ads_van' => $adsVan,
             'form' => $form->createView(),
             'vanlifer' => $user
@@ -169,7 +172,7 @@ class VanliferController extends AbstractController
     public function showAds(AdsVan $adsVan): Response
     {
         $user = $this->getUser();
-        return $this->render('vanlifer/ads_van/show.html.twig', [
+        return $this->render('ads_van/show.html.twig', [
             'ads_van' => $adsVan,
             'vanlifer' => $user,
         ]);
@@ -193,7 +196,7 @@ class VanliferController extends AbstractController
             ]);
         }
 
-        return $this->render('vanlifer/ads_van/edit.html.twig', [
+        return $this->render('ads_van/edit.html.twig', [
             'ads_van' => $adsVan,
             'form' => $form->createView(),
             'vanlifer' => $user,
@@ -201,17 +204,17 @@ class VanliferController extends AbstractController
     }
 
     /**
-     * @Route("annonce/supprimer/{id}", name="_ads_van_delete", methods={"DELETE"}), requirements={"id"="\d+"})
-     * @ParamConverter("adsVan", class="App\Entity\AdsVan", options={"mapping": {"id" = "adsVan_id"}})
+     * @Route("annonce/{id}/delete", name="_ads_van_delete", methods={"DELETE"}), requirements={"id"="\d+"})
+     * @ParamConverter("adsVan", class="App\Entity\AdsVan", options={"mapping": {"id" = "id"}})
      */
     public function deleteAds(Request $request, AdsVan $adsVan): Response
     {
-        $user = $this->getUser();
         if ($this->isCsrfTokenValid('delete'.$adsVan->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($adsVan);
             $entityManager->flush();
         }
+        $user = $this->getUser();
 
         return $this->redirectToRoute('vanlifer_ads_van_index',
         [

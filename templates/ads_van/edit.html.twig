@@ -7,7 +7,7 @@
 
     {{ include('ads_van/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('vanlifer_ads_van_index', {'slug': vanlifer.slug}) }}">back to list</a>
+    <a href="{{ path('vanlifer_ads_van_index', {'slug': app.user.slug}) }}">back to list</a>
 
-    {{ include('vanlifer/ads_van/_delete_form.html.twig') }}
+    {{ include('ads_van/_delete_form.html.twig') }}
 {% endblock %}

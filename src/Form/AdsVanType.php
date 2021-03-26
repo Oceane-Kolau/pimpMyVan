@@ -13,6 +13,7 @@ class AdsVanType extends AbstractType
     {
         $builder
             ->add('description')
+            ->add('title')
             ->add('typeVan')
             ->add('sizeVan')
             ->add('brandVan')
