@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller\Admin\Moderation;
+namespace App\Controller\Admin;
 
-use App\Entity\User;
+use App\Entity\AdsVan;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
@@ -16,23 +16,19 @@ use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class ModerationArtisanController extends AbstractCrudController
+class ModerationAdsVanController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return User::class;
+        return AdsVan::class;
     }
 
     public function configureFields(string $pageName): iterable
     {
         return [
             BooleanField::new('isValidated', "Validation"),
-            Field::new('firstname', "Prénom"),
-            Field::new('lastname', "Nom"),
-            Field::new('email', "Email"),
-            Field::new('phone', "Téléphone")->hideOnIndex(),
-            Field::new('description', "Description")->hideOnIndex(),
-            Field::new('companyName', "Nom de l'entreprise"),
+            Field::new('title', "Titre"),
+            Field::new('description', "Description")
         ];
     }
 
@@ -54,10 +50,9 @@ class ModerationArtisanController extends AbstractCrudController
         $search = $searchDto->getQuery();
         $response->andwhere('entity.isValidated = 0');
         if (isset($search) && !empty($search)) {
-            $response->andWhere("entity.lastname LIKE :search 
-            OR entity.firstname LIKE :search 
-            OR entity.email LIKE :search
-            OR entity.companyName LIKE :search
+            $response->andWhere("entity.title LIKE :search 
+            OR entity.title LIKE :search 
+            OR entity.user LIKE :search
             ")
             ->setParameter('search', '%' . $search . '%');
         }
