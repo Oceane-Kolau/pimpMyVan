@@ -25,11 +25,6 @@ class AdsVan
     private $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="adsVans")
-     */
-    private $user;
-
-    /**
      * @ORM\ManyToOne(targetEntity=TypeVan::class, inversedBy="adsVans")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -96,6 +91,12 @@ class AdsVan
      */
     private $isValidated;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="adsVans")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
@@ -115,30 +116,6 @@ class AdsVan
     public function setDescription(?string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|User[]
-     */
-    public function getUser(): Collection
-    {
-        return $this->user;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->user->contains($user)) {
-            $this->user[] = $user;
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        $this->user->removeElement($user);
 
         return $this;
     }
@@ -295,6 +272,18 @@ class AdsVan
     public function setIsValidated(bool $isValidated): self
     {
         $this->isValidated = $isValidated;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

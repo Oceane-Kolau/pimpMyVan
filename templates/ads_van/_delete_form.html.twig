@@ -1,5 +1,14 @@
-<form method="post" action="{{ path('vanlifer_ads_van_delete', {'slug': app.user.slug, 'id': ads_van.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-    <input type="hidden" name="_method" value="DELETE">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ads_van.id) }}">
-    <button class="btn">Delete</button>
-</form>
+{% if app.user.roles[0] == "ROLE_VANLIFER" %}
+    <form method="post" action="{{ path('vanlifer_ads_van_delete', {'slug': vanlifer.slug, 'id': ads_van.id}) }}"
+    onsubmit="return confirm('Are you sure you want to delete this item?');">
+{% endif %}
+
+{% if app.user.roles[0] == "ROLE_ARTISAN" %}
+    <form method="post" action="{{ path('artisan_ads_van_delete', {'slug': artisan.slug, 'id': ads_van.id}) }}"
+        onsubmit="return confirm('Are you sure you want to delete this item?');">
+{% endif %}
+
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ ads_van.id) }}">
+        <button class="btn">Delete</button>
+    </form>

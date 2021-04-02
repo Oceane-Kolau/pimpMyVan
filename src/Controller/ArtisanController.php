@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\AdsVan;
 use App\Entity\Contact;
 use App\Entity\QuoteArtisan;
 use App\Entity\User;
+use App\Form\AdsVanType;
 use App\Form\ArtisanType;
-
+use App\Repository\AdsVanRepository;
+use App\Service\SlugifyService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -145,6 +148,106 @@ class ArtisanController extends AbstractController
         return $this->render('quote_artisan.html.twig', [
             'quote' => $quoteArtisan,
             'artisan' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("annonces", name="_ads_van_index", methods={"GET"})
+     */
+    public function allAds(AdsVanRepository $adsVanRepository): Response
+    {
+        $user = $this->getUser();
+        return $this->render('ads_van/index.html.twig', [
+            'ads_vans' => $adsVanRepository->findBy(['user' => $user]),
+            'artisan' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("new/annonce", name="_ads_van_new", methods={"GET","POST"})
+     */
+    public function newAds(Request $request, SlugifyService $slugifyService): Response
+    {
+        $user = $this->getUser();
+        $adsVan = new AdsVan();
+        $form = $this->createForm(AdsVanType::class, $adsVan);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $slug = $slugifyService->generate($adsVan->getTitle().'-'.$user->getId());
+            $adsVan->setSlug($slug);
+            $adsVan->setIsValidated(false);
+            $adsVan->setUser($user);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($adsVan);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('artisan_ads_van_index',
+            [
+                'slug' => $user->getSlug(),
+            ]);
+        }
+
+        return $this->render('ads_van/new.html.twig', [
+            'ads_van' => $adsVan,
+            'form' => $form->createView(),
+            'artisan' => $user
+        ]);
+    }
+
+    /**
+     * @Route("annonce/{id}", name="_ads_van_show", methods={"GET"}), requirements={"id"="\d+"})
+     */
+    public function showAds(AdsVanRepository $adsVanRepository): Response
+    {
+        $user = $this->getUser();
+        return $this->render('ads_van/show.html.twig', [
+            'ads_van' => $adsVanRepository->findBy(['user' => $user])[0],
+            'artisan' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("annonce/edit/{id}", name="_ads_van_edit", methods={"GET","POST"}), requirements={"id"="\d+"})
+     */
+    public function editAds(Request $request, AdsVanRepository $adsVanRepository, AdsVan $adsVan): Response
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(AdsVanType::class, $adsVan);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('artisan_ads_van_index',
+            [
+                'slug' => $user->getSlug(),
+            ]);
+        }
+
+        return $this->render('ads_van/edit.html.twig', [
+            'ads_van' => $adsVanRepository->findBy(['user' => $user])[0],
+            'form' => $form->createView(),
+            'artisan' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("annonce/{id}/delete", name="_ads_van_delete", methods={"DELETE"}), requirements={"id"="\d+"})
+     * @ParamConverter("adsVan", class="App\Entity\AdsVan", options={"mapping": {"id" = "id"}})
+     */
+    public function deleteAds(Request $request, AdsVan $adsVan): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$adsVan->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($adsVan);
+            $entityManager->flush();
+        }
+        $user = $this->getUser();
+
+        return $this->redirectToRoute('artisan_ads_van_index',
+        [
+            'slug' => $user->getSlug(),
         ]);
     }
 }

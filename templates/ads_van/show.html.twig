@@ -18,10 +18,15 @@
             </tr>
         </tbody>
     </table>
-
+    {% if app.user.roles[0] == "ROLE_VANLIFER" %}
+    <a href="{{ path('vanlifer_ads_van_edit', {'slug': vanlifer.slug, 'id': ads_van.id}) }}">edit</a>
     <a href="{{ path('vanlifer_ads_van_index', {'slug': app.user.slug}) }}">back to list</a>
+    {% endif %}
 
-    <a href="{{ path('vanlifer_ads_van_edit', {'slug': app.user.slug, 'id': ads_van.id}) }}">edit</a>
+    {% if app.user.roles[0] == "ROLE_ARTISAN" %}
+    <a href="{{ path('artisan_ads_van_edit', {'slug': artisan.slug, 'id': ads_van.id}) }}">edit</a>
+    <a href="{{ path('artisan_ads_van_index', {'slug': artisan.slug}) }}">back to list</a>
+    {% endif %}
 
     {{ include('ads_van/_delete_form.html.twig') }}
 {% endblock %}

@@ -130,7 +130,7 @@ class VanliferController extends AbstractController
     {
         $user = $this->getUser();
         return $this->render('ads_van/index.html.twig', [
-            'ads_vans' => $adsVanRepository->findAll(),
+            'ads_vans' => $adsVanRepository->findBy(['user' => $user]),
             'vanlifer' => $user,
         ]);
     }
@@ -149,6 +149,7 @@ class VanliferController extends AbstractController
             $slug = $slugifyService->generate($adsVan->getTitle().'-'.$user->getId());
             $adsVan->setSlug($slug);
             $adsVan->setIsValidated(false);
+            $adsVan->setUser($user);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($adsVan);
             $entityManager->flush();
@@ -169,11 +170,11 @@ class VanliferController extends AbstractController
     /**
      * @Route("annonce/{id}", name="_ads_van_show", methods={"GET"}), requirements={"id"="\d+"})
      */
-    public function showAds(AdsVan $adsVan): Response
+    public function showAds(AdsVanRepository $adsVanRepository): Response
     {
         $user = $this->getUser();
         return $this->render('ads_van/show.html.twig', [
-            'ads_van' => $adsVan,
+            'ads_van' => $adsVanRepository->findBy(['user' => $user])[0],
             'vanlifer' => $user,
         ]);
     }
@@ -181,7 +182,7 @@ class VanliferController extends AbstractController
     /**
      * @Route("annonce/edit/{id}", name="_ads_van_edit", methods={"GET","POST"}), requirements={"id"="\d+"})
      */
-    public function editAds(Request $request, AdsVan $adsVan): Response
+    public function editAds(Request $request, AdsVanRepository $adsVanRepository, AdsVan $adsVan): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(AdsVanType::class, $adsVan);
@@ -197,7 +198,7 @@ class VanliferController extends AbstractController
         }
 
         return $this->render('ads_van/edit.html.twig', [
-            'ads_van' => $adsVan,
+            'ads_van' => $adsVanRepository->findBy(['user' => $user])[0],
             'form' => $form->createView(),
             'vanlifer' => $user,
         ]);

@@ -17,15 +17,7 @@
             </div>
             <div class="row justify-content-around align-items-center">
                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 text-center ml-4">
-                    <a href="{{ path('artisan_profile', {'slug': artisan.slug, 'id': artisan.id}) }}">
-                        <button type="button" class="btn btn-lg btn-grey m-3">Profil</button>
-                    </a>
-                    <a href="{{ path('artisan_messagerie', {'slug': artisan.slug, 'id': artisan.id}) }}">
-                        <button type="button" class="btn btn-lg btn-grey m-3">Messages</button>
-                    </a>
-                    <a href="{{ path('artisan_profile', {'slug': artisan.slug, 'id': artisan.id}) }}">
-                        <button type="button" class="btn btn-lg btn-grey m-3">Devis</button>
-                    </a>
+                    {% include 'artisan/nav_artisan.html.twig' with {artisan: artisan} only %}
                 </div>
                 <div class="col-xl-8 col-lg-8 col-md-7 col-sm-12 mr-5 bg-lightgrey mx-auto p-5">
                     {% for quote in quotes|reverse %}

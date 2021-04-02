@@ -19,8 +19,14 @@
                 <td>{{ ads_van.id }}</td>
                 <td>{{ ads_van.description }}</td>
                 <td>
-                    <a href="{{ path('vanlifer_ads_van_show', {'slug': app.user.slug, 'id': ads_van.id}) }}">show</a>
-                    <a href="{{ path('vanlifer_ads_van_edit', {'slug': app.user.slug, 'id': ads_van.id}) }}">edit</a>
+                    {% if app.user.roles[0] == "ROLE_VANLIFER" %}
+                    <a href="{{ path('vanlifer_ads_van_show', {'slug': vanlifer.slug, 'id': ads_van.id}) }}">show</a>
+                    <a href="{{ path('vanlifer_ads_van_edit', {'slug': vanlifer.slug, 'id': ads_van.id}) }}">edit</a>
+                    {% endif %}
+                    {% if app.user.roles[0] == "ROLE_ARTISAN" %}
+                    <a href="{{ path('artisan_ads_van_show', {'slug': artisan.slug, 'id': ads_van.id}) }}">show</a>
+                    <a href="{{ path('artisan_ads_van_edit', {'slug': artisan.slug, 'id': ads_van.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -30,6 +36,11 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('vanlifer_ads_van_new', {'slug': app.user.slug}) }}">Create new</a>
+   
+    {% if app.user.roles[0] == "ROLE_VANLIFER" %}
+    <a href="{{ path('vanlifer_ads_van_new', {'slug': vanlifer.slug}) }}">Create new</a>
+    {% endif %}
+    {% if app.user.roles[0] == "ROLE_ARTISAN" %}
+    <a href="{{ path('artisan_ads_van_new', {'slug': artisan.slug}) }}">Create new</a>
+    {% endif %}
 {% endblock %}
