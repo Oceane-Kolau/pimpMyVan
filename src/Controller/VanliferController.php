@@ -124,19 +124,19 @@ class VanliferController extends AbstractController
     }
 
     /**
-     * @Route("annonces", name="_ads_van_index", methods={"GET"})
+     * @Route("annonces", name="_adsVan_index", methods={"GET"})
      */
     public function allAds(AdsVanRepository $adsVanRepository): Response
     {
         $user = $this->getUser();
-        return $this->render('ads_van/index.html.twig', [
-            'ads_vans' => $adsVanRepository->findBy(['user' => $user]),
+        return $this->render('adsVan/index.html.twig', [
+            'adsVans' => $adsVanRepository->findBy(['user' => $user]),
             'vanlifer' => $user,
         ]);
     }
 
     /**
-     * @Route("new/annonce", name="_ads_van_new", methods={"GET","POST"})
+     * @Route("new/annonce", name="_adsVan_new", methods={"GET","POST"})
      */
     public function newAds(Request $request, SlugifyService $slugifyService): Response
     {
@@ -154,33 +154,33 @@ class VanliferController extends AbstractController
             $entityManager->persist($adsVan);
             $entityManager->flush();
 
-            return $this->redirectToRoute('vanlifer_ads_van_index',
+            return $this->redirectToRoute('vanlifer_adsVan_index',
             [
                 'slug' => $user->getSlug(),
             ]);
         }
 
-        return $this->render('ads_van/new.html.twig', [
-            'ads_van' => $adsVan,
+        return $this->render('adsVan/new.html.twig', [
+            'adsVan' => $adsVan,
             'form' => $form->createView(),
             'vanlifer' => $user
         ]);
     }
 
     /**
-     * @Route("annonce/{id}", name="_ads_van_show", methods={"GET"}), requirements={"id"="\d+"})
+     * @Route("annonce/{id}", name="_adsVan_show", methods={"GET"}), requirements={"id"="\d+"})
      */
     public function showAds(AdsVanRepository $adsVanRepository): Response
     {
         $user = $this->getUser();
-        return $this->render('ads_van/show.html.twig', [
-            'ads_van' => $adsVanRepository->findBy(['user' => $user])[0],
+        return $this->render('adsVan/show.html.twig', [
+            'adsVan' => $adsVanRepository->findBy(['user' => $user])[0],
             'vanlifer' => $user,
         ]);
     }
 
     /**
-     * @Route("annonce/edit/{id}", name="_ads_van_edit", methods={"GET","POST"}), requirements={"id"="\d+"})
+     * @Route("annonce/edit/{id}", name="_adsVan_edit", methods={"GET","POST"}), requirements={"id"="\d+"})
      */
     public function editAds(Request $request, AdsVanRepository $adsVanRepository, AdsVan $adsVan): Response
     {
@@ -191,21 +191,21 @@ class VanliferController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('vanlifer_ads_van_index',
+            return $this->redirectToRoute('vanlifer_adsVan_index',
             [
                 'slug' => $user->getSlug(),
             ]);
         }
 
-        return $this->render('ads_van/edit.html.twig', [
-            'ads_van' => $adsVanRepository->findBy(['user' => $user])[0],
+        return $this->render('adsVan/edit.html.twig', [
+            'adsVan' => $adsVanRepository->findBy(['user' => $user])[0],
             'form' => $form->createView(),
             'vanlifer' => $user,
         ]);
     }
 
     /**
-     * @Route("annonce/{id}/delete", name="_ads_van_delete", methods={"DELETE"}), requirements={"id"="\d+"})
+     * @Route("annonce/{id}/delete", name="_adsVan_delete", methods={"DELETE"}), requirements={"id"="\d+"})
      * @ParamConverter("adsVan", class="App\Entity\AdsVan", options={"mapping": {"id" = "id"}})
      */
     public function deleteAds(Request $request, AdsVan $adsVan): Response
@@ -217,7 +217,7 @@ class VanliferController extends AbstractController
         }
         $user = $this->getUser();
 
-        return $this->redirectToRoute('vanlifer_ads_van_index',
+        return $this->redirectToRoute('vanlifer_adsVan_index',
         [
             'slug' => $user->getSlug(),
         ]);
