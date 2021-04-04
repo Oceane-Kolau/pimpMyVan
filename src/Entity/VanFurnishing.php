@@ -29,9 +29,15 @@ class VanFurnishing
      */
     private $quoteArtisans;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=AdsVan::class, mappedBy="vanFurnishing")
+     */
+    private $adsVans;
+
     public function __construct()
     {
         $this->quoteArtisans = new ArrayCollection();
+        $this->adsVans = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -73,6 +79,33 @@ class VanFurnishing
     {
         if ($this->quoteArtisans->removeElement($quoteArtisan)) {
             $quoteArtisan->removeVanFurnishing($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AdsVan[]
+     */
+    public function getAdsVans(): Collection
+    {
+        return $this->adsVans;
+    }
+
+    public function addAdsVan(AdsVan $adsVan): self
+    {
+        if (!$this->adsVans->contains($adsVan)) {
+            $this->adsVans[] = $adsVan;
+            $adsVan->addVanFurnishing($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdsVan(AdsVan $adsVan): self
+    {
+        if ($this->adsVans->removeElement($adsVan)) {
+            $adsVan->removeVanFurnishing($this);
         }
 
         return $this;

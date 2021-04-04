@@ -97,10 +97,28 @@ class AdsVan
      */
     private $user;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Veneer::class, inversedBy="adsVans")
+     */
+    private $veneer;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Insulation::class, inversedBy="adsVans")
+     */
+    private $insulation;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=VanFurnishing::class, inversedBy="adsVans")
+     */
+    private $vanFurnishing;
+
     public function __construct()
     {
         $this->user = new ArrayCollection();
         $this->specialtiesVan = new ArrayCollection();
+        $this->veneer = new ArrayCollection();
+        $this->insulation = new ArrayCollection();
+        $this->vanFurnishing = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -284,6 +302,78 @@ class AdsVan
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Veneer[]
+     */
+    public function getVeneer(): Collection
+    {
+        return $this->veneer;
+    }
+
+    public function addVeneer(Veneer $veneer): self
+    {
+        if (!$this->veneer->contains($veneer)) {
+            $this->veneer[] = $veneer;
+        }
+
+        return $this;
+    }
+
+    public function removeVeneer(Veneer $veneer): self
+    {
+        $this->veneer->removeElement($veneer);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Insulation[]
+     */
+    public function getInsulation(): Collection
+    {
+        return $this->insulation;
+    }
+
+    public function addInsulation(Insulation $insulation): self
+    {
+        if (!$this->insulation->contains($insulation)) {
+            $this->insulation[] = $insulation;
+        }
+
+        return $this;
+    }
+
+    public function removeInsulation(Insulation $insulation): self
+    {
+        $this->insulation->removeElement($insulation);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|VanFurnishing[]
+     */
+    public function getVanFurnishing(): Collection
+    {
+        return $this->vanFurnishing;
+    }
+
+    public function addVanFurnishing(VanFurnishing $vanFurnishing): self
+    {
+        if (!$this->vanFurnishing->contains($vanFurnishing)) {
+            $this->vanFurnishing[] = $vanFurnishing;
+        }
+
+        return $this;
+    }
+
+    public function removeVanFurnishing(VanFurnishing $vanFurnishing): self
+    {
+        $this->vanFurnishing->removeElement($vanFurnishing);
 
         return $this;
     }
