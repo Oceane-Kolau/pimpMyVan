@@ -34,6 +34,11 @@ class SpecificSetup
      */
     private $quoteArtisans;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AdsVan::class, mappedBy="specificSetup")
+     */
+    private $adsVans;
+
     public function __toString()
     {
         return $this->type;
@@ -43,6 +48,7 @@ class SpecificSetup
     {
         $this->users = new ArrayCollection();
         $this->quoteArtisans = new ArrayCollection();
+        $this->adsVans = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -113,6 +119,36 @@ class SpecificSetup
             // set the owning side to null (unless already changed)
             if ($quoteArtisan->getSpecificSetup() === $this) {
                 $quoteArtisan->setSpecificSetup(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AdsVan[]
+     */
+    public function getAdsVans(): Collection
+    {
+        return $this->adsVans;
+    }
+
+    public function addAdsVan(AdsVan $adsVan): self
+    {
+        if (!$this->adsVans->contains($adsVan)) {
+            $this->adsVans[] = $adsVan;
+            $adsVan->setSpecificSetup($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdsVan(AdsVan $adsVan): self
+    {
+        if ($this->adsVans->removeElement($adsVan)) {
+            // set the owning side to null (unless already changed)
+            if ($adsVan->getSpecificSetup() === $this) {
+                $adsVan->setSpecificSetup(null);
             }
         }
 

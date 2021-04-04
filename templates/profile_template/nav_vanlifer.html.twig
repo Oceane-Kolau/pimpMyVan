@@ -1,14 +1,14 @@
 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-center ml-4">
-    <a href="{{ path('vanlifer_profile') }}">
+    <a href="{{ path('vanlifer_profile', {'slug': vanlifer.slug}) }}">
         <button type="button" class="btn btn-lg btn-grey m-3">Profil</button>
     </a>
-    <a href="{{ path('vanlifer_profile') }}">
+    <a href="{{ path('vanlifer_adsVan_index', {'slug': vanlifer.slug}) }}">
         <button type="button" class="btn btn-lg btn-grey m-3">Annonces</button>
     </a>
-    <a href="{{ path('vanlifer_messagerie')}}">
+    <a href="{{ path('vanlifer_messagerie', {'slug': vanlifer.slug})}}">
         <button type="button" class="btn btn-lg btn-grey m-3">Messages</button>
     </a>
-    <a href="{{ path('vanlifer_quote') }}">
+    <a href="{{ path('vanlifer_quote', {'slug': vanlifer.slug}) }}">
         <button type="button" class="btn btn-lg btn-grey m-3">Devis</button>
     </a>
 </div>

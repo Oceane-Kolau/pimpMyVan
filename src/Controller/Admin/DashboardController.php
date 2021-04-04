@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\AdsVan;
 use App\Entity\BrandVan;
 use App\Entity\Floor;
 use App\Entity\GeneralSetup;
@@ -48,11 +49,15 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::subMenu('Modération', 'fas fa-check-square')->setSubItems([
             MenuItem::linkToCrud('Artisans', 'fas fa-user-cog', User::class)
             ->setController(ModerationArtisanController::class),
+            MenuItem::linkToCrud('Annonces de Van', 'fas fa-user-cog', AdsVan::class)
+            ->setController(ModerationAdsVanController::class),
         ]);
 
         yield MenuItem::subMenu('Infos', 'fas fa-info')->setSubItems([
-            MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class)
+            MenuItem::linkToCrud('Utilisateurs inscrits', 'fas fa-user', User::class)
             ->setController(UserCrudController::class),
+            MenuItem::linkToCrud('Annonces en ligne', 'fas fa-user', AdsVan::class)
+            ->setController(AdsVanCrudController::class),
         ]);
 
         yield MenuItem::subMenu('Gestion des catégories', 'fas fa-list')->setSubItems([

@@ -7,6 +7,9 @@
         class="img-fluid size-img-account" alt="">
     {% endif %}
     <h3 class="mt-3">{{ vanlifer.firstname }} {{ vanlifer.lastname }}</h3>
+    <div class="col-auto">
+        <p> {{ vanlifer.email }}</p>
+    </div>
     <div class="row align-items-center justify-content-center mt-3">
         {% if vanlifer.instagramLink is not empty %}
         <div class="col-lg-1 col-md-1 col-sm-auto">
@@ -36,9 +39,6 @@
             <p> {{ vanlifer.companyName }}</p>
         </div>
         {% endif %}
-        <div class="col-auto">
-            <p> {{ vanlifer.email }}</p>
-        </div>
         {% if vanlifer.phone is not empty %}
         <div class="col-auto">
             <p><i class="fas fa-phone-alt"></i> {{ vanlifer.phone }}</p>

@@ -1,0 +1,22 @@
+{% extends 'profile_template/profile_template.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block content %}
+
+<div class="col-11 text-right pr-5 pt-5">
+    <a class="hover-link" href="{{ path('vanlifer_edit', {'slug': vanlifer.slug, 'id': vanlifer.id}) }}">
+        <p></i>Editer mon profil <i class="fas fa-arrow-right"></i></p>
+    </a>
+</div>
+<div class="row justify-content-around align-items-center">
+    <div class="col-xl-8 col-lg-8 col-md-7 col-sm-12 mr-5 bg-lightgrey mx-auto">
+        {% if vanlifer.description is not empty %}
+        <div class="col-12">
+            <p class="p-2"> {{ vanlifer.description }}</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}

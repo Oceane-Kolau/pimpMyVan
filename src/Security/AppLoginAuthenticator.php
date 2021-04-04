@@ -103,11 +103,17 @@ class AppLoginAuthenticator extends AbstractFormLoginAuthenticator implements Pa
                     return new RedirectResponse($this->urlGenerator->generate('admin'));
                 }
                 if ($role === "ROLE_ARTISAN") {
-                    return new RedirectResponse($this->urlGenerator->generate('artisan_profile'));
+                    return new RedirectResponse($this->urlGenerator->generate('artisan_profile', 
+                    [
+                        'slug' => $token->getUser()->getSlug(),
+                    ]));
                    
                 }
                 if ($role === "ROLE_VANLIFER") {
-                    return new RedirectResponse($this->urlGenerator->generate('vanlifer_profile'));
+                    return new RedirectResponse($this->urlGenerator->generate('vanlifer_profile', 
+                    [
+                        'slug' => $token->getUser()->getSlug(),
+                    ]));
                 }
             }
         }

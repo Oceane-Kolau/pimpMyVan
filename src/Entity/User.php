@@ -191,6 +191,15 @@ class User implements UserInterface, \Serializable
      */
     private $quoteArtisans;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AdsVan::class, mappedBy="user")
+     */
+    private $adsVans;
+
+    public function __toString()
+    {
+        return $this->firstname;
+    }
 
     public function __construct()
     {
@@ -199,6 +208,7 @@ class User implements UserInterface, \Serializable
         $this->specialtiesVanArtisan = new ArrayCollection();
         $this->contacts = new ArrayCollection();
         $this->quoteArtisans = new ArrayCollection();
+        $this->adsVans = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -671,6 +681,36 @@ class User implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($quoteArtisan->getArtisan() === $this) {
                 $quoteArtisan->setArtisan(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AdsVan[]
+     */
+    public function getAdsVans(): Collection
+    {
+        return $this->adsVans;
+    }
+
+    public function addAdsVan(AdsVan $adsVan): self
+    {
+        if (!$this->adsVans->contains($adsVan)) {
+            $this->adsVans[] = $adsVan;
+            $adsVan->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdsVan(AdsVan $adsVan): self
+    {
+        if ($this->adsVans->removeElement($adsVan)) {
+            // set the owning side to null (unless already changed)
+            if ($adsVan->getUser() === $this) {
+                $adsVan->setUser(null);
             }
         }
 
