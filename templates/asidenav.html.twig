@@ -3,14 +3,14 @@
     <ul class="sidebar-nav nav navbar-inverse mx-3">
         {% if app.user.roles[0] == "ROLE_ARTISAN" %}
         <li>
-            <a class="navbar-brand" href="{{path('artisan_profile')}}">
+            <a class="navbar-brand" href="{{path('artisan_profile', {'slug': app.user.slug})}}">
                 <i class="fas fa-user-circle"></i>
             </a>
         </li>
         {% endif %}
         {% if app.user.roles[0] == "ROLE_VANLIFER" %}
         <li>
-            <a class="navbar-brand" href="{{path('vanlifer_profile')}}">
+            <a class="navbar-brand" href="{{path('vanlifer_profile', {'slug': app.user.slug})}}">
                 <i class="fas fa-user-circle"></i>
             </a>
         </li>

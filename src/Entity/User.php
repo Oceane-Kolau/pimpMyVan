@@ -192,10 +192,14 @@ class User implements UserInterface, \Serializable
     private $quoteArtisans;
 
     /**
-     * @ORM\ManyToMany(targetEntity=AdsVan::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=AdsVan::class, mappedBy="user")
      */
     private $adsVans;
 
+    public function __toString()
+    {
+        return $this->firstname;
+    }
 
     public function __construct()
     {
@@ -695,7 +699,7 @@ class User implements UserInterface, \Serializable
     {
         if (!$this->adsVans->contains($adsVan)) {
             $this->adsVans[] = $adsVan;
-            $adsVan->addUser($this);
+            $adsVan->setUser($this);
         }
 
         return $this;
@@ -704,7 +708,10 @@ class User implements UserInterface, \Serializable
     public function removeAdsVan(AdsVan $adsVan): self
     {
         if ($this->adsVans->removeElement($adsVan)) {
-            $adsVan->removeUser($this);
+            // set the owning side to null (unless already changed)
+            if ($adsVan->getUser() === $this) {
+                $adsVan->setUser(null);
+            }
         }
 
         return $this;

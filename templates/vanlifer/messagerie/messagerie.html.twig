@@ -3,19 +3,18 @@
 {% block title %}Mon compte{% endblock %}
 
 {% block content %}
-
-{% for quote in quotes|reverse %}
+{% for contact in contacts|reverse %}
 <div class="row justify-content-around align-items-center">
     <div class="col-auto">
-        <p>{{ quote.artisan.firstname }} {{ quote.artisan.lastname }}</p>
+        <p>{{ contact.user.firstname }} {{ contact.user.lastname }}</p>
     </div>
     <div class="col-auto d-none d-sm-block">
-        <p>{{ quote.artisan.email}}</p>
+        <p>{{ contact.subject }}</p>
     </div>
     <div class="col-auto">
-        <p>{{ quote.createdAt|date('d M Y')}}</p>
+        <p>{{ contact.createdAt|date('d M Y')}}</p>
     </div>
-    <a href="{{ path('vanlifer_quote_show', {'slug': vanlifer.slug,'id': quote.id}) }}"><button
+    <a href="{{ path('vanlifer_messagerie_show', {'slug': vanlifer.slug, 'id': contact.id}) }}"><button
             class="btn btn-turquoise"><i class="far fa-eye"></i></button></a></td>
 </div>
 <hr>
