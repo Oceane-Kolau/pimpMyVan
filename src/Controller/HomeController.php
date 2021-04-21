@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Data\SearchArtisansData;
+use App\Entity\AdsVan;
 use Knp\Snappy\Pdf;
 use Twig\Environment;
 use App\Entity\Contact;
@@ -11,6 +12,7 @@ use App\Entity\User;
 use App\Form\ContactType;
 use App\Form\QuoteArtisanType;
 use App\Form\SearchArtisansType;
+use App\Repository\AdsVanRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -129,5 +131,28 @@ class HomeController extends AbstractController
             'form' => $form->createView(),
             'contact' => $contact
         ]);
+    }
+    
+    /** 
+     * @Route("/annonces-van-occasion", name="home_adsVan", methods={"GET"})
+    */
+    public function adsVan(Request $request, AdsVanRepository $adsVanRepository) {
+        $adsVans = $adsVanRepository->findAll();
+
+        return $this->render('home/adsVan.html.twig', [
+            'adsVans' => $adsVans
+        ]);
+        
+    }
+
+    /** 
+     * @Route("/annonces-van-occasion/{slug}", name="home_adsVan_show", methods={"GET"})
+    */
+    public function adsVanShow(Request $request, AdsVan $adsVan) {
+        
+        return $this->render('home/adsVan_show.html.twig', [
+            'adsVan' => $adsVan
+        ]);
+        
     }
 }
