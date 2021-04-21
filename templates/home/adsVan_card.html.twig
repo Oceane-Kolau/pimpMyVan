@@ -1,0 +1,31 @@
+<div class="col-xl-5 col-lg-6 col-md-7 col-sm-12 my-4 d-flex">
+    <div class="card">
+        <a href="{{path ('home_adsVan_show', {'slug': adsVan.slug})}}" class="link-for-show-img">
+        </a>
+        <div class="text-right color-provider mr-3">
+            <button class="btn border-pres pl-3 pr-3">
+                <p>
+                    
+                </p>
+            </button>
+        </div>
+        <div class="card-body">
+            <a href="{{path ('home_adsVan_show', {'slug': adsVan.slug})}}" class="link-for-show">
+                <h2 class="name">
+                    {{adsVan.title}}
+                </h2>
+            </a>
+            <div class="text-left">
+                <div class="row pl-3">
+                    {% for specificSetup in adsVan.specificSetup %}
+                    <div class="col-auto">
+                        <p class="size-specialties"><i class="fas fa-plus plus-color-card"></i> {{
+                            specificSetup.type }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

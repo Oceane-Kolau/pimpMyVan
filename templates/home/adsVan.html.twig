@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+{% include "navbar.html.twig" %}
+<div class="wrapper">
+    {% include "asidenav.html.twig" %}
+    <div id="page-content-wrapper">
+        <div class="container-fluid pb-5 mx-auto">
+            <div class="row mt-5 mx-auto">
+                <div class="col-xl-3 col-lg-4 col-md-5 col-sm-10 card-filter pt-3">
+                    <div class="filter p-5">
+                       
+                    </div>
+                </div>
+                <div class="col-lg-7 col-lg-7 col-md-7 col-sm-10">
+                    <div class="container-fluid">
+                        <div class="row mx-auto">
+                            {% for adsVan in adsVans %}
+                            {% include 'home/adsVan_card.html.twig' with {adsVan: adsVan} only %}
+                            {% endfor %}
+                        </div>
+                        <div class="navigation">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
