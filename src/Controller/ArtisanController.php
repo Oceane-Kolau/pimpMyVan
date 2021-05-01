@@ -67,7 +67,10 @@ class ArtisanController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('artisan_profile');
+            return $this->redirectToRoute('artisan_profile',
+            [
+                'slug' => $user->getSlug(),
+            ]);
         }
 
         return $this->render('artisan/edit.html.twig', [
