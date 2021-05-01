@@ -35,12 +35,13 @@ class QuoteArtisanType extends AbstractType
                     ]
             ])
             ->add('projectDate', DateType::class, [
-                'widget' => 'choice',
+                'widget' => 'single_text',
+                'html5' => false,
                 'label' => false,
-                'required' => true,
+                'required' => false,
                 'attr' => [
-                    'placeholder' => 'Date du projet *'
-                    ]
+                    'class' => 'js-datepicker',
+                ],
             ])
             ->add('phone', TextType::class, [
                 'label' => false,
@@ -67,7 +68,7 @@ class QuoteArtisanType extends AbstractType
                 'label' => false,
                 'required' => false,
                 'attr' => [
-                    'placeholder' => 'Ecrivez vore message...',
+                    'placeholder' => 'Ecrivez votre message...',
                     'rows' => '4'
                     ]
             ])
@@ -82,6 +83,7 @@ class QuoteArtisanType extends AbstractType
             ->add('generalSetup', EntityType::class, [
                 'class' => GeneralSetup::class,
                 'choice_label' => 'type',
+                'placeholder' => 'Type d\'aménagement *',
                 'label' => false,
                 'expanded' => false,
                 'multiple' => false,
@@ -91,6 +93,7 @@ class QuoteArtisanType extends AbstractType
             ->add('specificSetup', EntityType::class, [
                 'class' => SpecificSetup::class,
                 'choice_label' => 'type',
+                'placeholder' => 'Type d\'aménagement *',
                 'label' => false,
                 'expanded' => false,
                 'multiple' => false,
@@ -115,6 +118,7 @@ class QuoteArtisanType extends AbstractType
             ])
             ->add('floor', EntityType::class, [
                 'class' => Floor::class,
+                'placeholder' => 'Type de sol',
                 'choice_label' => 'type',
                 'expanded' => false,
                 'multiple' => false,
@@ -124,6 +128,7 @@ class QuoteArtisanType extends AbstractType
             ->add('typeVan', EntityType::class, [
                 'class' => TypeVan::class,
                 'choice_label' => 'name',
+                'placeholder' => 'Type de véhicule *',
                 'label' => false,
                 'expanded' => false,
                 'required' => true,
@@ -133,6 +138,7 @@ class QuoteArtisanType extends AbstractType
             ->add('sizeVan', EntityType::class, [
                 'class' => SizeVan::class,
                 'choice_label' => 'name',
+                'placeholder' => 'Taille du véhicule *',
                 'label' => false,
                 'expanded' => false,
                 'required' => true,
@@ -141,6 +147,7 @@ class QuoteArtisanType extends AbstractType
             ])
             ->add('brandVan', EntityType::class, [
                 'class' => BrandVan::class,
+                'placeholder' => 'Marque du véhicule *',
                 'choice_label' => 'name',
                 'label' => false,
                 'expanded' => false,
@@ -151,14 +158,16 @@ class QuoteArtisanType extends AbstractType
             ->add('yearVan', EntityType::class, [
                 'class' => YearVan::class,
                 'choice_label' => 'name',
+                'placeholder' => 'Année du véhicule',
                 'label' => false,
                 'expanded' => false,
-                'required' => true,
+                'required' => false,
                 'multiple' => false,
                 'by_reference' => false,
             ])
             ->add('kilometerVan', EntityType::class, [
                 'class' => KilometerVan::class,
+                'placeholder' => 'Kilométrage',
                 'choice_label' => 'name',
                 'label' => false,
                 'expanded' => false,
