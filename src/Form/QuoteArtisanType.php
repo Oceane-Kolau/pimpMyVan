@@ -36,7 +36,6 @@ class QuoteArtisanType extends AbstractType
             ])
             ->add('projectDate', DateType::class, [
                 'widget' => 'single_text',
-                'html5' => false,
                 'label' => false,
                 'required' => false,
                 'attr' => [
