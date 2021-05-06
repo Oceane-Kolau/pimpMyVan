@@ -65,7 +65,7 @@ class HomeController extends AbstractController
         $searchForm->handleRequest($request);
         $allArtisans = $userRepository->searchArtisans($search);
 
-        return $this->render('home/allArtisans.html.twig', [
+        return $this->render('home/artisanSection/allArtisans.html.twig', [
             'artisans' => $allArtisans,
             'searchForm' => $searchForm->createView()
         ]);
@@ -76,7 +76,7 @@ class HomeController extends AbstractController
      */
     public function showArtisan(User $user, Request $request, MailerService $mailerService): Response
     {
-        return $this->render('home/show_artisan.html.twig', [
+        return $this->render('home/artisanSection/show_artisan.html.twig', [
             'artisan' => $user
         ]);
     }
@@ -102,7 +102,7 @@ class HomeController extends AbstractController
             $mailerService->sendEmailAfterQuoteArtisan($quote, $pdf);
             return $this->render('home/confirmation_message.html.twig', ['quote' => $quote]);
         }
-        return $this->render('home/quote_artisan.html.twig', [
+        return $this->render('home/artisanSection/quote_artisan.html.twig', [
             'artisan' => $user,
             'form' => $form->createView(),
             'quote' => $quote
@@ -126,7 +126,7 @@ class HomeController extends AbstractController
             $mailerService->sendEmailAfterContactArtisan($contact);
             return $this->render('home/confirmation_message.html.twig');
         }
-        return $this->render('home/contact_artisan.html.twig', [
+        return $this->render('home/artisanSection/contact_artisan.html.twig', [
             'artisan' => $user,
             'form' => $form->createView(),
             'contact' => $contact
@@ -139,7 +139,7 @@ class HomeController extends AbstractController
     public function adsVan(Request $request, AdsVanRepository $adsVanRepository) {
         $adsVans = $adsVanRepository->findAll();
 
-        return $this->render('home/adsVan.html.twig', [
+        return $this->render('home/adsVanSection/adsVan.html.twig', [
             'adsVans' => $adsVans
         ]);
         
@@ -150,7 +150,7 @@ class HomeController extends AbstractController
     */
     public function adsVanShow(Request $request, AdsVan $adsVan) {
         
-        return $this->render('home/adsVan_show.html.twig', [
+        return $this->render('home/adsVanSection/adsVan_show.html.twig', [
             'adsVan' => $adsVan
         ]);
         

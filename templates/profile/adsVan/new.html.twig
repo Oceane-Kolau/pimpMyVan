@@ -1,11 +1,11 @@
-{% extends 'profile_template/profile_template.html.twig' %}
+{% extends 'profile/profile_template.html.twig' %}
 
 {% block title %}New AdsVan{% endblock %}
 
 {% block content %}
     <h1>Create new AdsVan</h1>
 
-    {{ include('adsVan/_form.html.twig') }}
+    {{ include('profile/adsVan/_form.html.twig') }}
     {% if app.user.roles[0] == "ROLE_VANLIFER" %}
     <a href="{{ path('vanlifer_adsVan_index', {'slug': vanlifer.slug}) }}">back to list</a>
     {% endif %}

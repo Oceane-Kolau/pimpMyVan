@@ -1,26 +1,33 @@
-{% extends 'profile_template/profile_template.html.twig' %}
+{% extends 'profile/profile_template.html.twig' %}
 
 {% block title %}Mes annonces{% endblock %}
 
 {% block content %}
-<h1>Mes annonces</h1>
+<div class="text-right">
 
+    <a 
+        {% if app.user.roles[0] == "ROLE_ARTISAN" %}
+        href="{{ path('artisan_adsVan_new', {'slug': artisan.slug}) }}"
+        {% endif %}
 
-    {% if app.user.roles[0] == "ROLE_VANLIFER" %}
-    <a href="{{ path('vanlifer_adsVan_new', {'slug': vanlifer.slug}) }}">
-        <button type="button" class="btn btn-turquoise">
+        {% if app.user.roles[0] == "ROLE_VANLIFER" %}
+        href="{{ path('vanlifer_adsVan_new', {'slug': vanlifer.slug}) }}"
+        {% endif %}
+    >
+        <button type="button" class="btn btn-orange">
             <i class="fas fa-plus"> Ajouter</i>
         </button>
     </a>
-    {% endif %}
-    {% if app.user.roles[0] == "ROLE_ARTISAN" %}
-    <a href="{{ path('artisan_adsVan_new', {'slug': artisan.slug}) }}">
-        <button type="button" class="btn btn-turquoise">
-            <i class="fas fa-plus"> Ajouter</i>
-        </button>
-    </a>
-    {% endif %}
+
 </div>
+
+{% if adsVans is not empty %}
+<h1>Mes annonces</h1>
+{% else %}
+<div class="text-center">
+    <h2>Vous n'avez aucune annonce en ligne</h2>
+</div>
+{% endif %}
 
 {% for adsVan in adsVans|reverse %}
 <div class="col-xl-8 col-lg-8 col-md-7 col-sm-12 my-4 d-flex">
@@ -46,12 +53,5 @@
         </div>
     </div>
 </div>
-
-{% else %}
-
-<h2>no records found</h2>
-
 {% endfor %}
-
-
-{% endblock content %}
+{% endblock %}

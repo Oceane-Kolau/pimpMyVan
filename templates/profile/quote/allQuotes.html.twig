@@ -1,0 +1,44 @@
+{% extends 'profile/profile_template.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block content %}
+
+{% for quote in quotes|reverse %}
+
+{% if app.user.roles[0] == "ROLE_ARTISAN" %}
+<div class="row justify-content-around align-items-center">
+    <div class="col-auto">
+        <p>{{ quote.firstname }} {{ quote.lastname }}</p>
+    </div>
+    <div class="col-auto d-none d-sm-block">
+        <p>{{ quote.projectDate|date('d M Y') }}</p>
+    </div>
+    <div class="col-auto">
+        <p>{{ quote.createdAt|date('d M Y')}}</p>
+    </div>
+    <a href="{{ path('artisan_quote_show', {'slug': artisan.slug, 'id': quote.id}) }}"><button
+            class="btn btn-turquoise"><i class="far fa-eye"></i></button></a></td>
+</div>
+{% endif %}
+
+{% if app.user.roles[0] == "ROLE_VANLIFER" %}
+<div class="row justify-content-around align-items-center">
+    <div class="col-auto">
+        <p>{{ quote.artisan.firstname }} {{ quote.artisan.lastname }}</p>
+    </div>
+    <div class="col-auto d-none d-sm-block">
+        <p>{{ quote.artisan.email}}</p>
+    </div>
+    <div class="col-auto">
+        <p>{{ quote.createdAt|date('d M Y')}}</p>
+    </div>
+    <a href="{{ path('vanlifer_quote_show', {'slug': vanlifer.slug,'id': quote.id}) }}"><button
+            class="btn btn-turquoise"><i class="far fa-eye"></i></button></a></td>
+</div>
+{% endif %}
+
+<hr>
+{% endfor %}
+
+{% endblock content %}

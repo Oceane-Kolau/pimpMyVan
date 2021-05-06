@@ -1,4 +1,4 @@
-{% extends 'profile_template/profile_template.html.twig' %}
+{% extends 'profile/profile_template.html.twig' %}
 
 {% block title %}AdsVan{% endblock %}
 
@@ -42,12 +42,14 @@
 {% endif %}
 
 {% if app.user.roles[0] == "ROLE_ARTISAN" %}
+<a href="{{ path('artisan_adsVan_index', {'slug': artisan.slug}) }}">
+    <button type="button" class="btn btn-turquoise">Revenir à la liste</button>
+</a>
 <a href="{{ path('artisan_adsVan_edit', {'slug': artisan.slug, 'id': adsVan.id}) }}">
     <button type="button" class="btn btn-grey">Editer</button>
 </a>
-<a href="{{ path('artisan_adsVan_index', {'slug': artisan.slug}) }}">back to list</a>
 {% endif %}
 
-{{ include('adsVan/_delete_form.html.twig') }}
+{{ include('profile/adsVan/_delete_form.html.twig') }}
 
 {% endblock content %}

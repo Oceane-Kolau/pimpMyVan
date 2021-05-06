@@ -1,0 +1,22 @@
+{% extends 'profile/profile_template.html.twig' %}
+{% block title %}Edit AdsVan{% endblock %}
+
+{% block content %}
+
+{{ include('profile/adsVan/_form.html.twig', {'button_label': 'Update'}) }}
+
+{% if app.user.roles[0] == "ROLE_VANLIFER" %}
+<a href="{{ path('vanlifer_adsVan_index', {'slug': vanlifer.slug}) }}">
+    <button type="button" class="btn btn-grey">Revenir à la liste</button>
+</a>
+{% endif %}
+
+{% if app.user.roles[0] == "ROLE_ARTISAN" %}
+<a href="{{ path('artisan_adsVan_index', {'slug': artisan.slug}) }}">
+    <button type="button" class="btn btn-grey">Revenir à la liste</button>
+</a>
+{% endif %}
+
+{{ include('profile/adsVan/_delete_form.html.twig') }}
+
+{% endblock content %}
