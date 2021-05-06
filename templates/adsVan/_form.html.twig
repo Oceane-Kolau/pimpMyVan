@@ -74,7 +74,7 @@
         }}) }}
     </div>
     <div class="col-12">
-       {{ form_row(form.vanFurnishing, {
+        {{ form_row(form.vanFurnishing, {
         "attr": {
         'class': 'selectpicker',
         'data-live-search': true,
@@ -89,9 +89,5 @@
     <div class="col-12 text-center">
         <button class="btn btn-turquoise">{{ button_label|default('Save') }}</button>
     </div>
-    {{ form_end(form) }}
-    {% block javascripts %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"
-        integrity="sha512-yDlE7vpGDP7o2eftkCiPZ+yuUyEcaBwoJoIhdXv71KZWugFqEphIS3PU60lEkFaz8RxaVsMpSvQxMBaKVwA5xg=="
-        crossorigin="anonymous"></script>
-    {% endblock %}
+</div>
+{{ form_end(form) }}

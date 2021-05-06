@@ -22,14 +22,20 @@
                 </div>
                 {% if app.user.roles[0] == "ROLE_VANLIFER" %}
                 {% include 'vanlifer/profile/presentation_vanlifer.html.twig' with {vanlifer: vanlifer} only %}
-                {% include 'profile_template/nav_vanlifer.html.twig' with {vanlifer: vanlifer} only %}
                 {% endif %}
                 {% if app.user.roles[0] == "ROLE_ARTISAN" %}
                 {% include 'artisan/presentation_artisan.html.twig' with {artisan: artisan} only %}
-                {% include 'profile_template/nav_artisan.html.twig' with {artisan: artisan} only %}
                 {% endif %}
             </div>
             <div class="row justify-content-around align-items-center">
+                <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 text-center ml-4">
+                    {% if app.user.roles[0] == "ROLE_VANLIFER" %}
+                    {% include 'profile_template/nav_vanlifer.html.twig' with {vanlifer: vanlifer} only %}
+                    {% endif %}
+                    {% if app.user.roles[0] == "ROLE_ARTISAN" %}
+                    {% include 'profile_template/nav_artisan.html.twig' with {artisan: artisan} only %}
+                    {% endif %}
+                </div>
                 <div class="col-xl-8 col-lg-8 col-md-7 col-sm-12 mr-5 bg-lightgrey mx-auto pt-4 pb-4">
                     <div class="col-12">
                         {% block content %}{% endblock content %}

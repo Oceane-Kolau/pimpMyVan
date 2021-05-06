@@ -1,44 +1,25 @@
-{% extends 'base.html.twig' %}
+{% extends 'profile_template/profile_template.html.twig' %}
 
 {% block title %}Mes messages{% endblock %}
 
-{% block body %}
-<div class="wrapper">
-    {% include "asidenav.html.twig" %}
-    <div id="page-content-wrapper">
-        <div class="container-fluid color-account">
-            <div class="row mb-4">
-                <div class="col-2">
-                    <a class="navbar-brand ml-5 pl-5" href="/">
-                        {% include 'logoSvg.html.twig' %}
-                    </a>
-                </div>
-                {% include 'artisan/presentation_artisan.html.twig' with {artisan: artisan} only %}
-            </div>
-            <div class="row justify-content-around align-items-center">
-                <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 text-center ml-4">
-                    {% include 'artisan/nav_artisan.html.twig' with {artisan: artisan} only %}
-                </div>
-                <div class="col-xl-8 col-lg-8 col-md-7 col-sm-12 mr-5 bg-lightgrey mx-auto p-5">
-                    {% for contact in contacts|reverse %}
-                    <div class="row justify-content-around align-items-center">
-                        <div class="col-auto">
-                            <p>{{ contact.firstname }} {{ contact.lastname }}</p>
-                        </div>
-                        <div class="col-auto d-none d-sm-block">
-                            <p>{{ contact.subject }}</p>
-                        </div>
-        
-                        <div class="col-auto">
-                            <p>{{ contact.createdAt|date('d M Y')}}</p>
-                        </div>
-                            <a href="{{ path('artisan_messagerie_show', {'slug': artisan.slug, 'id': contact.id}) }}"><button class="btn btn-turquoise"><i class="far fa-eye"></i></button></a></td>
-                    </div>
-                    <hr>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
+{% block content %}
+
+{% for contact in contacts|reverse %}
+<div class="row justify-content-around align-items-center">
+    <div class="col-auto">
+        <p>{{ contact.firstname }} {{ contact.lastname }}</p>
     </div>
+    <div class="col-auto d-none d-sm-block">
+        <p>{{ contact.subject }}</p>
+    </div>
+
+    <div class="col-auto">
+        <p>{{ contact.createdAt|date('d M Y')}}</p>
+    </div>
+    <a href="{{ path('artisan_messagerie_show', {'slug': artisan.slug, 'id': contact.id}) }}"><button
+            class="btn btn-turquoise"><i class="far fa-eye"></i></button></a></td>
 </div>
+<hr>
+{% endfor %}
+
 {% endblock %}
