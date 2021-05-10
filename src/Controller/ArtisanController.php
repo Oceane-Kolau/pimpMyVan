@@ -37,7 +37,7 @@ class ArtisanController extends AbstractController
             ]);
         }
 
-        return $this->render('artisan/index.html.twig', [
+        return $this->render('profile/index.html.twig', [
             'artisan' => $user,
         ]);
     }
@@ -67,10 +67,13 @@ class ArtisanController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('artisan_profile');
+            return $this->redirectToRoute('artisan_profile',
+            [
+                'slug' => $user->getSlug(),
+            ]);
         }
 
-        return $this->render('artisan/edit.html.twig', [
+        return $this->render('profile/artisan/edit.html.twig', [
             'artisan' => $user,
             'form' => $form->createView(),
         ]);
@@ -90,7 +93,7 @@ class ArtisanController extends AbstractController
 
         $contacts = $user->getContacts();
 
-        return $this->render('artisan/messagerie.html.twig', [
+        return $this->render('profile/message/messagerie.html.twig', [
             'contacts' => $contacts,
             'artisan' => $user,
         ]);
@@ -107,7 +110,7 @@ class ArtisanController extends AbstractController
                 'user' => $user,
             ]);
         }
-        return $this->render('artisan/show_messagerie.html.twig', [
+        return $this->render('profile/message/show_messagerie.html.twig', [
             'contact' => $contact,
             'artisan' => $user,
         ]);
@@ -127,7 +130,7 @@ class ArtisanController extends AbstractController
 
         $quotes = $user->getQuoteArtisans();
 
-        return $this->render('artisan/allQuotes_artisan.html.twig', [
+        return $this->render('profile/quote/allQuotes.html.twig', [
             'quotes' => $quotes,
             'artisan' => $user,
         ]);
@@ -157,7 +160,7 @@ class ArtisanController extends AbstractController
     public function allAds(AdsVanRepository $adsVanRepository): Response
     {
         $user = $this->getUser();
-        return $this->render('adsVan/index.html.twig', [
+        return $this->render('profile/adsVan/index.html.twig', [
             'adsVans' => $adsVanRepository->findBy(['user' => $user]),
             'artisan' => $user,
         ]);
@@ -188,7 +191,7 @@ class ArtisanController extends AbstractController
             ]);
         }
 
-        return $this->render('adsVan/new.html.twig', [
+        return $this->render('profile/adsVan/new.html.twig', [
             'adsVan' => $adsVan,
             'form' => $form->createView(),
             'artisan' => $user
@@ -201,7 +204,7 @@ class ArtisanController extends AbstractController
     public function showAds(AdsVanRepository $adsVanRepository): Response
     {
         $user = $this->getUser();
-        return $this->render('adsVan/show.html.twig', [
+        return $this->render('profile/adsVan/show.html.twig', [
             'adsVan' => $adsVanRepository->findBy(['user' => $user])[0],
             'artisan' => $user,
         ]);
@@ -225,7 +228,7 @@ class ArtisanController extends AbstractController
             ]);
         }
 
-        return $this->render('adsVan/edit.html.twig', [
+        return $this->render('profile/adsVan/edit.html.twig', [
             'adsVan' => $adsVanRepository->findBy(['user' => $user])[0],
             'form' => $form->createView(),
             'artisan' => $user,

@@ -1,0 +1,93 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-12">
+        {{ form_row(form.title) }}
+    </div>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-6">
+                {{ form_row(form.yearVan, { 'attr': {'class': 'choice-design'} }) }}
+            </div>
+            <div class="col-6">
+                {{ form_row(form.brandVan, { 'attr': {'class': 'choice-design'} }) }}
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-6">
+                {{ form_row(form.sizeVan, { 'attr': {'class': 'choice-design'} }) }}
+            </div>
+            <div class="col-6">
+                {{ form_row(form.typeVan, { 'attr': {'class': 'choice-design'} }) }}
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-6">
+                {{ form_row(form.floor, { 'attr': {'class': 'choice-design'} }) }}
+            </div>
+            <div class="col-6">
+                {{ form_row(form.kilometerVan, { 'attr': {'class': 'choice-design'} }) }}
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        {{ form_row(form.insulation, {
+        "attr": {
+        'class': 'selectpicker',
+        'data-live-search': true,
+        'data-count-selected-text': '{0} sélectionnés',
+        'data-actions-box': true,
+        'title': 'Isolation'
+        }}) }}
+    </div>
+    <div class="col-12">
+        {{ form_row(form.veneer, {
+        "attr": {
+        'class': 'selectpicker',
+        'data-live-search': true,
+        'data-count-selected-text': '{0} sélectionnés',
+        'data-actions-box': true,
+        'title': 'Placage'
+        }}) }}
+    </div>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-6">
+                {{ form_row(form.specificSetup, { 'attr': {'class': 'choice-design'} }) }}
+            </div>
+            <div class="col-6">
+                {{ form_row(form.generalSetup, { 'attr': {'class': 'choice-design'} }) }}
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        {{ form_row(form.specialtiesVan, {
+        "attr": {
+        'class': 'selectpicker',
+        'data-live-search': true,
+        'data-count-selected-text': '{0} sélectionnés',
+        'data-actions-box': true,
+        'title': 'Aménagements'
+        }}) }}
+    </div>
+    <div class="col-12">
+        {{ form_row(form.vanFurnishing, {
+        "attr": {
+        'class': 'selectpicker',
+        'data-live-search': true,
+        'data-count-selected-text': '{0} sélectionnés',
+        'data-actions-box': true,
+        'title': 'Options supplémentaires'
+        }}) }}
+    </div>
+    <div class="col-12">
+        {{ form_row(form.description) }}
+    </div>
+    <div class="col-12 text-center">
+        <button class="btn btn-turquoise">{{ button_label|default('Save') }}</button>
+    </div>
+</div>
+{{ form_end(form) }}

@@ -34,7 +34,7 @@ class VanliferController extends AbstractController
     public function index(): Response
     {
         $user = $this->getUser();
-        return $this->render('vanlifer/profile/index.html.twig', [
+        return $this->render('profile/index.html.twig', [
             'vanlifer' => $user,
         ]);
     }
@@ -59,7 +59,7 @@ class VanliferController extends AbstractController
             ]);
         }
 
-        return $this->render('vanlifer/profile/edit.html.twig', [
+        return $this->render('profile/vanlifer/edit.html.twig', [
             'vanlifer' => $user,
             'form' => $form->createView(),
         ]);
@@ -75,7 +75,7 @@ class VanliferController extends AbstractController
 
         $contacts = $contactRepository->findBy(['email' => $email]);
 
-        return $this->render('vanlifer/messagerie/messagerie.html.twig', [
+        return $this->render('profile/message/messagerie.html.twig', [
             'contacts' => $contacts,
             'vanlifer' => $user,
         ]);
@@ -88,7 +88,7 @@ class VanliferController extends AbstractController
     {
         $user = $this->getUser();
         
-        return $this->render('vanlifer/messagerie/show_messagerie.html.twig', [
+        return $this->render('profile/message/show_messagerie.html.twig', [
             'contact' => $contact,
             'vanlifer' => $user,
         ]);
@@ -104,7 +104,7 @@ class VanliferController extends AbstractController
 
         $quotes = $quoteArtisanRepository->findBy(['email' => $email]);
 
-        return $this->render('vanlifer/allQuotes_vanlifer.html.twig', [
+        return $this->render('profile/quote/allQuotes.html.twig', [
             'quotes' => $quotes,
             'vanlifer' => $user,
         ]);
@@ -129,7 +129,7 @@ class VanliferController extends AbstractController
     public function allAds(AdsVanRepository $adsVanRepository): Response
     {
         $user = $this->getUser();
-        return $this->render('adsVan/index.html.twig', [
+        return $this->render('profile/adsVan/index.html.twig', [
             'adsVans' => $adsVanRepository->findBy(['user' => $user]),
             'vanlifer' => $user,
         ]);
@@ -160,7 +160,7 @@ class VanliferController extends AbstractController
             ]);
         }
 
-        return $this->render('adsVan/new.html.twig', [
+        return $this->render('profile/adsVan/new.html.twig', [
             'adsVan' => $adsVan,
             'form' => $form->createView(),
             'vanlifer' => $user
@@ -173,7 +173,7 @@ class VanliferController extends AbstractController
     public function showAds(AdsVanRepository $adsVanRepository): Response
     {
         $user = $this->getUser();
-        return $this->render('adsVan/show.html.twig', [
+        return $this->render('profile/adsVan/show.html.twig', [
             'adsVan' => $adsVanRepository->findBy(['user' => $user])[0],
             'vanlifer' => $user,
         ]);
@@ -197,7 +197,7 @@ class VanliferController extends AbstractController
             ]);
         }
 
-        return $this->render('adsVan/edit.html.twig', [
+        return $this->render('profile/adsVan/edit.html.twig', [
             'adsVan' => $adsVanRepository->findBy(['user' => $user])[0],
             'form' => $form->createView(),
             'vanlifer' => $user,

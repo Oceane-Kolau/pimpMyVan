@@ -1,0 +1,59 @@
+{% extends 'profile/profile_template.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block content %}
+
+<div class="col-11 text-right pr-5 pt-5">
+    <a class="hover-link" 
+    {% if app.user.roles[0] == "ROLE_ARTISAN" %}
+    href="{{ path('artisan_edit', {'slug': artisan.slug, 'id': artisan.id}) }}"
+    {% endif %}
+    {% if app.user.roles[0] == "ROLE_VANLIFER" %}
+    href="{{ path('vanlifer_edit', {'slug': vanlifer.slug, 'id': vanlifer.id}) }}"
+    {% endif %}
+    >
+        <p></i>Editer mon profil <i class="fas fa-arrow-right"></i></p>
+    </a>
+</div>
+
+{% if app.user.roles[0] == "ROLE_ARTISAN" %}
+<div class="row pl-3 mt-4">
+    {% for specificSetup in artisan.specificSetup %}
+    <div class="col-auto">
+        <p class="setup-type">{{ specificSetup.type }}</p>
+    </div>
+    {% endfor %}
+    {% for generalSetup in artisan.generalSetup %}
+    <div class="col-auto">
+        <p class="setup-type">{{ generalSetup.type }}</p>
+    </div>
+    {% endfor %}
+</div>
+<div class="row pl-3">
+    {% for specialtiesVanArtisan in artisan.specialtiesVanArtisan %}
+    <div class="col-auto">
+        <p><i class="fas fa-plus plus-color"></i> {{ specialtiesVanArtisan.type }}</p>
+    </div>
+    {% endfor %}
+</div>
+<div class="col-12">
+    <p class="p-2"> {{ artisan.description }}</p>
+</div>
+{% endif %}
+
+{% if app.user.roles[0] == "ROLE_VANLIFER" %}
+<div class="row justify-content-around align-items-center">
+    <div class="col-xl-8 col-lg-8 col-md-7 col-sm-12 mr-5 bg-lightgrey mx-auto">
+
+        {% if vanlifer.description is not empty %}
+        <div class="col-12">
+            <p class="p-2"> {{ vanlifer.description }}</p>
+        </div>
+        {% endif %}
+        
+    </div>
+</div>
+{% endif %}
+
+{% endblock content %}
