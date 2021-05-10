@@ -1,0 +1,39 @@
+{% extends 'profile/profile_template.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        {% if app.user.roles[0] == "ROLE_ARTISAN" %}
+        <h4>{{ contact.firstname }} {{ contact.lastname }}</h4>
+        <p>{{ contact.email }}</p>
+        {% endif %}
+
+        {% if app.user.roles[0] == "ROLE_VANLIFER" %}
+        <h4>{{ contact.user.firstname }} {{ contact.user.lastname }}</h4>
+        <p>{{ contact.user.email }}</p>
+        {% endif %}
+
+        <p>{{ contact.subject }}</p>
+        <p> {{ contact.message }}</p>
+        <p>{{ contact.createdAt|date('d M Y')}}</p>
+    </div>
+</div>
+<div class="col-11 text-right pr-5 pt-5">
+    <a class="hover-link" 
+    {% if app.user.roles[0] == "ROLE_ARTISAN" %}
+    href="{{ path('artisan_messagerie', {'slug': artisan.slug})}}"
+    {% endif %}
+    {% if app.user.roles[0] == "ROLE_VANLIFER" %}
+    href="{{ path('vanlifer_messagerie', {'slug': vanlifer.slug})}}"
+    {% endif %}
+    >
+        <p><i class="fas fa-arrow-left"></i> 
+            Retour à la liste des messages
+        </p>
+    </a>
+</div>
+
+{% endblock %}

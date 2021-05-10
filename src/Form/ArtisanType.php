@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ArtisanType extends AbstractType
 {
@@ -108,6 +109,14 @@ class ArtisanType extends AbstractType
                 'multiple' => true,
                 'by_reference' => true,
                 'label' => false,
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Description',
+                    'rows' => '4'
+                    ]
             ])
             ->add('profilePictureFile', VichFileType::class, [
                 'required'      => false,

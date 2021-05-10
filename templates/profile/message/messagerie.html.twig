@@ -1,0 +1,42 @@
+{% extends 'profile/profile_template.html.twig' %}
+
+{% block title %}Mes messages{% endblock %}
+
+{% block content %}
+
+{% for contact in contacts|reverse %}
+<div class="row justify-content-around align-items-center">
+    <div class="col-auto">
+        {% if app.user.roles[0] == "ROLE_ARTISAN" %}
+        <p>{{ contact.firstname }} {{ contact.lastname }}</p>
+        {% endif %}
+
+        {% if app.user.roles[0] == "ROLE_VANLIFER" %}
+        <p>{{ contact.user.firstname }} {{ contact.user.lastname }}</p>
+        {% endif %}
+    </div>
+    <div class="col-auto d-none d-sm-block">
+        <p>{{ contact.subject }}</p>
+    </div>
+
+    <div class="col-auto">
+        <p>{{ contact.createdAt|date('d M Y')}}</p>
+    </div>
+    <a 
+    {% if app.user.roles[0] == "ROLE_ARTISAN" %}
+    href="{{ path('artisan_messagerie_show', {'slug': artisan.slug, 'id': contact.id}) }}"
+    {% endif %}
+    
+    {% if app.user.roles[0] == "ROLE_VANLIFER" %}
+    href="{{ path('vanlifer_messagerie_show', {'slug': vanlifer.slug, 'id': contact.id}) }}"
+    {% endif %}
+    >
+        <button
+            class="btn btn-turquoise"><i class="far fa-eye"></i>
+        </button>
+    </a>
+</div>
+<hr>
+{% endfor %}
+
+{% endblock %}
