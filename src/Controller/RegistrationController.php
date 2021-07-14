@@ -16,14 +16,6 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 class RegistrationController extends AbstractController
 {
     /**
-     * @Route("/register", name="app_register")
-     */
-    public function register(): Response
-    {
-        return $this->render('home/register.html.twig');
-    }
-    
-    /**
      * @Route("/register/artisan", name="app_register_artisan")
      */
     public function registerArtisan(

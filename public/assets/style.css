@@ -330,3 +330,12 @@ p {
 button {
     font-family: var(--fontP);
 }
+
+.nav-register {
+    margin-top: -30px;
+    margin-bottom: 25px;
+}
+
+h4.color-connexion {
+    font-size: 30px;
+}
