@@ -124,8 +124,11 @@ button {
     .home-mainTitle {
         font-size: 75px;
         padding: 3rem;
-        background-color: #eceeef;
-        margin-top: -70px;
+        border-radius: 25px;
+        background: linear-gradient(45deg, #ffffff, #e6e6e6, 0.30);
+        box-shadow:  5px -5px 10px #d4d4d4,
+                    -5px 5px 10px #ffffff;
+        margin-top: -120px;
         border-radius: 12px;
     }
 }
