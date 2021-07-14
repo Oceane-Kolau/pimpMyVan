@@ -5,6 +5,8 @@
     --lightgrey : #F1F6F8;
 }
 
+/* General  */
+
 ul {
     list-style-type: none;
 }
@@ -38,21 +40,6 @@ button {
     font-weight: 500;
 }
 
-.nav-item {
-    font-family: bebas-neue-pro, sans-serif;
-    font-weight: 300;
-    font-style: normal;
-    font-size: 22px;
-}
-
-.navbar-light .navbar-nav .nav-link {
-    color:black;
-}
-
-.color-topnav {
-    background-color: var(--darkturquoise);
-    height: 20px;
-}
 
 .btn-turquoise {
     background-color: #A3D2CA;
@@ -75,19 +62,134 @@ button {
     backdrop-filter: blur(4px);
 }
 
-.img-size {
-    width: 800px;
+.btn-orange {
+    background-color: var(--oorange);
+    color: white;
 }
+
+
+.multiple-selector-bg  {
+    background-color: white;
+}
+
+.number {
+    font-family: oswald, serif;
+    font-size: 35px;
+    font-weight: 300;
+    color: var(--oorange);
+}
+
+.txt-orange {
+    color: var(--oorange);
+}
+
+
+/* Navbar */
+
+.nav-item {
+    font-family: bebas-neue-pro, sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 22px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color:black;
+}
+
+.color-topnav {
+    background-color: var(--darkturquoise);
+    height: 20px;
+}
+
+/* HOME  */
+
+@media screen and (min-width: 1200px) and (max-width: 2000px) {
+    .home-mainTitle {
+        font-size: 85px;
+        margin-left: -240px;
+        margin-bottom: 70px;
+    }
+}
+
+@media screen and (min-width: 760px) and (max-width: 1200px) {
+    .home-mainTitle {
+        font-size: 65px;
+        margin-left: -200px;
+        margin-bottom: 70px;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .home-mainTitle {
+        font-size: 75px;
+        padding: 3rem;
+        background-color: #eceeef;
+        margin-top: -70px;
+        border-radius: 12px;
+    }
+}
+
+/* .home-mainTitle {
+    font-size: 85px;
+} */
+
+.img-size {
+    width: 100%;
+    position: relative;
+}
+
+/* Side Navabar */
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#sidebar-wrapper {
+    margin-top: 10rem;
+    z-index: 1000;
+    position: fixed;
+    right: 250px;
+    width: 0;
+    height: auto;
+    margin-right: -250px;
+    overflow-y: auto;
+    background: var(--darkturquoise);
+    color: white;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    /* position: absolute; */
+}
+
+#wrapper {
+    padding-right: 250px;
+}
+
+#sidebar-wrapper {
+    width: 50px;
+    overflow: hidden;
+}
+
+#sidebar-wrapper a {
+    color: white;
+}
+
+/* Search pages */
 
 .filter {
     border: 2px solid --lightgrey;
     border-radius: 46px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-}
-
-.btn-orange {
-    background-color: var(--oorange);
-    color: white;
 }
 
 .color-account {
@@ -184,49 +286,6 @@ button {
     border-radius: 20px;
 }
 
-#wrapper {
-    padding-left: 0;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-
-#sidebar-wrapper {
-    margin-top: 10rem;
-    z-index: 1000;
-    position: fixed;
-    right: 250px;
-    width: 0;
-    height: auto;
-    margin-right: -250px;
-    overflow-y: auto;
-    background: var(--darkturquoise);
-    color: white;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-
-#page-content-wrapper {
-    width: 100%;
-    /* position: absolute; */
-}
-
-#wrapper {
-    padding-right: 250px;
-}
-
-#sidebar-wrapper {
-    width: 50px;
-    overflow: hidden;
-}
-
-#sidebar-wrapper a {
-    color: white;
-}
-
 .bg-lightgrey-contact {
     background-color: var(--lightgrey);
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
@@ -243,19 +302,4 @@ button {
     font-family: houschka-pro, sans-serif;
     font-weight: 300;
     font-size: 19px;
-}
-
-.multiple-selector-bg  {
-    background-color: white;
-}
-
-.number {
-    font-family: oswald, serif;
-    font-size: 35px;
-    font-weight: 300;
-    color: var(--oorange);
-}
-
-.txt-orange {
-    color: var(--oorange);
 }

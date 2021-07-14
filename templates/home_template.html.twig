@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+{% include "navigation/navbar.html.twig" %}
+<div class="wrapper">
+    {% include "navigation/asidenav.html.twig" %}
+    <div id="page-content-wrapper"> 
+        {% block home %}
+        {% endblock home %}
+    </div>
+</div>
+{% endblock %}
