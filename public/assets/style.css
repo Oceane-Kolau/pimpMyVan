@@ -3,6 +3,9 @@
     --oorange : #db6400;
     --darkturquoise : #5eaaa8;
     --lightgrey : #F1F6F8;
+    --fontTitle : bebas-neue-pro, sans-serif;
+    --fontP : 'Barlow', sans-serif;
+    --fontExtra : bebas-neue-pro, sans-serif;
 }
 
 /* General  */
@@ -18,41 +21,39 @@ a {
 
 h1 {
     font-size: 55px;
-    font-weight: 300;
+    font-weight: 560;
 }
 
 h1, h2, h3, h4, h5 {
-    font-family: oswald, serif;
+    font-family: var(--fontTitle);
 }
 
 h3, h4, h5 {
-    font-weight: 200;
+    font-weight: 560;
 }
 
 p {
-    font-family: houschka-pro, sans-serif;
+    font-family: var(--fontP);
     font-weight: 300;
     font-size: 19px;
 }
 
-button {
-    font-family: houschka-pro, sans-serif;
-    font-weight: 500;
-}
-
-
 .btn-turquoise {
-    background-color: #A3D2CA;
+    background-color: var(--lightturquoise);
+    font-family: var(--fontExtra);
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(4px);
     border-radius: 12px;
+    font-size: 27px;
 }
 
 .btn-grey {
-    background-color: #F1F6F8;
+    background-color: var(--lightgrey);
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(4px);
+    font-family: var(--fontExtra);
     border-radius: 12px;
+    font-size: 27px;
 }
 
 .bg-lightgrey {
@@ -60,11 +61,20 @@ button {
     border-radius: 12px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(4px);
+    font-family: var(--fontExtra);
 }
 
 .btn-orange {
     background-color: var(--oorange);
     color: white;
+    font-family: var(--fontExtra);
+}
+
+.btn-lg:hover,.btn-lg:focus,.btn-lg:active, 
+.btn-lg:active:focus:not(:disabled):not(.disabled),
+.btn:focus, .btn:active, .btn:hover{
+    box-shadow: none!important;
+    outline: 0;
 }
 
 
@@ -73,7 +83,7 @@ button {
 }
 
 .number {
-    font-family: oswald, serif;
+    font-family: var(--fontTitle);
     font-size: 35px;
     font-weight: 300;
     color: var(--oorange);
@@ -83,14 +93,13 @@ button {
     color: var(--oorange);
 }
 
-
 /* Navbar */
 
 .nav-item {
-    font-family: bebas-neue-pro, sans-serif;
+    font-family: var(--fontExtra);
     font-weight: 300;
     font-style: normal;
-    font-size: 22px;
+    font-size: 27px;
 }
 
 .navbar-light .navbar-nav .nav-link {
@@ -101,6 +110,11 @@ button {
     background-color: var(--darkturquoise);
     height: 20px;
 }
+.navbar-light .navbar-toggler {
+    color: rgba(0,0,0,.5);
+    background-color: var(--darkturquoise);
+}
+
 
 /* HOME  */
 
@@ -125,11 +139,12 @@ button {
         font-size: 75px;
         padding: 3rem;
         border-radius: 25px;
-        background: linear-gradient(45deg, #ffffff, #e6e6e6, 0.30);
+        margin-top: -100px;
+        /* background: linear-gradient(45deg, #ffffff, #e6e6e6, 0.30);
         box-shadow:  5px -5px 10px #d4d4d4,
                     -5px 5px 10px #ffffff;
         margin-top: -120px;
-        border-radius: 12px;
+        border-radius: 12px; */
     }
 }
 
@@ -153,7 +168,7 @@ button {
 }
 
 #sidebar-wrapper {
-    margin-top: 10rem;
+    /* margin-top: 10rem; */
     z-index: 1000;
     position: fixed;
     right: 250px;
@@ -259,7 +274,7 @@ button {
 }
 
 .size-specialties {
-    font-size: 16px;
+    font-size: 20px;
     padding: 0px;
 }
 
@@ -295,14 +310,23 @@ button {
     backdrop-filter: blur(4px);
 }
 
+/* Register  */
 ::placeholder {
-    font-family: houschka-pro, sans-serif;
-    font-weight: 300;
-    font-size: 19px;
+    font-family: var(--fontP);
+    font-weight: 100;
+    font-size: 18px;
 }
 
 .choice-design {
-    font-family: houschka-pro, sans-serif;
-    font-weight: 300;
-    font-size: 19px;
+    font-family: var(--fontP);
+    font-weight: 100;
+    font-size: 18px;
+}
+
+.agreeTerms {
+    font-family: var(--fontP);
+}
+/* Menu déroulant */
+button {
+    font-family: var(--fontP);
 }
