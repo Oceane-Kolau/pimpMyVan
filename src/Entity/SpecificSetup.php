@@ -25,7 +25,7 @@ class SpecificSetup
     private $type;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="specificSetUp")
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="specificSetup")
      */
     private $users;
 

@@ -8,16 +8,19 @@ use Knp\Snappy\Pdf;
 use Twig\Environment;
 use App\Entity\Contact;
 use App\Entity\QuoteArtisan;
+use App\Entity\SpecialtiesVanArtisan;
 use App\Entity\User;
 use App\Form\ContactType;
 use App\Form\QuoteArtisanType;
 use App\Form\SearchArtisansType;
 use App\Repository\AdsVanRepository;
+use App\Repository\SpecialtiesVanArtisanRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Service\MailerService;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -134,14 +137,40 @@ class HomeController extends AbstractController
     }
     
     /** 
-     * @Route("/annonces-van-occasion", name="home_adsVan", methods={"GET"})
+     * @Route("/annonces-van-occasion", name="home_adsVan")
+     * @return void 
     */
-    public function adsVan(Request $request, AdsVanRepository $adsVanRepository) {
-        $adsVans = $adsVanRepository->findAll();
+    public function adsVan(Request $request, AdsVanRepository $adsVanRepository, SpecialtiesVanArtisanRepository $specialtiesVanArtisanRepository) {
+        // On définit le nombre d'éléments par page
+        $limit = 10;
 
-        return $this->render('home/adsVanSection/adsVan.html.twig', [
-            'adsVans' => $adsVans
-        ]);
+        // On récupère le numéro de page
+        $page = (int)$request->query->get("page", 1);
+
+        // On récupère les filtres
+        $filters = $request->get("specialtyVanArtisan");
+        
+        // On récupère les annonces de la page en fonction du filtre
+        $adsVans = $adsVanRepository->getPaginatedAnnonces($page, $limit, $filters);
+
+        // On récupère le nombre total d'annonces
+        $total = $adsVanRepository->getTotalAnnonces($filters);
+        // On va chercher toutes les catégories
+        $specialtiesVanArtisan = $specialtiesVanArtisanRepository->findAll();
+        // On vérifie si on a une requête Ajax
+        if($request->get('ajax')){
+            return new JsonResponse([
+                'content' => $this->renderView('home/adsVanSection/adsVan_card.html.twig', compact('adsVans', 'total', 'limit', 'page'))
+            ]);
+        }
+
+        return $this->render('home/adsVanSection/adsVan.html.twig', compact('adsVans', 'total', 'limit', 'page', 'specialtiesVanArtisan'));
+        
+        // $adsVans = $adsVanRepository->findAll();
+
+        // return $this->render('home/adsVanSection/adsVan.html.twig', [
+        //     'adsVans' => $adsVans
+        // ]);
         
     }
 

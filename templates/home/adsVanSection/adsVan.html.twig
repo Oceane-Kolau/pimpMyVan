@@ -2,25 +2,42 @@
 
 {% block title %}Annonces Vans d'occasion{% endblock %}
 
-{% block home %}
-<div class="container-fluid pb-5 mx-auto">
-    <div class="row mt-5 mx-auto">
-        <div class="col-xl-3 col-lg-4 col-md-5 col-sm-10 card-filter pt-3">
-            <div class="filter p-5">
+{# On crée des variables personnalisées #}
+{% set queryParams = app.request.query.all %}
 
+{% block home %}
+<div class="container-fluid pb-5">
+    <div class="row mt-5">
+        <div class="col-xl-3 col-lg-5 col-md-5 col-sm-10 pt-3">
+            <div class="">
+                <form class="filter p-5" id="filters">
+
+                    {% for specialtyVanArtisan in specialtiesVanArtisan %}
+                    {# On vérifie si la catégorie est dans les paramètres #}
+                    {% if queryParams is not empty and queryParams.specialtiesVanArtisan is defined %}
+                    {% set checked = (specialtyVanArtisan.id in queryParams.specialtiesVanArtisan) ? "checked" : "" %}
+                    {% else %}
+                    {% set checked = "" %}
+                    {% endif %}
+
+                    <p><input type="checkbox" name="specialtyVanArtisan[]" id="specialtyVanArtisan{{specialtyVanArtisan.id}}"
+                            value="{{specialtyVanArtisan.id}}" {{checked}}>
+                        <label for="specialtyVanArtisan{{specialtyVanArtisan.id}}">{{specialtyVanArtisan.type}}</label>
+                    </p>
+                    {% endfor %}
+                    <input type="hidden" name="page" value="{{page}}">
+
+                </form>
             </div>
         </div>
-        <div class="col-lg-7 col-lg-7 col-md-7 col-sm-10">
-            <div class="container-fluid">
-                <div class="row mx-auto">
-                    {% for adsVan in adsVans %}
-                    {% include 'home/adsVanSection/adsVan_card.html.twig' with {adsVan: adsVan} only %}
-                    {% endfor %}
-                </div>
-                <div class="navigation">
-                </div>
-            </div>
+        <div id="content">
+            {% include 'home/adsVanSection/adsVan_card.html.twig' %}
         </div>
     </div>
 </div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('assets/js/filters.js') }}"></script>
 {% endblock %}

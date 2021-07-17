@@ -1,12 +1,12 @@
-<div class="col-xl-5 col-lg-6 col-md-7 col-sm-12 my-4 d-flex">
+<div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 my-4 d-flex">
     <div class="card">
         <a href="{{path ('home_artisan_show', {'slug': artisan.slug})}}" class="link-for-show-img">
             {% if artisan.profilePictureFile is not empty %}
             <img src="{{ vich_uploader_asset(artisan, 'profilePictureFile') }}"
-                class="img-fluid size-img-account img-form" alt="">
+                class="img-fluid img-form" alt="{{artisan.companyName}}">
             {% else %}
             <img src="https://i.postimg.cc/4dj33b5R/lucas-favre-DAk-Jbq-15-EI-unsplash.jpg"
-                class="img-fluid size-img-account img-form" alt="">
+                class="img-fluid img-form" alt="{{artisan.companyName}}">
             {% endif %}
         </a>
         <div class="text-right color-provider mr-3">

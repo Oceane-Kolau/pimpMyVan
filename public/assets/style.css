@@ -257,6 +257,7 @@ p {
 
 .img-form {
     border-radius: 20px;
+    z-index: 1;
 }
 
 .card {
@@ -266,6 +267,10 @@ p {
 
 .color-region {
     font-size: 15px;
+    z-index: 2;
+}
+.sticky-filter {
+    position: fixed;
 }
 
 .plus-color-card {
