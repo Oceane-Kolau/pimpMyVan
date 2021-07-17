@@ -28,7 +28,7 @@ class AdsVanType extends AbstractType
             ->add('specificSetup')
             ->add('generalSetup')
             ->add('floor')
-            ->add('specialtiesVan', EntityType::class, [
+            ->add('specialtiesVanArtisan', EntityType::class, [
                 'class' => SpecialtiesVanArtisan::class,
                 'choice_label' => 'type',
                 'expanded' => false,

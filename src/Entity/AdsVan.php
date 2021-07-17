@@ -74,7 +74,7 @@ class AdsVan
     /**
      * @ORM\ManyToMany(targetEntity=SpecialtiesVanArtisan::class, inversedBy="adsVans")
      */
-    private $specialtiesVan;
+    private $specialtiesVanArtisan;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -115,7 +115,7 @@ class AdsVan
     public function __construct()
     {
         $this->user = new ArrayCollection();
-        $this->specialtiesVan = new ArrayCollection();
+        $this->specialtiesVanArtisan = new ArrayCollection();
         $this->veneer = new ArrayCollection();
         $this->insulation = new ArrayCollection();
         $this->vanFurnishing = new ArrayCollection();
@@ -239,21 +239,21 @@ class AdsVan
      */
     public function getSpecialtiesVan(): Collection
     {
-        return $this->specialtiesVan;
+        return $this->specialtiesVanArtisan;
     }
 
-    public function addSpecialtiesVan(SpecialtiesVanArtisan $specialtiesVan): self
+    public function addSpecialtiesVan(SpecialtiesVanArtisan $specialtiesVanArtisan): self
     {
-        if (!$this->specialtiesVan->contains($specialtiesVan)) {
-            $this->specialtiesVan[] = $specialtiesVan;
+        if (!$this->specialtiesVanArtisan->contains($specialtiesVanArtisan)) {
+            $this->specialtiesVanArtisan[] = $specialtiesVanArtisan;
         }
 
         return $this;
     }
 
-    public function removeSpecialtiesVan(SpecialtiesVanArtisan $specialtiesVan): self
+    public function removeSpecialtiesVan(SpecialtiesVanArtisan $specialtiesVanArtisan): self
     {
-        $this->specialtiesVan->removeElement($specialtiesVan);
+        $this->specialtiesVanArtisan->removeElement($specialtiesVanArtisan);
 
         return $this;
     }

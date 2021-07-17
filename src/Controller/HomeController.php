@@ -149,12 +149,18 @@ class HomeController extends AbstractController
 
         // On récupère les filtres
         $filters = $request->get("specialtyVanArtisan");
+        // dd($filters);
+
+        foreach($filters as $value){
+            $filter = $value;
+        }
+
         
         // On récupère les annonces de la page en fonction du filtre
-        $adsVans = $adsVanRepository->getPaginatedAnnonces($page, $limit, $filters);
-
+        $adsVans = $adsVanRepository->getPaginatedAnnonces($page, $limit, $filter);
+        
         // On récupère le nombre total d'annonces
-        $total = $adsVanRepository->getTotalAnnonces($filters);
+        $total = $adsVanRepository->getTotalAnnonces($filter);
         // On va chercher toutes les catégories
         $specialtiesVanArtisan = $specialtiesVanArtisanRepository->findAll();
         // On vérifie si on a une requête Ajax

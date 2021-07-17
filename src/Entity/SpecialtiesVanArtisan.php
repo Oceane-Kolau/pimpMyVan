@@ -35,7 +35,7 @@ class SpecialtiesVanArtisan
     private $quoteArtisans;
 
     /**
-     * @ORM\ManyToMany(targetEntity=AdsVan::class, mappedBy="specialtiesVan")
+     * @ORM\ManyToMany(targetEntity=AdsVan::class, mappedBy="specialtiesVanArtisan")
      */
     private $adsVans;
 
