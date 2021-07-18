@@ -33,6 +33,8 @@
 <div class="col-xl-8 col-lg-8 col-md-7 col-sm-12 my-4 d-flex">
     <div class="card">
         <div class="card-body">
+            <img src="{{ vich_uploader_asset(adsVan, 'pictureVanFile') }}"
+            class="img-fluid size-img-account" alt="">
             <h3>{{ adsVan.title }}</h3>
             {% if app.user.roles[0] == "ROLE_VANLIFER" %}
             <a href="{{ path('vanlifer_adsVan_show', {'slug': vanlifer.slug, 'id': adsVan.id}) }}">

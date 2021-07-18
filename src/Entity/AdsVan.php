@@ -6,9 +6,13 @@ use App\Repository\AdsVanRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=AdsVanRepository::class)
+ * @Vich\Uploadable
  */
 class AdsVan
 {
@@ -111,6 +115,29 @@ class AdsVan
      * @ORM\ManyToMany(targetEntity=VanFurnishing::class, inversedBy="adsVans")
      */
     private $vanFurnishing;
+
+    /**
+    * @ORM\Column(type="string", length=255, nullable=true)
+    * @var string
+    */
+    private $pictureVan;
+
+    /**
+    * @Vich\UploadableField(mapping="pictureVan_file", fileNameProperty="pictureVan")
+    * @Assert\File(
+    *     maxSize = "3000k",
+    *     mimeTypes = {"image/png", "image/jpeg"},
+    *     mimeTypesMessage = "Seul le format png est accepté"
+    * )
+    * @var File
+    */
+    private $pictureVanFile;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @var Datetime
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -375,6 +402,42 @@ class AdsVan
     {
         $this->vanFurnishing->removeElement($vanFurnishing);
 
+        return $this;
+    }
+
+    public function setPictureVanFile(File $pictureVan = null)
+    {
+        $this->pictureVanFile = $pictureVan;
+        if ($pictureVan) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getPictureVanFile(): ?File
+    {
+        return $this->pictureVanFile;
+    }
+
+    public function getPictureVan(): ?string
+    {
+        return $this->pictureVan;
+    }
+
+    public function setPictureVan(?string $pictureVan): self
+    {
+        $this->pictureVan = $pictureVan;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
         return $this;
     }
 }

@@ -3,141 +3,135 @@
 {% block title %}{{artisan.firstname}} {{artisan.lastname}}{% endblock %}
 
 {% block body %}
-<div class="wrapper">
-    {% include "navigation/asidenav.html.twig" %}
-    <div id="page-content-wrapper">
-        <div class="container-fluid color-account">
-            <div class="row mb-4">
-                <div class="col-2">
-                    <a class="navbar-brand ml-5 pl-5" href="/">
-                        {% include 'logoSvg.html.twig' %}
-                    </a>
+<div class="container-fluid color-account">
+    <div class="row mb-4">
+        <div class="col-2">
+            <a class="navbar-brand ml-5 pl-5" href="/">
+                {% include 'logoSvg.html.twig' %}
+            </a>
+        </div>
+    </div>
+    <div class="mt-5 mb-5 pb-5">
+        <div class="col-xl-8 col-lg-8 col-md-10 col-xs-10 mx-auto bg-lightgrey p-5">
+            <div class="text-center pb-4">
+                <h2>Votre demande de devis</h2>
+            </div>
+            {{ form_start(form) }}
+            <h3><span class="number">1.</span> Informations personnelles</h3>
+            <div class="row pt-3">
+                <div class="col-lg-6 col-md-12 pb-3">
+                    {{ form_row(form.firstname) }}
+                </div>
+                <div class="col-lg-6 pb-3">
+                    {{ form_row(form.lastname) }}
                 </div>
             </div>
-            <div class="mt-5 mb-5 pb-5">
-                <div class="col-xl-8 col-lg-8 col-md-10 col-xs-10 mx-auto bg-lightgrey p-5">
-                    <div class="text-center pb-4">
-                        <h2>Votre demande de devis</h2>
-                    </div>
-                    {{ form_start(form) }}
-                    <h3><span class="number">1.</span> Informations personnelles</h3>
+            <div class="row">
+                <div class="col-lg-6 pb-3">
+                    {{ form_row(form.email) }}
+                </div>
+                <div class="col-lg-6 pb-3">
+                    {{ form_row(form.phone) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 pb-3">
+                    {{ form_row(form.address) }}
+                </div>
+            </div>
+            <h3><span class="number">2.</span> Le Van de vos rêves</h3>
+            <div class="row">
+                <div class="col-12 pb-3">
                     <div class="row pt-3">
-                        <div class="col-lg-6 col-md-12 pb-3">
-                            {{ form_row(form.firstname) }}
+                        <div class="col-auto">
+                            <p>Date estimée du projet</p>
                         </div>
-                        <div class="col-lg-6 pb-3">
-                            {{ form_row(form.lastname) }}
+                        <div class="col-auto">
+                            {{ form_widget(form.projectDate,{
+                            "attr": {'class': 'choice-design', "placeholder": "aaaa-mm-jj"}}) }}
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6 pb-3">
-                            {{ form_row(form.email) }}
-                        </div>
-                        <div class="col-lg-6 pb-3">
-                            {{ form_row(form.phone) }}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 pb-3">
-                            {{ form_row(form.address) }}
-                        </div>
-                    </div>
-                    <h3><span class="number">2.</span> Le Van de vos rêves</h3>
-                    <div class="row">
-                        <div class="col-12 pb-3">
-                            <div class="row pt-3">
-                                <div class="col-auto">
-                                    <p>Date estimée du projet</p>
-                                </div>
-                                <div class="col-auto">
-                                    {{ form_widget(form.projectDate,{
-                                    "attr": {'class': 'choice-design', "placeholder": "aaaa-mm-jj"}}) }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            {{ form_row(form.specificSetup, { 'attr': {'class': 'choice-design'} }) }}
-                        </div>
-                        <div class="col-lg-6">
-                            {{ form_row(form.generalSetup, { 'attr': {'class': 'choice-design'} }) }}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            {{ form_row(form.typeVan, { 'attr': {'class': 'choice-design'} }) }}
-                        </div>
-                        <div class="col-lg-6">
-                            {{ form_row(form.brandVan, { 'attr': {'class': 'choice-design'} }) }}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            {{ form_row(form.sizeVan, { 'attr': {'class': 'choice-design'} }) }}
-                        </div>
-                        <div class="col-lg-6">
-                            {{ form_row(form.kilometerVan, { 'attr': {'class': 'choice-design'} }) }}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            {{ form_row(form.yearVan, { 'attr': {'class': 'choice-design'} }) }}
-                        </div>
-                        <div class="col-lg-6">
-                            {{ form_row(form.floor, { 'attr': {'class': 'choice-design'} }) }}
-                        </div>
-                    </div>
-                    <div class="row multiple-selector-bg p-2 pt-4 mt-3">
-                        <div class="col-12">
-                            <p class="txt-orange">Caractéristiques supplémentaires </p>
-                            {{ form_row(form.specialtiesVanArtisan, {
-                            "attr": {
-                            'class': 'selectpicker',
-                            'data-live-search': true,
-                            'data-count-selected-text': '{0} sélectionnés',
-                            'data-actions-box': true,
-                            'title': 'Sélectionner'
-                            }}) }}
-                        </div>
-                    </div>
-                    <div class="row multiple-selector-bg p-2 mb-4">
-                        <div class="col-12">
-                            <p class="txt-orange">Ajoutez des options personnalisées</p>
-                            {{ form_row(form.vanFurnishing, {
-                            "attr": {
-                            'class': 'selectpicker',
-                            'data-live-search': true,
-                            'data-count-selected-text': '{0} sélectionnés',
-                            'data-actions-box': true,
-                            'title': 'Sélectionner'
-                            }}) }}
-                        </div>
-                    </div>
-                    <h3><span class="number">3.</span> Informations complémentaires</h3>
-                    <div class="row pt-3">
-                        <div class="col-12 pb-3">
-                            {{ form_row(form.message) }}
-                        </div>
-                    </div>
-                    <div class="text-right">
-                        <div class="row">
-                            <div class="col-12 pb-3">
-                                <small>* Champs obligatoires<br>
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <button class="btn btn-turquoise" type="submit" id="submit-contact"><i
-                                class="far fa-paper-plane"></i>
-                            {{
-                            button_label|default('Envoyer') }}</button>
                     </div>
                 </div>
-                {{ form_end(form) }}
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    {{ form_row(form.specificSetup, { 'attr': {'class': 'choice-design'} }) }}
+                </div>
+                <div class="col-lg-6">
+                    {{ form_row(form.generalSetup, { 'attr': {'class': 'choice-design'} }) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    {{ form_row(form.typeVan, { 'attr': {'class': 'choice-design'} }) }}
+                </div>
+                <div class="col-lg-6">
+                    {{ form_row(form.brandVan, { 'attr': {'class': 'choice-design'} }) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    {{ form_row(form.sizeVan, { 'attr': {'class': 'choice-design'} }) }}
+                </div>
+                <div class="col-lg-6">
+                    {{ form_row(form.kilometerVan, { 'attr': {'class': 'choice-design'} }) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    {{ form_row(form.yearVan, { 'attr': {'class': 'choice-design'} }) }}
+                </div>
+                <div class="col-lg-6">
+                    {{ form_row(form.floor, { 'attr': {'class': 'choice-design'} }) }}
+                </div>
+            </div>
+            <div class="row multiple-selector-bg p-2 pt-4 mt-3">
+                <div class="col-12">
+                    <p class="txt-orange">Caractéristiques supplémentaires </p>
+                    {{ form_row(form.specialtiesVanArtisan, {
+                    "attr": {
+                    'class': 'selectpicker',
+                    'data-live-search': true,
+                    'data-count-selected-text': '{0} sélectionnés',
+                    'data-actions-box': true,
+                    'title': 'Sélectionner'
+                    }}) }}
+                </div>
+            </div>
+            <div class="row multiple-selector-bg p-2 mb-4">
+                <div class="col-12">
+                    <p class="txt-orange">Ajoutez des options personnalisées</p>
+                    {{ form_row(form.vanFurnishing, {
+                    "attr": {
+                    'class': 'selectpicker',
+                    'data-live-search': true,
+                    'data-count-selected-text': '{0} sélectionnés',
+                    'data-actions-box': true,
+                    'title': 'Sélectionner'
+                    }}) }}
+                </div>
+            </div>
+            <h3><span class="number">3.</span> Informations complémentaires</h3>
+            <div class="row pt-3">
+                <div class="col-12 pb-3">
+                    {{ form_row(form.message) }}
+                </div>
+            </div>
+            <div class="text-right">
+                <div class="row">
+                    <div class="col-12 pb-3">
+                        <small>* Champs obligatoires<br>
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-turquoise" type="submit" id="submit-contact"><i class="far fa-paper-plane"></i>
+                    {{
+                    button_label|default('Envoyer') }}</button>
             </div>
         </div>
+        {{ form_end(form) }}
     </div>
 </div>
 {% endblock %}
