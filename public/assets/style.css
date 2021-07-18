@@ -168,7 +168,7 @@ p {
 }
 
 #sidebar-wrapper {
-    /* margin-top: 10rem; */
+    margin-top: 10rem;
     z-index: 1000;
     position: fixed;
     right: 250px;
