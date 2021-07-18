@@ -16,9 +16,8 @@
                             <div>
                                 <div id="headingOne">
                                     <div>
-                                        <button class="btn text-left" type="button"
-                                            data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-                                            aria-controls="collapseOne">
+                                        <button class="btn text-left" type="button" data-toggle="collapse"
+                                            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                             <h4>Caractéristiques <span><i class="fas fa-chevron-down"></i></h4>
                                         </button>
                                     </div>
@@ -29,7 +28,8 @@
                                     <div>
                                         {% for specialtyVanArtisan in specialtiesVanArtisan %}
                                         {# On vérifie si la catégorie est dans les paramètres #}
-                                        {% if queryParams is not empty and queryParams.specialtiesVanArtisan is defined %}
+                                        {% if queryParams is not empty and queryParams.specialtiesVanArtisan is defined
+                                        %}
                                         {% set checked = (specialtyVanArtisan.id in queryParams.specialtiesVanArtisan) ?
                                         "checked" : ""
                                         %}
@@ -37,8 +37,7 @@
                                         {% set checked = "" %}
                                         {% endif %}
 
-                                        <p><input type="checkbox" name="s[]"
-                                                id="s{{specialtyVanArtisan.id}}"
+                                        <p><input class="input" type="checkbox" name="s[]" id="s{{specialtyVanArtisan.id}}"
                                                 value="{{specialtyVanArtisan.id}}" {{checked}}>
                                             <label
                                                 for="s{{specialtyVanArtisan.id}}">{{specialtyVanArtisan.type}}</label>
@@ -52,10 +51,10 @@
                             <div>
                                 <div id="headingTwo">
                                     <div>
-                                        <button class="btn text-left" type="button"
-                                            data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                                        <button class="btn text-left" type="button" data-toggle="collapse"
+                                            data-target="#collapseTwo" aria-expanded="false"
                                             aria-controls="collapseTwo">
-                                            <h4>Avec isolation <i class="fas fa-chevron-down"></i></h4>
+                                            <h4>Isolation & placage <i class="fas fa-chevron-down"></i></h4>
                                         </button>
                                     </div>
                                 </div>
@@ -73,20 +72,106 @@
                                         {% set checked = "" %}
                                         {% endif %}
 
-                                        <p><input type="checkbox" name="i[]"
-                                                id="i{{insulation.id}}"
+                                        <p><input class="input" type="checkbox" name="i[]" id="i{{insulation.id}}"
                                                 value="{{insulation.id}}" {{checked}}>
-                                            <label
-                                                for="i{{insulation.id}}">{{insulation.type}}</label>
+                                            <label for="i{{insulation.id}}">{{insulation.type}}</label>
+                                        </p>
+                                        {% endfor %}
+
+                                        {% for veneer in veneers %}
+                                        {# On vérifie si la catégorie est dans les paramètres #}
+                                        {% if queryParams is not empty and queryParams.veneers is defined %}
+                                        {% set checked = (veneer.id in queryParams.veneers) ?
+                                        "checked" : ""
+                                        %}
+                                        {% else %}
+                                        {% set checked = "" %}
+                                        {% endif %}
+
+                                        <p><input class="input" type="checkbox" name="f[]" id="v{{veneer.id}}" value="{{veneer.id}}"
+                                                {{checked}}>
+                                            <label for="v{{veneer.id}}">{{veneer.type}}</label>
                                         </p>
                                         {% endfor %}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                  
+                        <div class="accordion" id="accordionExample3">
+                            <div>
+                                <div id="headingThree">
+                                    <div>
+                                        <button class="btn text-left" type="button" data-toggle="collapse"
+                                            data-target="#collapseThree" aria-expanded="false"
+                                            aria-controls="collapseThree">
+                                            <h4>Equipements <i class="fas fa-chevron-down"></i></h4>
+                                        </button>
+                                    </div>
+                                </div>
 
+                                <div id="collapseThree" class="collapse show" aria-labelledby="headingThree"
+                                    data-parent="#accordionExample3">
+                                    <div>
+                                        {% for vanFurnishing in vanFurnishings %}
+                                        {# On vérifie si la catégorie est dans les paramètres #}
+                                        {% if queryParams is not empty and queryParams.vanFurnishings is defined %}
+                                        {% set checked = (vanFurnishing.id in queryParams.vanFurnishings) ?
+                                        "checked" : ""
+                                        %}
+                                        {% else %}
+                                        {% set checked = "" %}
+                                        {% endif %}
+
+                                        <p><input class="input"  type="checkbox" name="f[]" id="f{{vanFurnishing.id}}"
+                                                value="{{vanFurnishing.id}}" {{checked}}>
+                                            <label for="f{{vanFurnishing.id}}">{{vanFurnishing.name}}</label>
+                                        </p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion" id="accordionExample4">
+                            <div>
+                                <div id="headingFour">
+                                    <div>
+                                        <button class="btn text-left" type="button" data-toggle="collapse"
+                                            data-target="#collapseFour" aria-expanded="false"
+                                            aria-controls="collapseFour">
+                                            <h4>Marques du van <i class="fas fa-chevron-down"></i></h4>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div id="collapseFour" class="collapse show" aria-labelledby="headingFour"
+                                    data-parent="#accordionExample4">
+                                    <div>
+                                        <select class="form-control" id="exampleFormControlSelect2" name="b[]" >
+                                            {% for brandVan in brandVans %}
+                                            {# On vérifie si la catégorie est dans les paramètres #}
+                                            {% if queryParams is not empty and queryParams.brandVans is defined %}
+                                            {% set checked = (brandVan.id in queryParams.brandVans) ?
+                                            "checked" : ""
+                                            %}
+                                            {% else %}
+                                            {% set checked = "" %}
+                                            {% endif %}
+                                            <p>
+                                            <option class="input" id="b{{brandVan.id}}" value="{{brandVan.id}}" {{checked}}>
+                                               {{brandVan.name}}
+                                            </option>
+                                            
+                                            <!-- <label for="b{{brandVan.id}}">{{brandVan.name}}</label> -->
+                                            </p>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </form>
             </div>
         </div>

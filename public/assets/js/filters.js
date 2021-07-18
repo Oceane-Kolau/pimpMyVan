@@ -2,15 +2,15 @@ window.onload = () => {
     const FiltersForm = document.querySelector("#filters");
 
     // On boucle sur les input
-    document.querySelectorAll("#filters input").forEach(input => {
-        input.addEventListener("change", () => {
+    document.querySelectorAll("#filters .input").forEach(el => {
+        el.addEventListener("change", () => {
+            console.log(el)
             // Ici on intercepte les clics
             // On récupère les données du formulaire
             const Form = new FormData(FiltersForm);
-
             // On fabrique la "queryString" après le ?
             const Params = new URLSearchParams();
-
+            
             Form.forEach((value, key) => {
                 Params.append(key, value);
             });
@@ -23,9 +23,11 @@ window.onload = () => {
                 headers: {
                     "X-Requested-With": "XMLHttpRequest"
                 }
+                
             }).then(response => 
                 response.json()
             ).then(data => {
+
                 // On va chercher la zone de contenu
                 const content = document.querySelector("#content");
                 // On remplace le contenu

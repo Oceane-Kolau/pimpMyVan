@@ -23,24 +23,41 @@ class AdsVanRepository extends ServiceEntityRepository
      * Returns all Annonces per page
      * @return void 
      */
-    public function getPaginatedAnnonces($s = null, $i = null){
-        $query = $this->createQueryBuilder('adsVan')
-            ->where('adsVan.isValidated = 1');
+    public function getPaginatedAnnonces($s = null, $i = null, $f = null, $v = null){
+        $query = $this->createQueryBuilder('adsVan')             
+                ->where('adsVan.isValidated = 1');
         
         // On filtre les données
         if($s != null){
-            $query->innerJoin('adsVan.specialtiesVanArtisan', 'specialtiesVanArtisan')
-                    ->andWhere('specialtiesVanArtisan.id = :specialtyVanArtisan')
-                    ->setParameter(':specialtyVanArtisan', array($s));
+            
+            $query = $query
+                        ->innerJoin('adsVan.specialtiesVanArtisan', 'specialtiesVanArtisan')
+                        ->andWhere('specialtiesVanArtisan.id = :specialtyVanArtisan')
+                        ->setParameter(':specialtyVanArtisan', array($s));
         }
 
         if($i != null){
-            $query->join('adsVan.insulation', 'insulation')
-                    ->andWhere('insulation.id = :insulation')
-                    ->setParameter(':insulation', array($i));
+            $query = $query
+                        ->innerJoin('adsVan.insulation', 'insulation')
+                        ->andWhere('insulation.id = :insulation')
+                        ->setParameter(':insulation', array($i));
 
         }
-            
+
+        if($f != null){
+            $query = $query
+                        ->innerJoin('adsVan.vanFurnishing', 'vanFurnishing')
+                        ->andWhere('vanFurnishing.id = :vanFurnishing')
+                        ->setParameter(':vanFurnishing', array($f));
+        }
+
+        if($v != null){
+            $query = $query
+                        ->join('adsVan.veneer', 'veneer')
+                        ->andWhere('veneer.id = :veneer')
+                        ->setParameter(':veneer', array($v));
+        }
+        
         return $query->getQuery()->getResult();
     }
 }
