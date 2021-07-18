@@ -4,7 +4,7 @@ window.onload = () => {
     // On boucle sur les input
     document.querySelectorAll("#filters .input").forEach(el => {
         el.addEventListener("change", () => {
-            console.log(el)
+            
             // Ici on intercepte les clics
             // On récupère les données du formulaire
             const Form = new FormData(FiltersForm);

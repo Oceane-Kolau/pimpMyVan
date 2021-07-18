@@ -147,22 +147,23 @@
                                 <div id="collapseFour" class="collapse show" aria-labelledby="headingFour"
                                     data-parent="#accordionExample4">
                                     <div>
-                                        <select class="form-control" id="exampleFormControlSelect2" name="b[]" >
+                                        <select class="form-control" name="b[]" >
+                                            <option value="null">--Please choose an option--</option>
                                             {% for brandVan in brandVans %}
                                             {# On vérifie si la catégorie est dans les paramètres #}
                                             {% if queryParams is not empty and queryParams.brandVans is defined %}
-                                            {% set checked = (brandVan.id in queryParams.brandVans) ?
-                                            "checked" : ""
+                                            {% set selected = (brandVan.id in queryParams.brandVans) ?
+                                            "selected" : ""
                                             %}
                                             {% else %}
-                                            {% set checked = "" %}
+                                            {% set selected = "" %}
                                             {% endif %}
                                             <p>
-                                            <option class="input" id="b{{brandVan.id}}" value="{{brandVan.id}}" {{checked}}>
+                                            <option class="input" id="b{{brandVan.id}}" value="{{brandVan.id}}" {{selected}}>
                                                {{brandVan.name}}
                                             </option>
                                             
-                                            <!-- <label for="b{{brandVan.id}}">{{brandVan.name}}</label> -->
+                                            <label for="b{{brandVan.id}}">{{brandVan.name}}</label>
                                             </p>
                                             {% endfor %}
                                         </select>

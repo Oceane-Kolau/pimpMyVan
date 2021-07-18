@@ -168,7 +168,7 @@ class HomeController extends AbstractController
         $v = $request->get("v");
         $b = $request->get("b");
              
-    // dd($s, $i, $f, $v);
+    // dd($b);
         // On récupère les annonces de la page en fonction du filtre
         $adsVans = $adsVanRepository->getPaginatedAnnonces($s, $i, $f, $v);
 
