@@ -5,11 +5,7 @@
   <a href="{{ path('artisan_adsVan_index', { slug: artisan.slug }) }}">
     <button type="button" class="btn btn-lg btn-grey m-3">Annonces</button>
   </a>
-  <a
-    href="{{
-      path('artisan_messagerie', { slug: artisan.slug, id: artisan.id })
-    }}"
-  >
+  <a href="{{path('artisan_messagerie', { slug: artisan.slug, id: artisan.id })}}">
     <button type="button" class="btn btn-lg btn-grey m-3">Messages</button>
   </a>
   <a href="{{ path('artisan_quote', { slug: artisan.slug, id: artisan.id }) }}">
