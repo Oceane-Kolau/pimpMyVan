@@ -14,6 +14,7 @@ use App\Form\ContactType;
 use App\Form\QuoteArtisanType;
 use App\Form\SearchArtisansType;
 use App\Repository\AdsVanRepository;
+use App\Repository\InsulationRepository;
 use App\Repository\SpecialtiesVanArtisanRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -140,7 +141,12 @@ class HomeController extends AbstractController
      * @Route("/annonces-van-occasion", name="home_adsVan")
      * @return void 
     */
-    public function adsVan(Request $request, AdsVanRepository $adsVanRepository, SpecialtiesVanArtisanRepository $specialtiesVanArtisanRepository) {
+    public function adsVan(
+        Request $request, 
+        AdsVanRepository $adsVanRepository,
+        SpecialtiesVanArtisanRepository $specialtiesVanArtisanRepository,
+        InsulationRepository $insulationRepository
+    ) {
         // On définit le nombre d'éléments par page
         $limit = 10;
 
@@ -148,35 +154,27 @@ class HomeController extends AbstractController
         $page = (int)$request->query->get("page", 1);
 
         // On récupère les filtres
-        $filters = $request->get("specialtyVanArtisan");
-        // dd($filters);
-
-        foreach($filters as $value){
-            $filter = $value;
-        }
-
+        $s = $request->get("s");
+        $i = $request->get("i");
         
         // On récupère les annonces de la page en fonction du filtre
-        $adsVans = $adsVanRepository->getPaginatedAnnonces($page, $limit, $filter);
-        
+        $adsVans = $adsVanRepository->getPaginatedAnnonces($s, $i);
+        // $adsVans = $adsVanRepository->search($filter);
         // On récupère le nombre total d'annonces
-        $total = $adsVanRepository->getTotalAnnonces($filter);
-        // On va chercher toutes les catégories
+        // $total = $adsVanRepository->getTotalAnnonces($filter);
+        // $adsVan = ->findBy(array('id' => $idList));
+        // On va chercher toutes les caractéristiques possibles
         $specialtiesVanArtisan = $specialtiesVanArtisanRepository->findAll();
+        $insulations = $insulationRepository->findAll();
+        
         // On vérifie si on a une requête Ajax
         if($request->get('ajax')){
             return new JsonResponse([
-                'content' => $this->renderView('home/adsVanSection/adsVan_card.html.twig', compact('adsVans', 'total', 'limit', 'page'))
+                'content' => $this->renderView('home/adsVanSection/adsVan_card.html.twig', compact('adsVans'))
             ]);
         }
 
-        return $this->render('home/adsVanSection/adsVan.html.twig', compact('adsVans', 'total', 'limit', 'page', 'specialtiesVanArtisan'));
-        
-        // $adsVans = $adsVanRepository->findAll();
-
-        // return $this->render('home/adsVanSection/adsVan.html.twig', [
-        //     'adsVans' => $adsVans
-        // ]);
+        return $this->render('home/adsVanSection/adsVan.html.twig', compact('adsVans','specialtiesVanArtisan', 'insulations'));
         
     }
 

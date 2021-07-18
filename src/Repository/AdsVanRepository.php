@@ -20,64 +20,27 @@ class AdsVanRepository extends ServiceEntityRepository
     }
 
     /**
-     * Recherche les annonces en fonction du formulaire
-     * @return void 
-     */
-    public function search($mots = null, $specialtyVanArtisan = null){
-        $query = $this->createQueryBuilder('a');
-        $query->where('a.isValidated = 1');
-        // if($mots != null){
-        //     $query->andWhere('MATCH_AGAINST(a.title, a.description) AGAINST (:mots boolean)>0')
-        //         ->setParameter('mots', $mots);
-        // }
-        if($specialtyVanArtisan != null){
-            $query->leftJoin('a.specialtiesVanArtisan', 's')    
-                  ->andWhere('s.id = :id')
-                  ->setParameter('id', $specialtyVanArtisan);
-        }
-        return $query->getQuery()->getResult();
-    }
-
-    /**
      * Returns all Annonces per page
      * @return void 
      */
-    public function getPaginatedAnnonces($page, $limit, $filter = null){
+    public function getPaginatedAnnonces($s = null, $i = null){
         $query = $this->createQueryBuilder('adsVan')
             ->where('adsVan.isValidated = 1');
-            
+        
         // On filtre les données
-        if($filter != null){
-            $query
-                ->innerJoin('adsVan.specialtiesVanArtisan', 's')
-                ->andWhere('s.id IN (:specialtyVanArtisan)')
-                ->setParameter(':specialtyVanArtisan', $filter);
+        if($s != null){
+            $query->innerJoin('adsVan.specialtiesVanArtisan', 'specialtiesVanArtisan')
+                    ->andWhere('specialtiesVanArtisan.id = :specialtyVanArtisan')
+                    ->setParameter(':specialtyVanArtisan', array($s));
         }
 
-        $query
-            ->setFirstResult(($page * $limit) - $limit)
-            ->setMaxResults($limit);
+        if($i != null){
+            $query->join('adsVan.insulation', 'insulation')
+                    ->andWhere('insulation.id = :insulation')
+                    ->setParameter(':insulation', array($i));
+
+        }
             
         return $query->getQuery()->getResult();
-    }
-
-    /**
-     * Returns number of Annonces
-     * @return void 
-     */
-    public function getTotalAnnonces($filter = null){
-        $query = $this->createQueryBuilder('a')
-            ->select('COUNT(a)')
-            ->where('a.isValidated = 1');
-        // On filtre les données
-        if($filter != null){
-            
-            $query  
-                    ->innerJoin('a.specialtiesVanArtisan', 's')
-                    ->andWhere('s.id IN (:specialtyVanArtisan)')
-                    ->setParameter(':specialtyVanArtisan', $filter);
-        }
-
-        return $query->getQuery()->getSingleScalarResult();
     }
 }
