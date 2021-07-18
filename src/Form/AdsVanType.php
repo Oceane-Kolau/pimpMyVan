@@ -12,6 +12,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class AdsVanType extends AbstractType
 {
@@ -28,6 +29,12 @@ class AdsVanType extends AbstractType
             ->add('specificSetup')
             ->add('generalSetup')
             ->add('floor')
+            ->add('pictureVanFile', VichFileType::class, [
+                'required'      => true,
+                'allow_delete'  => false,
+                'download_uri' => false,
+                'label' => "Ajouter une photo de votre van",
+            ])
             ->add('specialtiesVanArtisan', EntityType::class, [
                 'class' => SpecialtiesVanArtisan::class,
                 'choice_label' => 'type',

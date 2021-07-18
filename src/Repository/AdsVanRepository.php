@@ -23,7 +23,7 @@ class AdsVanRepository extends ServiceEntityRepository
      * Returns all Annonces per page
      * @return void 
      */
-    public function getPaginatedAnnonces($s = null, $i = null, $f = null, $v = null){
+    public function getPaginatedAnnonces($s = null, $i = null, $f = null, $v = null, $b = null){
         $query = $this->createQueryBuilder('adsVan')             
                 ->where('adsVan.isValidated = 1');
         
@@ -56,6 +56,12 @@ class AdsVanRepository extends ServiceEntityRepository
                         ->join('adsVan.veneer', 'veneer')
                         ->andWhere('veneer.id = :veneer')
                         ->setParameter(':veneer', array($v));
+        }
+
+        if($b != null){
+            $query = $query
+                        ->andWhere('a.brandVan = :brand')
+                        ->setParameter(':brand', $b);
         }
         
         return $query->getQuery()->getResult();

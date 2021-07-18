@@ -4,9 +4,10 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    app.path.banner_file: /uploads/banner
-    app.path.profile_picture_file: /uploads/profile_picture
-    app.path.picture_file: /uploads/picture
+    app.path.banner_file: /uploads/profile/banner
+    app.path.profile_picture_file: /uploads/profile/profile_picture
+    app.path.picture_file: /uploads/profile/picture
+    app.path.pictureVan_file: /uploads/adsVan
 
 services:
     # default configuration for services in *this* file

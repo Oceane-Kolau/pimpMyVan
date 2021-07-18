@@ -29,3 +29,12 @@ vich_uploader:
            namer:
                 service: Vich\UploaderBundle\Naming\UniqidNamer
         
+        pictureVan_file:
+            uri_prefix: '%app.path.pictureVan_file%'
+            upload_destination: '%kernel.project_dir%/public%app.path.pictureVan_file%'
+            delete_on_update: true
+            delete_on_remove: true
+            inject_on_load: false
+            namer:
+                service: Vich\UploaderBundle\Naming\UniqidNamer
+        

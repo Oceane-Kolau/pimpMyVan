@@ -4,11 +4,15 @@ namespace App\Entity;
 
 use App\Repository\AdsVanRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=AdsVanRepository::class)
+ * @Vich\Uploadable
  */
 class AdsVan
 {
@@ -18,6 +22,23 @@ class AdsVan
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+    * @ORM\Column(type="string", length=255, nullable=true)
+    * @var string
+    */
+    private $pictureVan;
+
+    /**
+    * @Vich\UploadableField(mapping="pictureVan_file", fileNameProperty="pictureVan")
+    * @Assert\File(
+    *     maxSize = "3000k",
+    *     mimeTypes = {"image/png", "image/jpeg"},
+    *     mimeTypesMessage = "Seul le format png est accepté"
+    * )
+    * @var File
+    */
+    private $pictureVanFile;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -124,6 +145,31 @@ class AdsVan
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setPictureVanFile(File $pictureVan = null)
+    {
+        $this->pictureVanFile = $pictureVan;
+        if ($pictureVan) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getPictureVanFile(): ?File
+    {
+        return $this->pictureVanFile;
+    }
+
+    public function getPictureVan(): ?string
+    {
+        return $this->pictureVan;
+    }
+
+    public function setPictureVan(?string $pictureVan): self
+    {
+        $this->pictureVan = $pictureVan;
+
+        return $this;
     }
 
     public function getDescription(): ?string
