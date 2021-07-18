@@ -3,7 +3,12 @@
     --oorange : #db6400;
     --darkturquoise : #5eaaa8;
     --lightgrey : #F1F6F8;
+    --fontTitle : bebas-neue-pro, sans-serif;
+    --fontP : 'Barlow', sans-serif;
+    --fontExtra : bebas-neue-pro, sans-serif;
 }
+
+/* General  */
 
 ul {
     list-style-type: none;
@@ -16,33 +21,85 @@ a {
 
 h1 {
     font-size: 55px;
-    font-weight: 300;
+    font-weight: 560;
 }
 
 h1, h2, h3, h4, h5 {
-    font-family: oswald, serif;
+    font-family: var(--fontTitle);
 }
 
 h3, h4, h5 {
-    font-weight: 200;
+    font-weight: 560;
 }
 
 p {
-    font-family: houschka-pro, sans-serif;
+    font-family: var(--fontP);
     font-weight: 300;
     font-size: 19px;
 }
 
-button {
-    font-family: houschka-pro, sans-serif;
-    font-weight: 500;
+.btn-turquoise {
+    background-color: var(--lightturquoise);
+    font-family: var(--fontExtra);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+    border-radius: 12px;
+    font-size: 27px;
 }
 
+.btn-grey {
+    background-color: var(--lightgrey);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+    font-family: var(--fontExtra);
+    border-radius: 12px;
+    font-size: 27px;
+}
+
+.bg-lightgrey {
+    background-color: var(--lightgrey);
+    border-radius: 12px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(4px);
+    font-family: var(--fontExtra);
+}
+
+.btn-orange {
+    background-color: var(--oorange);
+    color: white;
+    font-family: var(--fontExtra);
+}
+
+.btn-lg:hover,.btn-lg:focus,.btn-lg:active, 
+.btn-lg:active:focus:not(:disabled):not(.disabled),
+.btn:focus, .btn:active, .btn:hover{
+    box-shadow: none!important;
+    outline: 0;
+}
+
+
+.multiple-selector-bg  {
+    background-color: white;
+}
+
+.number {
+    font-family: var(--fontTitle);
+    font-size: 35px;
+    font-weight: 300;
+    color: var(--oorange);
+}
+
+.txt-orange {
+    color: var(--oorange);
+}
+
+/* Navbar */
+
 .nav-item {
-    font-family: bebas-neue-pro, sans-serif;
+    font-family: var(--fontExtra);
     font-weight: 300;
     font-style: normal;
-    font-size: 22px;
+    font-size: 27px;
 }
 
 .navbar-light .navbar-nav .nav-link {
@@ -53,41 +110,104 @@ button {
     background-color: var(--darkturquoise);
     height: 20px;
 }
-
-.btn-turquoise {
-    background-color: #A3D2CA;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(4px);
-    border-radius: 12px;
+.navbar-light .navbar-toggler {
+    color: rgba(0,0,0,.5);
+    background-color: var(--darkturquoise);
 }
 
-.btn-grey {
-    background-color: #F1F6F8;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(4px);
-    border-radius: 12px;
+
+/* HOME  */
+
+@media screen and (min-width: 1200px) and (max-width: 2000px) {
+    .home-mainTitle {
+        font-size: 85px;
+        margin-left: -240px;
+        margin-bottom: 70px;
+    }
 }
 
-.bg-lightgrey {
-    background-color: var(--lightgrey);
-    border-radius: 12px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(4px);
+@media screen and (min-width: 760px) and (max-width: 1200px) {
+    .home-mainTitle {
+        font-size: 65px;
+        margin-left: -200px;
+        margin-bottom: 70px;
+    }
 }
+
+@media screen and (max-width: 760px) {
+    .home-mainTitle {
+        font-size: 75px;
+        padding: 3rem;
+        border-radius: 25px;
+        margin-top: -100px;
+        /* background: linear-gradient(45deg, #ffffff, #e6e6e6, 0.30);
+        box-shadow:  5px -5px 10px #d4d4d4,
+                    -5px 5px 10px #ffffff;
+        margin-top: -120px;
+        border-radius: 12px; */
+    }
+}
+
+/* .home-mainTitle {
+    font-size: 85px;
+} */
 
 .img-size {
-    width: 800px;
+    width: 100%;
+    position: relative;
 }
+
+/* Side Navabar */
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#sidebar-wrapper {
+    /* margin-top: 10rem; */
+    z-index: 1000;
+    position: fixed;
+    right: 250px;
+    width: 0;
+    height: auto;
+    margin-right: -250px;
+    overflow-y: auto;
+    background: var(--darkturquoise);
+    color: white;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    /* position: absolute; */
+}
+
+#wrapper {
+    padding-right: 250px;
+}
+
+#sidebar-wrapper {
+    width: 50px;
+    overflow: hidden;
+}
+
+#sidebar-wrapper a {
+    color: white;
+}
+
+/* Search pages */
 
 .filter {
     border: 2px solid --lightgrey;
     border-radius: 46px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
-}
-
-.btn-orange {
-    background-color: var(--oorange);
-    color: white;
 }
 
 .color-account {
@@ -154,7 +274,7 @@ button {
 }
 
 .size-specialties {
-    font-size: 16px;
+    font-size: 20px;
     padding: 0px;
 }
 
@@ -184,78 +304,38 @@ button {
     border-radius: 20px;
 }
 
-#wrapper {
-    padding-left: 0;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-
-#sidebar-wrapper {
-    margin-top: 10rem;
-    z-index: 1000;
-    position: fixed;
-    right: 250px;
-    width: 0;
-    height: auto;
-    margin-right: -250px;
-    overflow-y: auto;
-    background: var(--darkturquoise);
-    color: white;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-
-#page-content-wrapper {
-    width: 100%;
-    /* position: absolute; */
-}
-
-#wrapper {
-    padding-right: 250px;
-}
-
-#sidebar-wrapper {
-    width: 50px;
-    overflow: hidden;
-}
-
-#sidebar-wrapper a {
-    color: white;
-}
-
 .bg-lightgrey-contact {
     background-color: var(--lightgrey);
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(4px);
 }
 
+/* Register  */
 ::placeholder {
-    font-family: houschka-pro, sans-serif;
-    font-weight: 300;
-    font-size: 19px;
+    font-family: var(--fontP);
+    font-weight: 100;
+    font-size: 18px;
 }
 
 .choice-design {
-    font-family: houschka-pro, sans-serif;
-    font-weight: 300;
-    font-size: 19px;
+    font-family: var(--fontP);
+    font-weight: 100;
+    font-size: 18px;
 }
 
-.multiple-selector-bg  {
-    background-color: white;
+.agreeTerms {
+    font-family: var(--fontP);
+}
+/* Menu déroulant */
+button {
+    font-family: var(--fontP);
 }
 
-.number {
-    font-family: oswald, serif;
-    font-size: 35px;
-    font-weight: 300;
-    color: var(--oorange);
+.nav-register {
+    margin-top: -30px;
+    margin-bottom: 25px;
 }
 
-.txt-orange {
-    color: var(--oorange);
+h4.color-connexion {
+    font-size: 30px;
 }
